@@ -6,32 +6,14 @@ import { rnd } from "../props/util";
 const speck = (g: CanvasRenderingContext2D, w: number, h: number, n: number, seed: number, cols: string[], max = 3) => {
   for (let i = 0; i < n; i++) { g.fillStyle = cols[i % cols.length]; const s = 1 + rnd(i * 3 + seed) * max; g.fillRect(rnd(i * 5 + seed + 1) * w, rnd(i * 7 + seed + 2) * h, s, s * (0.5 + rnd(i + seed))); }
 };
-export const planksTex = (base: string, seam = "#1a1020", rep: [number, number] = [4, 4], seed = 1) => lamTex(canvasTex(512, 512, (g, w, h) => {
-  const n = 8, ph = h / n;
-  for (let r = 0; r < n; r++) {
-    const l = 0.86 + rnd(r + seed) * 0.28; g.fillStyle = base; g.fillRect(0, r * ph, w, ph);
-    g.fillStyle = `rgba(${l > 1 ? "255,235,200" : "20,10,30"},${Math.abs(l - 1) * 0.5})`; g.fillRect(0, r * ph, w, ph);
-    g.strokeStyle = "rgba(20,10,30,.22)"; g.lineWidth = 1.4;
-    for (let k = 0; k < 7; k++) { g.beginPath(); const y = r * ph + 4 + rnd(r * 9 + k + seed) * (ph - 8); g.moveTo(0, y); g.bezierCurveTo(w * 0.3, y + 4 * Math.sin(k + r), w * 0.6, y - 4, w, y + 2); g.stroke(); }
-    g.fillStyle = seam; g.fillRect(0, r * ph, w, 4); const bx = rnd(r * 13 + seed) * w; g.fillRect(bx, r * ph, 4, ph);
-  }
-}, rep));
-export const brickTex = (base: string, mortar = "#3a2a3a", rep: [number, number] = [3, 3], seed = 2) => lamTex(canvasTex(512, 512, (g, w, h) => {
-  g.fillStyle = mortar; g.fillRect(0, 0, w, h); const rows = 12, cols = 6, bh = h / rows, bw = w / cols;
-  for (let r = 0; r < rows; r++) for (let c = -1; c < cols; c++) {
-    const l = 0.8 + rnd(r * 17 + c + seed) * 0.4; const col = new THREE.Color(base).multiplyScalar(l);
-    g.fillStyle = "#" + col.getHexString(); g.fillRect(c * bw + (r % 2) * bw / 2 + 3, r * bh + 3, bw - 6, bh - 6);
-  }
-  speck(g, w, h, 500, seed, ["rgba(0,0,0,.18)", "rgba(255,255,255,.08)"], 3);
-}, rep));
-export const stoneTex = (base: string, seam = "#232034", rep: [number, number] = [3, 3], seed = 3) => lamTex(canvasTex(512, 512, (g, w, h) => {
-  g.fillStyle = seam; g.fillRect(0, 0, w, h); const rows = 6;
-  for (let r = 0; r < rows; r++) { let x = -rnd(r + seed) * 90; const y = r * (h / rows); while (x < w) { const bw = 90 + rnd(x + r * 31 + seed) * 90; const col = new THREE.Color(base).multiplyScalar(0.82 + rnd(x * 3 + r + seed) * 0.34); g.fillStyle = "#" + col.getHexString(); g.fillRect(x + 4, y + 4, bw - 8, h / rows - 8); x += bw; } }
-  speck(g, w, h, 600, seed, ["rgba(0,0,0,.14)", "rgba(255,255,255,.09)"], 4);
-}, rep));
-export const groundTex = (a: string, b: string, rep: [number, number] = [30, 30], seed = 4) => lamTex(canvasTex(256, 256, (g, w, h) => {
-  g.fillStyle = a; g.fillRect(0, 0, w, h); speck(g, w, h, 900, seed, [b, a, "rgba(255,255,255,.07)", "rgba(0,0,0,.12)"], 5);
-}, rep));
+import { planksHD, brick, stoneHD, grassHD, rep, ctex, jit, rng } from "./paint";
+const tint = (t: THREE.Texture, rx: number, ry: number) => lamTex(rep(t, rx, ry));
+/** skill paint.ts textures (deck planks, brick courses, stone courses, grass), repeated per surface */
+export const planksTex = (_base: string, _seam = "", r: [number, number] = [4, 4], _seed = 1) => tint(planksHD(), r[0] / 2, r[1] / 2);
+export const brickTex = (_base: string, _mortar = "", r: [number, number] = [3, 3]) => tint(brick(), r[0], r[1]);
+export const stoneTex = (base: string, _seam = "", r: [number, number] = [3, 3]) => tint(stoneHD("stoneHD" + base, [base, base, base, base]), r[0], r[1]);
+export const groundTex = (_a: string, _b: string, r: [number, number] = [30, 30], _s = 0) => tint(grassHD(), r[0], r[1]);
+void ctex; void jit; void rng;
 export const wallpaperTex = (base: string, stripe: string, rep: [number, number] = [3, 2]) => lamTex(canvasTex(256, 256, (g, w, h) => {
   g.fillStyle = base; g.fillRect(0, 0, w, h); g.fillStyle = stripe; for (let i = 0; i < 8; i++) g.fillRect(i * 32 + 10, 0, 10, h);
   speck(g, w, h, 300, 9, ["rgba(0,0,0,.1)", "rgba(255,255,255,.06)"], 3);

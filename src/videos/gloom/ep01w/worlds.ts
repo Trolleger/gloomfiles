@@ -4,6 +4,7 @@ import { lam, glow, box, cyl, plane, sphere, canvasTex, lamTex } from "../mats";
 import * as P from "../props";
 import { rnd } from "../props/util";
 import { NOINK } from "../ink";
+import { rep, ctex } from "./paint";
 import { planksTex, brickTex, stoneTex, groundTex, wallpaperTex, rugTex, textTex } from "./tex";
 
 type R = THREE.Group;
@@ -11,7 +12,7 @@ const add = (R: R, ...o: THREE.Object3D[]) => { o.forEach((x) => R.add(x)); retu
 const place = <T extends THREE.Object3D>(o: T, x = 0, y = 0, z = 0, ry = 0) => { o.position.set(x, y, z); o.rotation.y = ry; return o; };
 const noink = (o: THREE.Object3D) => { o.traverse((c) => c.layers.set(NOINK)); return o; };
 const floor = (R: R, w: number, d: number, m: THREE.Material, z = 0, y = 0) => { const f = plane(w, d, m); f.rotation.x = -Math.PI / 2; f.position.set(0, y, z); R.add(f); return f; };
-const glowAt = (R: R, x: number, y: number, z: number, s: number, c: string) => { const g = P.glowSprite(c, s); g.position.set(x, y, z); R.add(g); };
+const glowAt = (R: R, x: number, y: number, z: number, s: number, c: string) => { const g = P.glowSprite(c, s * 0.42); g.position.set(x, y, z); R.add(g); };
 const screen = (c: string, k = 1.8) => new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(k) });
 const sign = (tex: THREE.Texture, w: number, h: number, k = 1.5) => new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(k, k, k) }));
 const win = (R: R, x: number, y: number, z: number, w: number, h: number, c: string, ry = 0) => { const g = new THREE.Group(); g.add(box(w + 0.3, h + 0.3, 0.12, lam("#2a1e2a"))); g.add(plane(w, h, screen(c, 1.2)) as any); (g.children[1] as THREE.Object3D).position.z = 0.07; g.add(box(0.08, h, 0.1, lam("#2a1e2a"), 0, 0, 0.1)); g.add(box(w, 0.08, 0.1, lam("#2a1e2a"), 0, 0, 0.1)); place(g, x, y, z, ry); R.add(g); return g; };
@@ -38,6 +39,17 @@ const bed = (R: R, x: number, z: number, c = "#3a4a8a", ry = 0) => { const g = n
 const deskPc = (R: R, x: number, z: number, col = "#6aa8ff", ry = 0, wood = "#6a4630") => { const g = new THREE.Group(); g.add(P.desk(1.8, 0.8, wood)); const m = P.monitor(col); m.position.set(0, 0.945, -0.1); g.add(m); const l = P.lampDesk("#ffd9a0"); l.position.set(0.7, 0.945, -0.1); g.add(l); g.add(P.at(P.chair("#4a3a5a"), 0, 0, 0.9)); place(g, x, 0, z, ry); R.add(g); return g; };
 const poster = (R: R, x: number, y: number, z: number, c: string, ry = 0, w = 0.9, h = 1.3) => { const m = sign(textTex(256, 360, c, "#fff", ["?"], "Anton", 200), w, h, 1.0); place(m, x, y, z, ry); R.add(m); };
 const bubble = (R: R, x: number, y: number, z: number, draw: (g: CanvasRenderingContext2D, w: number, h: number) => void, s = 1.4) => { const t = canvasTex(256, 256, (g, w, h) => { g.fillStyle = "#f4f1ff"; g.strokeStyle = "#241726"; g.lineWidth = 9; g.beginPath(); g.arc(128, 118, 100, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.arc(70, 226, 14, 0, 7); g.fill(); g.stroke(); draw(g, w, h); }); const m = new THREE.Mesh(new THREE.PlaneGeometry(s, s), new THREE.MeshBasicMaterial({ map: t, transparent: true, color: new THREE.Color(1.1, 1.1, 1.1) })); m.position.set(x, y, z); R.add(m); noink(m); return m; };
+
+
+// ---- set dressing: wainscot + trim, framed pictures, plants, curtains, rugs, warm lamp pools, clutter (reference sets are dense)
+const frame = (R: R, x: number, y: number, z: number, w: number, h: number, c: string, seed: number, ry = 0) => { const g = new THREE.Group(); g.add(box(w + 0.16, h + 0.16, 0.08, lam("#5a3a24"))); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: canvasTex(64, 80, (c2, W, H) => { c2.fillStyle = c; c2.fillRect(0, 0, W, H); c2.fillStyle = ["#ffe27a", "#7ad0ff", "#ff9ab0", "#9affc8"][seed % 4]; c2.beginPath(); c2.arc(20 + rnd(seed) * 24, 26, 12, 0, 7); c2.fill(); c2.fillStyle = "#2f7a50"; c2.beginPath(); c2.moveTo(0, H); c2.lineTo(26, 38 + rnd(seed + 3) * 16); c2.lineTo(W, H); c2.fill(); }) })); m.position.z = 0.05; g.add(m); place(g, x, y, z, ry); R.add(g); };
+const plant = (R: R, x: number, z: number, s = 1) => { const g = new THREE.Group(); g.add(cyl(0.28, 0.2, 0.4, lam("#c85a3a"), 0, 0.2, 0, 12)); for (let i = 0; i < 7; i++) { const l = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 8), lam(["#3aa05a", "#2f8a4a", "#58b868"][i % 3])); l.scale.set(0.6, 1.3, 0.3); l.position.set(Math.sin(i * 2.4) * 0.22, 0.75, Math.cos(i * 2.4) * 0.22); l.rotation.z = Math.sin(i * 2.4) * 0.5; l.rotation.x = Math.cos(i * 2.4) * 0.5; g.add(l); } g.scale.setScalar(s); place(g, x, 0, z); R.add(g); };
+const curtains = (R: R, x: number, y: number, z: number, h: number, c: string) => { for (const s of [-1, 1]) R.add(box(0.7, h, 0.14, lam(c), x + s * 1.65, y, z)); R.add(box(4.0, 0.14, 0.2, lam("#3a2a20"), x, y + h / 2 + 0.1, z)); };
+const wain = (R: R, w: number, z: number, c: string, trim = "#f4ead2", x = 0, h = 1.5) => { R.add(box(w, h, 0.12, lam(c), x, h / 2, z + 0.14)); R.add(box(w, 0.12, 0.2, lam(trim), x, h, z + 0.16)); R.add(box(w, 0.14, 0.2, lam(trim), x, 0.07, z + 0.16)); };
+const plaster = (c: string, rx = 3, ry = 2) => lamTex(rep(ctex("pl" + c, 256, 256, (g, r) => { g.fillStyle = c; g.fillRect(0, 0, 256, 256); for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(${r() > 0.5 ? "255,255,255" : "0,0,0"},.06)`; g.beginPath(); g.ellipse(r() * 256, r() * 256, 20 + r() * 40, 10 + r() * 20, 0, 0, 7); g.fill(); } }), rx, ry));
+const checkTex = (a: string, b: string) => lamTex(rep(ctex("chk" + a + b, 128, 128, (g) => { g.fillStyle = a; g.fillRect(0, 0, 128, 128); g.fillStyle = b; g.fillRect(0, 0, 64, 64); g.fillRect(64, 64, 64, 64); }), 8, 8));
+const lampPool = (R: R, x: number, y: number, z: number, c = "#ffd58a", s = 9) => { glowAt(R, x, y, z, s, c); const sp = new THREE.SpotLight(c, 30, 14, 0.7, 0.7); sp.position.set(x, y, z); sp.target.position.set(x, 0, z - 0.5); R.add(sp, sp.target); };
+const clutter = (R: R, x0: number, x1: number, z: number, seed: number) => { for (let i = 0; i < 6; i++) { const x = x0 + rnd(i + seed) * (x1 - x0); R.add(box(0.5 + rnd(i) * 0.4, 0.5 + rnd(i + 2) * 0.5, 0.5, lam(["#e8a838", "#3aa0a0", "#d85a6a", "#7a8ad8"][i % 4]), x, 0.3, z + rnd(i + 5))); } };
 
 // ---------- the 13 worlds ----------
 export const W: Record<string, (R: R) => void> = {
@@ -95,7 +107,9 @@ export const W: Record<string, (R: R) => void> = {
   // B5: the title borrows from Death Note: a dark study with a black notebook and a pen (generic, nothing copied)
   notebook(R) {
     floor(R, 14, 14, planksTex("#3a2a38", "#0e0814", [3, 3]), -2);
-    R.add(box(14, 8, 0.4, wallpaperTex("#3a2a48", "#4a3258") as any, 0, 4, -8)); R.add(box(0.4, 8, 14, lam("#34253f"), -7, 4, -2));
+    R.add(box(16, 9, 0.4, plaster("#b8561e", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#7a3a8a", "#f4ead2");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#7a3a8a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     const d = P.desk(4.4, 1.8, "#3a2418"); d.position.set(0, 0, -3.5); R.add(d);
     const nb = new THREE.Group(); const open = P.openBook(textTex(256, 340, "#14101c", "#e8e0ff", ["", "", ""]), 0.55, 0.78); nb.add(open); nb.add(sign(textTex(256, 340, "#0a0612", "#d8d0ff", ["NOTE", "BOOK"], "Anton", 54), 0.5, 0.7, 1.0) as any); (nb.children[1] as THREE.Object3D).rotation.x = -Math.PI / 2; (nb.children[1] as THREE.Object3D).position.set(-0.3, 0.07, 0); nb.position.set(0, 0.96, -3.5); nb.scale.setScalar(1.5); R.add(nb);
     const pen = P.pen("#c0b0ff"); pen.position.set(0.6, 0.98, -3.2); pen.rotation.y = 0.5; R.add(pen);
@@ -108,7 +122,9 @@ export const W: Record<string, (R: R) => void> = {
   // B6: post 1: an abandoned house, one glowing monitor, an empty chair, a week crossed off, dust
   emptyhouse(R) {
     floor(R, 16, 16, planksTex("#4a3a40", "#0e0814", [3, 3], 5), -2);
-    R.add(box(16, 8, 0.4, wallpaperTex("#4a4268", "#3a3258") as any, 0, 4, -7)); R.add(box(0.4, 8, 16, lam("#403a5e"), -8, 4, -2)); R.add(box(0.4, 8, 16, lam("#403a5e"), 8, 4, -2));
+    R.add(box(16, 9, 0.4, plaster("#2f9a8e", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2f7a86", "#f4ead2");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2f7a86"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     const d = P.desk(3.2, 1.3, "#4a3224"); d.position.set(-0.2, 0, -5.4); R.add(d);
     const m = P.monitor("#6aa8ff"); m.position.set(0, 0.95, -5.5); m.scale.setScalar(1.6); R.add(m); glowAt(R, 0, 1.6, -5.0, 9, "#6aa8ff");
     const ch = P.chair("#5a3a48"); ch.position.set(0.8, 0, -4.3); ch.rotation.y = 0.9; R.add(ch);
@@ -122,7 +138,9 @@ export const W: Record<string, (R: R) => void> = {
   // B7: post 2: an anon's bedroom (A), thought bubbles: real life, no results, boredom, the feds
   bedroomA(R) {
     floor(R, 14, 14, rugTex("#34406a", "#7a5a9a") as any, -2); floor(R, 18, 18, planksTex("#4a3a58", "#0e0814", [4, 4], 6), -2, -0.01);
-    R.add(box(14, 8, 0.4, wallpaperTex("#3a3a6a", "#4a4a80") as any, 0, 4, -7)); R.add(box(0.4, 8, 14, lam("#383462"), -7, 4, -2)); R.add(box(0.4, 8, 14, lam("#383462"), 7, 4, -2));
+    R.add(box(16, 9, 0.4, plaster("#c8901a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2a8f9a", "#f4ead2");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2a8f9a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     bed(R, -4.6, -4.8, "#4a5a9a"); deskPc(R, 1.6, -5.2, "#6aa8ff"); glowAt(R, 1.6, 1.7, -5.0, 8, "#6aa8ff");
     poster(R, -2.2, 3.6, -6.75, "#6a2a5a"); poster(R, 5.0, 4.0, -6.75, "#2a5a6a"); R.add(place(sign(textTex(256, 256, "#2a2040", "#ff8a5a", ["BORED"], "Anton", 60), 0.8, 0.8, 1.2), -2.2, 5.2, -6.75));
     win(R, 4.6, 3.4, -6.76, 2.6, 3.0, "#2a3070");
@@ -149,7 +167,9 @@ export const W: Record<string, (R: R) => void> = {
   // B9: post 4: the paperback on a plinth in an occult bookshop, 112 pages
   bookshop(R) {
     floor(R, 16, 16, planksTex("#6a4a30", "#1a0e14", [3, 3], 7), -2);
-    R.add(box(16, 8, 0.4, lam("#4a2e40"), 0, 4, -7.5));
+    R.add(box(16, 9, 0.4, plaster("#a8304a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#6a2a5a", "#f4d89a");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#6a2a5a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     P.bookshelf; for (const x of [-5.4, -2.0, 5.4]) R.add(P.at(P.bookshelf(3.2, 5.2, 30), x, 0, -7));
     const pl = new THREE.Group(); pl.add(box(1.6, 1.0, 1.6, lam("#3a2a4a"), 0, 0.5, 0)); pl.add(box(1.8, 0.1, 1.8, lam("#5a4a6a"), 0, 1.05, 0)); place(pl, 1.4, 0, -4); R.add(pl);
     const bk = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.3, 0.18), [lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), new THREE.MeshBasicMaterial({ map: textTex(256, 360, "#5a2a5a", "#e8d49a", ["THE", "FORBIDDEN", "PARA-", "PSYCHOLOGY"], "Anton", 48, "#e8d49a"), color: new THREE.Color(1.3, 1.3, 1.3) }), lam("#2b2540")]); bk.position.set(1.4, 1.75, -4); bk.rotation.set(-0.15, -0.2, 0); R.add(bk);
@@ -161,7 +181,9 @@ export const W: Record<string, (R: R) => void> = {
   // B10: 1930, Psychic Self-Defence, her breakdown after a psychic attack: a 1930s occult study with candles and mist
   study30(R) {
     floor(R, 16, 16, rugTex("#5a2a3a", "#c8a86a") as any, -2); floor(R, 18, 18, planksTex("#3a2a24", "#0a0610", [4, 4], 9), -2, -0.01);
-    R.add(box(16, 9, 0.4, wallpaperTex("#4a2a3a", "#5a3646") as any, 0, 4.5, -7.5)); R.add(box(0.4, 9, 16, lam("#442838"), -8, 4.5, -2)); R.add(box(0.4, 9, 16, lam("#442838"), 8, 4.5, -2));
+    R.add(box(16, 9, 0.4, plaster("#78204a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#4a2a58", "#e8c88a");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#4a2a58"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     const d = P.desk(3.6, 1.5, "#3a2218"); d.position.set(-0.6, 0, -4.8); R.add(d);
     const bk = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.14, 1.0), [lam("#2a3a6a"), lam("#2a3a6a"), new THREE.MeshBasicMaterial({ map: textTex(256, 360, "#3a4a7a", "#e8d49a", ["PSYCHIC", "SELF-", "DEFENCE", "1930"], "Anton", 54, "#e8d49a"), color: new THREE.Color(1.25, 1.25, 1.25) }), lam("#2a3a6a"), lam("#2a3a6a"), lam("#2a3a6a")]); bk.position.set(-0.4, 1.0, -4.8); bk.rotation.y = 0.2; R.add(bk);
     for (const [x, z] of [[-1.7, -5.0], [0.9, -4.5], [-3.6, -6.4], [3.0, -6.2]]) { const c = cyl(0.06, 0.07, 0.45, lam("#efe6cf"), x, 1.2, z, 10); R.add(c); R.add(sphere(0.07, glow("#ffd27a", 3.5), x, 1.5, z)); glowAt(R, x, 1.55, z, 3.2, "#ffb04a"); }
@@ -173,8 +195,10 @@ export const W: Record<string, (R: R) => void> = {
   },
   // B11: 1942 Cannon "Voodoo Death": a lab, a voodoo doll, a heart monitor, a dried glass and a stopwatch for fear, heart rate, dehydration
   lab42(R) {
-    floor(R, 16, 16, groundTex("#4a6a6a", "#385a5a", [8, 8], 11) as any, -2);
-    R.add(box(16, 8, 0.4, brickTex("#5a8a7a", "#2a4a44", [4, 3]) as any, 0, 4, -7.5)); R.add(box(0.4, 8, 16, lam("#4a7a6a"), -8, 4, -2));
+    floor(R, 16, 16, checkTex("#f4f0e0", "#1f8a98"), -2);
+    R.add(box(16, 9, 0.4, plaster("#3aa888", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2a7a8a", "#f4f0e0");
+    for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
+    plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2a7a8a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
     const bn = new THREE.Group(); bn.add(box(6, 0.12, 1.8, lam("#2a2830"), 0, 1.0, 0)); bn.add(box(5.8, 1.0, 1.7, lam("#4a4a58"), 0, 0.5, 0)); place(bn, 0, 0, -4.8); R.add(bn);
     const doll = new THREE.Group(); doll.add(box(0.5, 0.6, 0.2, lam("#c8a070"), 0, 0.5, 0)); doll.add(sphere(0.2, lam("#c8a070"), 0, 1.0, 0)); for (const s of [-1, 1]) { doll.add(box(0.14, 0.5, 0.14, lam("#c8a070"), s * 0.34, 0.5, 0)); doll.add(box(0.16, 0.5, 0.14, lam("#c8a070"), s * 0.12, 0.0, 0)); } for (let i = 0; i < 4; i++) { const pin = cyl(0.015, 0.015, 0.5, lam("#d8d8e8"), -0.1 + i * 0.07, 0.55, 0.12, 6); pin.rotation.z = 0.5 - i * 0.3; doll.add(pin); doll.add(sphere(0.035, lam("#e8453c"), -0.1 + i * 0.07 - Math.sin(0.5 - i * 0.3) * 0.25, 0.55 + Math.cos(0.5 - i * 0.3) * 0.25, 0.12)); } place(doll, -1.6, 1.06, -4.8); doll.scale.setScalar(1.3); R.add(doll);
     const mon = new THREE.Group(); mon.add(box(1.8, 1.3, 0.6, lam("#2a2a38"), 0, 0.65, 0)); mon.add(plane(1.5, 1.0, new THREE.MeshBasicMaterial({ map: canvasTex(256, 160, (g, w, h) => { g.fillStyle = "#04140e"; g.fillRect(0, 0, w, h); g.strokeStyle = "#5affb4"; g.lineWidth = 6; g.beginPath(); g.moveTo(0, 90); for (let x = 0; x < w; x += 64) { g.lineTo(x + 20, 90); g.lineTo(x + 28, 30); g.lineTo(x + 36, 130); g.lineTo(x + 44, 90); g.lineTo(x + 64, 90); } g.stroke(); g.fillStyle = "#5affb4"; g.font = "30px Anton"; g.fillText("72 ♥", 10, 28); }), color: new THREE.Color(1.5, 1.5, 1.5) }), 0, 0.7, 0.32)); place(mon, 1.2, 1.06, -4.8); R.add(mon); glowAt(R, 1.2, 1.7, -4.4, 7, "#5affb4");
@@ -200,7 +224,7 @@ export const W: Record<string, (R: R) => void> = {
   },
   // B13: the close: an empty blog comment page glowing in a foggy field, an empty chair, nothing answers
   empty(R) {
-    floor(R, 120, 120, groundTex("#26305e", "#1e2650", [40, 40], 13) as any, -30);
+    floor(R, 120, 120, lam("#2a3a78"), -30);
     const d = P.desk(2.6, 1.2, "#3a2a40"); d.position.set(0, 0, -6); R.add(d);
     const mg = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.0), new THREE.MeshBasicMaterial({ map: textTex(512, 320, "#0c1228", "#7dffd0", ["COMMENTS", "", "(0)"], "Anton", 70, "#7dffd0"), color: new THREE.Color(1.6, 1.6, 1.6) })); mg.position.set(0, 2.2, -6.4); R.add(mg); glowAt(R, 0, 2.2, -6, 13, "#58ffc0");
     const ch = P.chair("#4a3a5a"); ch.position.set(0, 0, -4.6); ch.rotation.y = Math.PI; R.add(ch);
