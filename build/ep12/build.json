@@ -1,0 +1,54 @@
+{
+  "episode": 12,
+  "title": "The Buzzer, UVB-76",
+  "tone": "informational",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 154,
+  "est_seconds_at_2.5wps": 61.6,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "On 4625 kilohertz, a buzzer has sounded for decades. Sometimes a voice reads words."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "It's a shortwave radio signal. About 25 buzzes a minute, around the clock. It has been on air since about the mid-1970s. The earliest preserved recording is from 1982."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Hobbyists call it \"the Buzzer\". For years it only buzzed. The first voice message was on December 24, 1997."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "The voice reads a callsign, then a few words and numbers. The callsign has changed several times since."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "On December 11, 2024, it sent 24 messages with 30 different words in one day. A monitoring group called it the most talkative day in the station's history."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Pirates sometimes break in with music or speech. Those events aren't the station itself."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Who runs it? The Russian military is the common assumption. That's never been officially confirmed. A \"doomsday signal\" theory is widely considered unlikely."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "The signal is real. The purpose is not public."
+    }
+  ],
+  "scenes": []
+}

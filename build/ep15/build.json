@@ -1,0 +1,59 @@
+{
+  "episode": 15,
+  "title": "Candle Cove",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 142,
+  "est_seconds_at_2.5wps": 56.8,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "A kids' show everyone remembers. It never existed."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "2009. A short story appears online, written as a forum thread. Adults trade memories of a children's show called Candle Cove, on Channel 58, in the early 1970s."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "The show: a girl named Janice and her imaginary adventures with marionette pirates."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "moth",
+      "text": "I don't remember it at all."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "Then the memories turn strange. A skeleton pirate villain. An episode where the puppets only scream."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "The ending: one man says his mother told him that when he watched Candle Cove, the TV just showed static."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "action",
+      "text": "Biscuit stares at a static screen."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "It's fiction, by a web cartoonist named Kris Straub. People copied it onto forums, and some fans staged the conversation as though it had really happened. A TV series followed in 2016."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "There was never a show. There was only static. Gloom: \"Which is also the case with most daytime TV.\""
+    }
+  ],
+  "scenes": []
+}

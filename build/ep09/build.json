@@ -1,0 +1,114 @@
+{
+  "episode": 9,
+  "title": "The Bloop",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 148,
+  "est_seconds_at_2.5wps": 59.2,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "1997. The ocean made a sound so loud that scientists wondered what could make it."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "A US research agency, NOAA, was listening with underwater microphones, mainly for volcanoes."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "It picked up an ultra-low rumble, rising in pitch over about a minute. It was loud enough to be heard on sensors thousands of kilometres apart. They traced it to the South Pacific."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "action",
+      "text": "Moth hides."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "It was named \"the Bloop\". The profile looked a little like an animal's call. But far too powerful for any animal on Earth. Internet theories: a giant creature, a secret test, a submarine."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "NOAA's researchers ruled out a man-made source early. One suspected ice breaking off Antarctica."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Microphones moved closer to Antarctica. In 2005, the source was found. An icequake, an iceberg cracking and breaking away."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Similar sounds were later recorded from icebergs breaking up near South Georgia."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "No monster. Just ice. Gloom: \"A bit disappointing. Mostly.\""
+    },
+    {
+      "beat": "Close",
+      "speaker": "action",
+      "text": "Biscuit relieved."
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 4,
+      "scene": "Hook",
+      "visual": "Underwater, a low rumble ring",
+      "caption": "1997"
+    },
+    {
+      "start_s": 4,
+      "end_s": 14,
+      "scene": "Listening",
+      "visual": "Buoys across the Pacific",
+      "caption": "THOUSANDS OF KM"
+    },
+    {
+      "start_s": 14,
+      "end_s": 24,
+      "scene": "The sound",
+      "visual": "Spectrogram rising bar over about 60 s",
+      "caption": "RISING SOUND"
+    },
+    {
+      "start_s": 24,
+      "end_s": 34,
+      "scene": "Theories",
+      "visual": "Cartoon monster silhouette",
+      "caption": "TOO LOUD FOR ANY ANIMAL"
+    },
+    {
+      "start_s": 34,
+      "end_s": 46,
+      "scene": "The search",
+      "visual": "Buoys move toward Antarctica",
+      "caption": "2005"
+    },
+    {
+      "start_s": 46,
+      "end_s": 54,
+      "scene": "Answer",
+      "visual": "Iceberg cracks",
+      "caption": "ICEQUAKE"
+    },
+    {
+      "start_s": 54,
+      "end_s": 60,
+      "scene": "Close",
+      "visual": "Gloom shrugs, Biscuit relieved",
+      "caption": "JUST ICE"
+    }
+  ]
+}

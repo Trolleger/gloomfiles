@@ -1,0 +1,114 @@
+{
+  "episode": 2,
+  "title": "The Wow! Signal",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 190,
+  "est_seconds_at_2.5wps": 76.0,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "One printout. One circled word. Forty-nine years of silence."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "August 15, 1977. A radio telescope in Ohio, listening for aliens, picks up something. It lasts exactly 72 seconds."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Days later, a volunteer astronomer, Jerry Ehman, is reading the printout. He circles six characters, 6-E-Q-U-J-5, and writes one word beside them: \"Wow!\""
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "moth",
+      "text": "That's it? That's the whole reaction?"
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "The characters aren't a message. They're loudness, one character every 10 seconds. The U means about 30 times louder than background noise. It rose, peaked in the middle, and faded, which is how a real source in the sky should look."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "It sat near 1420 megahertz, the hydrogen line. Scientists had suggested that channel in 1959 as a sensible place to call another civilisation. It came from the direction of Sagittarius."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Nobody has heard it again. Searches in 1987, 1989, 1995 and 1999 found nothing."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "action",
+      "text": "Biscuit stares at the sky."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Explanations: a reflected Earth signal, a one-off burst, a flickering signal. A 2017 comet idea was rejected by other astronomers. A 2024 preprint suggests a rare burst from a hydrogen cloud. Unconfirmed."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "Ehman said he would not draw \"vast conclusions from half-vast data\". Gloom: \"Neither will I. Mostly.\""
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 4,
+      "scene": "Hook",
+      "visual": "Close-up of a circled printout",
+      "caption": "WOW!"
+    },
+    {
+      "start_s": 4,
+      "end_s": 12,
+      "scene": "Detection",
+      "visual": "Dish turns, clock 22:16, a 72 counter ticks up",
+      "caption": "72 SECONDS"
+    },
+    {
+      "start_s": 12,
+      "end_s": 22,
+      "scene": "Printout",
+      "visual": "Gloom with printout, red pen circles; Moth asks \"That's it?\"",
+      "caption": "6EQUJ5"
+    },
+    {
+      "start_s": 22,
+      "end_s": 34,
+      "scene": "Meaning",
+      "visual": "Characters become a rising and falling bar",
+      "caption": "30X LOUDER"
+    },
+    {
+      "start_s": 34,
+      "end_s": 44,
+      "scene": "Hydrogen line",
+      "visual": "Radio dial lands on 1420; star map zooms to Sagittarius",
+      "caption": "1420 MHZ"
+    },
+    {
+      "start_s": 44,
+      "end_s": 52,
+      "scene": "Silence",
+      "visual": "Dish sweeps empty sky, Biscuit stares up",
+      "caption": "NEVER AGAIN"
+    },
+    {
+      "start_s": 52,
+      "end_s": 60,
+      "scene": "Explanations + close",
+      "visual": "Three speech bubbles, \"?\" stamped on each",
+      "caption": "HALF-VAST DATA"
+    }
+  ]
+}

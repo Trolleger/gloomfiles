@@ -1,0 +1,104 @@
+{
+  "episode": 7,
+  "title": "The Voynich Manuscript",
+  "tone": "informational",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 166,
+  "est_seconds_at_2.5wps": 66.4,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "A book with about 240 pages. Nobody on Earth can read it."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "It's called the Voynich manuscript. It is held at Yale's Beinecke Library. It's named for a book dealer who bought it in 1912."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Carbon dating in 2009 put the parchment between 1404 and 1438. That dates the material, not the writing."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "It's full of drawings. Plants no one can match to real ones. Circular charts of stars. Tiny figures bathing in green pools joined by pipes."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "The text uses an unknown alphabet of roughly 20 to 25 main characters. Around 38,000 words, about 8,000 to 9,000 different ones."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "It behaves like language. Word frequencies follow the same pattern as real languages. But it also has odd traits, like repeated words and a very predictable structure."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Theories: a cipher, an unknown language, an invented language, a hoax. Codebreakers from both world wars tried. None of the proposed solutions is accepted."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "It might say something. It might say nothing. Nobody has been able to prove which."
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 5,
+      "scene": "Hook",
+      "visual": "A closed old book, light sweeps across",
+      "caption": "240 PAGES"
+    },
+    {
+      "start_s": 5,
+      "end_s": 14,
+      "scene": "History",
+      "visual": "Library card for Yale; 1912 stamp",
+      "caption": "1912"
+    },
+    {
+      "start_s": 14,
+      "end_s": 22,
+      "scene": "Carbon dating",
+      "visual": "Parchment swatch, range slider",
+      "caption": "1404 TO 1438"
+    },
+    {
+      "start_s": 22,
+      "end_s": 34,
+      "scene": "Drawings",
+      "visual": "Redrawn plants, star charts, bath pools",
+      "caption": "NO MATCH"
+    },
+    {
+      "start_s": 34,
+      "end_s": 44,
+      "scene": "Script",
+      "visual": "Glyph strip scrolls, counters",
+      "caption": "38,000 WORDS"
+    },
+    {
+      "start_s": 44,
+      "end_s": 54,
+      "scene": "Language test",
+      "visual": "A graph curve matching a real language",
+      "caption": "ODD BUT REAL"
+    },
+    {
+      "start_s": 54,
+      "end_s": 60,
+      "scene": "Close",
+      "visual": "Book closes",
+      "caption": "UNREAD"
+    }
+  ]
+}

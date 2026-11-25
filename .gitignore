@@ -1,0 +1,6 @@
+node_modules/
+out/
+build-bundle/
+*.mp4
+*.mov
+.DS_Store

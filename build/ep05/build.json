@@ -1,0 +1,114 @@
+{
+  "episode": 5,
+  "title": "Max Headroom Hijack",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 190,
+  "est_seconds_at_2.5wps": 76.0,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "November 22, 1987. Chicago TV got interrupted by someone who has never been caught."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "About 9:14 p.m. A sports segment on one station. The screen goes black for around 15 seconds."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "moth",
+      "text": "Is it supposed to do that?"
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Then a figure appears in a Max Headroom mask and sunglasses, swaying in front of a moving metal panel. No usable sound, only a buzz."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "Engineers changed the frequency of the studio link and it stopped. The sports anchor said: \"Well, if you're wondering what's happened, so am I.\""
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "action",
+      "text": "Biscuit approves."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "About two hours later, it happened again on a public TV channel, at about 11:20 p.m. This time with sound. It lasted about 90 seconds, and viewers saw an odd, rambling bit of mischief. Nobody on duty could stop it. It ended when the pirates stopped transmitting."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "How? A stronger microwave signal aimed at the stations' towers overrode the real one. It took skill and equipment, and it's very hard to do today."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "The FCC investigated and found no culprit. The legal time limit ran out in 1992. Nobody has ever been identified."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "A masked figure took over two TV stations. And walked away."
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 4,
+      "scene": "Hook",
+      "visual": "Chicago skyline, \"NOV 22 1987\"",
+      "caption": "9:14 PM"
+    },
+    {
+      "start_s": 4,
+      "end_s": 12,
+      "scene": "Sports",
+      "visual": "TV shows sports segment, goes black",
+      "caption": "15 SECONDS"
+    },
+    {
+      "start_s": 12,
+      "end_s": 22,
+      "scene": "The mask",
+      "visual": "Silhouette in a generic mask swaying, buzzing audio",
+      "caption": "NO SOUND"
+    },
+    {
+      "start_s": 22,
+      "end_s": 30,
+      "scene": "Reaction",
+      "visual": "Anchor shrug card with the real quote",
+      "caption": "\"SO AM I\""
+    },
+    {
+      "start_s": 30,
+      "end_s": 40,
+      "scene": "Round two",
+      "visual": "Clock to 11:20, TV flickers again",
+      "caption": "90 SECONDS"
+    },
+    {
+      "start_s": 40,
+      "end_s": 50,
+      "scene": "How",
+      "visual": "Two towers, a stronger beam overrides",
+      "caption": "STRONGER SIGNAL"
+    },
+    {
+      "start_s": 50,
+      "end_s": 60,
+      "scene": "Close",
+      "visual": "Case file stamped \"NO CULPRIT\", 1992",
+      "caption": "NEVER CAUGHT"
+    }
+  ]
+}

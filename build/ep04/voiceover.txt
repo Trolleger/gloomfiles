@@ -1,0 +1,9 @@
+[gloom] In January 2012, a plain image appeared on an anonymous message board. It asked for highly intelligent people.
+[gloom] Round one began January 4, 2012. The image hid data. Solving it led to another clue, then another.
+[gloom] The trail used images, a phone number, websites, and paper signs with QR codes. It referenced literature, poetry, art and music. Topics were cryptography, steganography and privacy.
+[gloom] Each message was signed with the same PGP key, so solvers could tell the real ones from fakes.
+[gloom] The puzzle came back in January 2013, and again in January 2014. The third round was never fully solved.
+[gloom] One solver said those who got far were asked about privacy and freedom of information, then invited to a private forum. What happened next is mostly unknown.
+[gloom] Who built it? Guesses range from an intelligence agency to a secret society to a game. Nobody has confirmed any of them.
+[gloom] Imitators appeared. In 2015, a group using "3301" attacked an organisation's database. The real signers posted a signed denial. The last verified signed message was in April 2017.
+[gloom] The puzzle was built to find people. What it wanted them for is still unanswered.

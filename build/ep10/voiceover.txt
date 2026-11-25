@@ -1,0 +1,7 @@
+[gloom] There is a sculpture outside CIA headquarters with four coded messages. One of them took 35 years.
+[gloom] Kryptos was dedicated in 1990 at CIA headquarters in Virginia. The sculptor, Jim Sanborn, worked with a retiring CIA cryptographer on the codes. The name is Greek for "hidden".
+[gloom] Its copper screen carries 869 characters of ciphertext, in four passages. The first three were solved in the 1990s. An NSA team was first, a CIA analyst second, and a computer scientist was first to publish.
+[gloom] The fourth, K4, is 97 characters long. It resisted everyone.
+[gloom] The sculptor released clues. In 2010, the letters "BERLIN". In 2014, "CLOCK". In 2020, "NORTHEAST".
+[gloom] In 2025, two writers found scraps of the original plaintext in the sculptor's papers at the Smithsonian. The sculptor confirmed it was authentic, and then had the files sealed until 2075.
+[gloom] The words are known. The method still isn't. So is it solved?

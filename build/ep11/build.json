@@ -1,0 +1,59 @@
+{
+  "episode": 11,
+  "title": "The Backrooms",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 166,
+  "est_seconds_at_2.5wps": 66.4,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "A photo of an empty yellow office. Seven years later it has its own movie."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "May 12, 2019. On an anonymous paranormal board, someone asks for pictures that \"feel off\". They post a big, empty, yellow room."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "moth",
+      "text": "It's an office."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Another anonymous user writes a short description. If you fall out of reality in the wrong place, you land in the Backrooms. The smell of old carpet. The buzz of lights. Roughly six hundred million square miles of empty rooms."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "Nobody's name is on it. Writers added levels and monsters. A forum grew past 157,000 members by 2022."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "action",
+      "text": "Biscuit watches a hallway."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "In January 2022, a 16-year-old uploaded a short found-footage video, made in Blender and After Effects over about a month. It grew into a series."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Where was the photo from? In 2024, fans traced it to a 2002 snapshot on a store renovation blog in Wisconsin. The room is now an RC car track."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "The scariest place on the internet was a furniture store. Gloom: \"Aisle three, probably.\""
+    }
+  ],
+  "scenes": []
+}

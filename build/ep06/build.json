@@ -1,0 +1,104 @@
+{
+  "episode": 6,
+  "title": "The Dancing Plague of 1518",
+  "tone": "informational",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 158,
+  "est_seconds_at_2.5wps": 63.2,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "July 1518. A woman starts dancing in a street in Strasbourg. She doesn't stop."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "She danced for days, with no music, according to the accounts. Others joined. Within a week, dozens were dancing."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "By August, estimates say between 50 and 400 people. The figure is uncertain."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "Contemporary records, including a physician's notes, sermons and city council papers, do confirm the dancing."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "The council's first response was to encourage it. Guild halls were set aside, with musicians. It backfired. They then banned public dancing and music, and sent dancers to a shrine."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Deaths are often reported, up to about 15 a day. But the Strasbourg sources from the time don't mention deaths. The claims come from later accounts."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Theories: poisoning from mouldy grain (ergot), stress-induced mass illness, religious belief. One historian rejects ergot, because poisoned people couldn't dance for days. Stress and mass illness is the most popular view."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "It faded in early September. Nobody knows why it began."
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 5,
+      "scene": "Hook",
+      "visual": "One silhouette dancing in an empty street",
+      "caption": "JULY 1518"
+    },
+    {
+      "start_s": 5,
+      "end_s": 14,
+      "scene": "Spread",
+      "visual": "More silhouettes join in a circle",
+      "caption": "50 TO 400"
+    },
+    {
+      "start_s": 14,
+      "end_s": 22,
+      "scene": "Records",
+      "visual": "Ledger and sermon pages",
+      "caption": "WHAT THE RECORDS SAY"
+    },
+    {
+      "start_s": 22,
+      "end_s": 32,
+      "scene": "Council",
+      "visual": "Guild hall, then a \"BAN\" notice",
+      "caption": "THEN A BAN"
+    },
+    {
+      "start_s": 32,
+      "end_s": 42,
+      "scene": "Deaths",
+      "visual": "A page with a gap, \"LATER ACCOUNTS ONLY\"",
+      "caption": "NOT IN THE RECORDS"
+    },
+    {
+      "start_s": 42,
+      "end_s": 54,
+      "scene": "Theories",
+      "visual": "Three cards: grain, stress, belief",
+      "caption": "3 THEORIES"
+    },
+    {
+      "start_s": 54,
+      "end_s": 60,
+      "scene": "Close",
+      "visual": "Street empties",
+      "caption": "SEPTEMBER"
+    }
+  ]
+}

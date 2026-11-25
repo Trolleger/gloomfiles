@@ -1,0 +1,59 @@
+{
+  "episode": 13,
+  "title": "The Tully Monster",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 135,
+  "est_seconds_at_2.5wps": 54.0,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "A fossil so strange scientists still can't agree what it was."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "1955, Illinois. An amateur collector finds a fossil and takes it to the Field Museum. The experts are stumped."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "moth",
+      "text": "A bit of a theme."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "It's about 300 million years old. Up to 35 centimetres long. A cigar-shaped body, a tail fin, and eyes on two stalks. And a long snout with a tiny claw at the end."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "It was named in 1966. In 1989, Illinois made it the state fossil."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "action",
+      "text": "Biscuit approves."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "In 2016, two papers said it was a vertebrate, related to fish like lampreys. In 2017, another team replied that it was not."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Since then: chemistry studies lean toward a chordate. A 2023 scan study doubts several of the vertebrate features. Still unsettled."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "Thousands of fossils. One verdict, missing. Gloom: \"Science is thorough. Eventually.\""
+    }
+  ],
+  "scenes": []
+}

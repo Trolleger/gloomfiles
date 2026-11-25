@@ -1,0 +1,8 @@
+[gloom] Somewhere on the radio dial, a voice is reading out numbers. It has been doing it for decades.
+[gloom] These are shortwave radio stations. They broadcast groups of numbers, usually five digits, read by a recorded voice.
+[gloom] Many start with a signature. A tune, a word like "Attention", or a phrase. Then comes the count, then the numbers, then the same numbers again.
+[gloom] The leading explanation is a one-time pad. Each number group is a code that only the person with the matching pad can read. Done correctly, it can't be broken. Shortwave carries across continents, and anyone with a plain radio can listen without being traced.
+[gloom] The best-known British example played a folk song, "The Lincolnshire Poacher", then a female voice reading numbers. Its last recorded broadcast was in July 2008. It is believed, but not confirmed, to have been government-run.
+[gloom] Hobbyists log these stations and give them codes. In 2001, a US court heard prosecutors say that Cuban agents had decoded messages from one such station on handheld radios.
+[gloom] Governments rarely comment. Some have acknowledged old stations. Many stations still broadcast, and nobody official explains them.
+[gloom] The numbers are public. The meaning isn't.

@@ -1,0 +1,104 @@
+{
+  "episode": 3,
+  "title": "Numbers Stations",
+  "tone": "informational",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 194,
+  "est_seconds_at_2.5wps": 77.6,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "Somewhere on the radio dial, a voice is reading out numbers. It has been doing it for decades."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "These are shortwave radio stations. They broadcast groups of numbers, usually five digits, read by a recorded voice."
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Many start with a signature. A tune, a word like \"Attention\", or a phrase. Then comes the count, then the numbers, then the same numbers again."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "The leading explanation is a one-time pad. Each number group is a code that only the person with the matching pad can read. Done correctly, it can't be broken. Shortwave carries across continents, and anyone with a plain radio can listen without being traced."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "The best-known British example played a folk song, \"The Lincolnshire Poacher\", then a female voice reading numbers. Its last recorded broadcast was in July 2008. It is believed, but not confirmed, to have been government-run."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "Hobbyists log these stations and give them codes. In 2001, a US court heard prosecutors say that Cuban agents had decoded messages from one such station on handheld radios."
+    },
+    {
+      "beat": "Beat 6",
+      "speaker": "gloom",
+      "text": "Governments rarely comment. Some have acknowledged old stations. Many stations still broadcast, and nobody official explains them."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "The numbers are public. The meaning isn't."
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 5,
+      "scene": "Hook",
+      "visual": "Dial turning, static, numbers fade in",
+      "caption": "5-DIGIT GROUPS"
+    },
+    {
+      "start_s": 5,
+      "end_s": 14,
+      "scene": "Format",
+      "visual": "A card of numbers repeated twice",
+      "caption": "THEN AGAIN"
+    },
+    {
+      "start_s": 14,
+      "end_s": 26,
+      "scene": "One-time pad",
+      "visual": "Paper pad being torn page by page",
+      "caption": "UNBREAKABLE"
+    },
+    {
+      "start_s": 26,
+      "end_s": 36,
+      "scene": "Reach",
+      "visual": "Signal arcs across a world map",
+      "caption": "WORLDWIDE"
+    },
+    {
+      "start_s": 36,
+      "end_s": 46,
+      "scene": "British example",
+      "visual": "Folk-song notes, \"2008\" stamp",
+      "caption": "LAST SEEN 2008"
+    },
+    {
+      "start_s": 46,
+      "end_s": 55,
+      "scene": "Court case",
+      "visual": "Gavel and a handheld radio (no real faces or names)",
+      "caption": "2001 TRIAL"
+    },
+    {
+      "start_s": 55,
+      "end_s": 60,
+      "scene": "Close",
+      "visual": "Dial turns, numbers keep reading",
+      "caption": "UNCONFIRMED"
+    }
+  ]
+}

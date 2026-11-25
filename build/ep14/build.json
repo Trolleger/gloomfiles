@@ -1,0 +1,59 @@
+{
+  "episode": 14,
+  "title": "Sailing Stones of Racetrack Playa",
+  "tone": "funny",
+  "voices": {
+    "gloom": "en_US-norman-medium",
+    "moth": "en_US-joe-medium"
+  },
+  "spoken_words": 156,
+  "est_seconds_at_2.5wps": 62.4,
+  "lines": [
+    {
+      "beat": "Hook",
+      "speaker": "gloom",
+      "text": "Rocks in Death Valley move on their own. For decades, nobody saw it happen."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "gloom",
+      "text": "Racetrack Playa is a flat, dry lake bed in California. Rocks sit on it with long trails behind them. The first scientific reports date from 1948."
+    },
+    {
+      "beat": "Beat 1",
+      "speaker": "moth",
+      "text": "Who's pushing them?"
+    },
+    {
+      "beat": "Beat 2",
+      "speaker": "gloom",
+      "text": "Theories: dust devils, gale winds, slippery algae, thick sheets of ice. Nobody had a recording. Trails showed up, but the rocks never moved while anyone watched."
+    },
+    {
+      "beat": "Beat 3",
+      "speaker": "gloom",
+      "text": "In 2011, researchers put GPS trackers in 15 rocks, and added a weather station and cameras. One researcher expected \"the most boring experiment ever\"."
+    },
+    {
+      "beat": "Beat 4",
+      "speaker": "gloom",
+      "text": "After a rare winter storm, a shallow pond formed. On December 20, 2013, more than 60 rocks moved."
+    },
+    {
+      "beat": "Beat 5",
+      "speaker": "gloom",
+      "text": "The answer: thin ice, 3 to 6 millimetres thick. At sunrise it breaks into panels. A light wind pushes the panels, and the panels push the rocks, a few metres a minute."
+    },
+    {
+      "beat": "Close",
+      "speaker": "gloom",
+      "text": "No ghosts. A gentle breeze and some ice. Gloom: \"Very disappointing. Very satisfying.\""
+    },
+    {
+      "beat": "Close",
+      "speaker": "action",
+      "text": "Biscuit pushes a mug off the desk."
+    }
+  ],
+  "scenes": []
+}
