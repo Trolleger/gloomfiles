@@ -1,0 +1,1725 @@
+{
+ "placeholder": false,
+ "voice": "en_US-joe-medium",
+ "length_scale": 0.85,
+ "fps": 30,
+ "total": 98.968,
+ "voice_len": 97.468,
+ "sections": [
+  {
+   "id": "s1",
+   "start": 0.0,
+   "end": 9.184
+  },
+  {
+   "id": "s2",
+   "start": 9.534,
+   "end": 17.393
+  },
+  {
+   "id": "s3",
+   "start": 17.743,
+   "end": 26.277
+  },
+  {
+   "id": "s4",
+   "start": 26.627,
+   "end": 33.477
+  },
+  {
+   "id": "s5",
+   "start": 33.827,
+   "end": 42.882
+  },
+  {
+   "id": "s6",
+   "start": 43.232,
+   "end": 60.81
+  },
+  {
+   "id": "s7",
+   "start": 61.16,
+   "end": 79.353
+  },
+  {
+   "id": "s8",
+   "start": 79.703,
+   "end": 90.338
+  },
+  {
+   "id": "s9",
+   "start": 90.688,
+   "end": 97.468
+  }
+ ],
+ "words": [
+  {
+   "word": "/x/",
+   "start": 0.0,
+   "end": 0.94,
+   "section": 0
+  },
+  {
+   "word": "is",
+   "start": 0.94,
+   "end": 1.2,
+   "section": 0
+  },
+  {
+   "word": "4chan's",
+   "start": 1.2,
+   "end": 1.8,
+   "section": 0
+  },
+  {
+   "word": "paranormal",
+   "start": 1.8,
+   "end": 2.22,
+   "section": 0
+  },
+  {
+   "word": "board.",
+   "start": 2.22,
+   "end": 2.8,
+   "section": 0
+  },
+  {
+   "word": "It",
+   "start": 3.12,
+   "end": 3.28,
+   "section": 0
+  },
+  {
+   "word": "began",
+   "start": 3.28,
+   "end": 3.56,
+   "section": 0
+  },
+  {
+   "word": "in",
+   "start": 3.56,
+   "end": 3.88,
+   "section": 0
+  },
+  {
+   "word": "January",
+   "start": 3.88,
+   "end": 4.22,
+   "section": 0
+  },
+  {
+   "word": "2005",
+   "start": 4.22,
+   "end": 4.92,
+   "section": 0
+  },
+  {
+   "word": "as",
+   "start": 4.92,
+   "end": 5.3,
+   "section": 0
+  },
+  {
+   "word": "a",
+   "start": 5.3,
+   "end": 5.44,
+   "section": 0
+  },
+  {
+   "word": "photography",
+   "start": 5.44,
+   "end": 5.84,
+   "section": 0
+  },
+  {
+   "word": "board",
+   "start": 5.84,
+   "end": 6.26,
+   "section": 0
+  },
+  {
+   "word": "and",
+   "start": 6.26,
+   "end": 6.48,
+   "section": 0
+  },
+  {
+   "word": "switched",
+   "start": 6.48,
+   "end": 6.68,
+   "section": 0
+  },
+  {
+   "word": "to",
+   "start": 6.68,
+   "end": 6.9,
+   "section": 0
+  },
+  {
+   "word": "the",
+   "start": 6.9,
+   "end": 7.0,
+   "section": 0
+  },
+  {
+   "word": "unexplained",
+   "start": 7.0,
+   "end": 7.42,
+   "section": 0
+  },
+  {
+   "word": "in",
+   "start": 7.42,
+   "end": 7.72,
+   "section": 0
+  },
+  {
+   "word": "February",
+   "start": 7.72,
+   "end": 8.1,
+   "section": 0
+  },
+  {
+   "word": "2007.",
+   "start": 8.1,
+   "end": 8.82,
+   "section": 0
+  },
+  {
+   "word": "Eight",
+   "start": 9.534,
+   "end": 10.034,
+   "section": 1
+  },
+  {
+   "word": "posts,",
+   "start": 10.034,
+   "end": 10.473,
+   "section": 1
+  },
+  {
+   "word": "two",
+   "start": 10.473,
+   "end": 10.733,
+   "section": 1
+  },
+  {
+   "word": "hours",
+   "start": 10.733,
+   "end": 10.934,
+   "section": 1
+  },
+  {
+   "word": "and",
+   "start": 10.934,
+   "end": 11.213,
+   "section": 1
+  },
+  {
+   "word": "forty-three",
+   "start": 11.213,
+   "end": 11.633,
+   "section": 1
+  },
+  {
+   "word": "minutes.",
+   "start": 11.633,
+   "end": 12.174,
+   "section": 1
+  },
+  {
+   "word": "The",
+   "start": 12.174,
+   "end": 12.674,
+   "section": 1
+  },
+  {
+   "word": "title",
+   "start": 12.674,
+   "end": 12.913,
+   "section": 1
+  },
+  {
+   "word": "borrows",
+   "start": 12.913,
+   "end": 13.274,
+   "section": 1
+  },
+  {
+   "word": "from",
+   "start": 13.274,
+   "end": 13.434,
+   "section": 1
+  },
+  {
+   "word": "Death",
+   "start": 13.434,
+   "end": 13.654,
+   "section": 1
+  },
+  {
+   "word": "Note,",
+   "start": 13.654,
+   "end": 14.154,
+   "section": 1
+  },
+  {
+   "word": "the",
+   "start": 14.154,
+   "end": 14.393,
+   "section": 1
+  },
+  {
+   "word": "2003",
+   "start": 14.393,
+   "end": 15.114,
+   "section": 1
+  },
+  {
+   "word": "manga",
+   "start": 15.114,
+   "end": 15.413,
+   "section": 1
+  },
+  {
+   "word": "where",
+   "start": 15.413,
+   "end": 15.633,
+   "section": 1
+  },
+  {
+   "word": "writing",
+   "start": 15.633,
+   "end": 15.934,
+   "section": 1
+  },
+  {
+   "word": "a",
+   "start": 15.934,
+   "end": 16.073,
+   "section": 1
+  },
+  {
+   "word": "name",
+   "start": 16.073,
+   "end": 16.273,
+   "section": 1
+  },
+  {
+   "word": "in",
+   "start": 16.273,
+   "end": 16.434,
+   "section": 1
+  },
+  {
+   "word": "a",
+   "start": 16.434,
+   "end": 16.663,
+   "section": 1
+  },
+  {
+   "word": "notebook",
+   "start": 16.663,
+   "end": 16.893,
+   "section": 1
+  },
+  {
+   "word": "kills.",
+   "start": 16.893,
+   "end": 17.133,
+   "section": 1
+  },
+  {
+   "word": "The",
+   "start": 17.743,
+   "end": 18.203,
+   "section": 2
+  },
+  {
+   "word": "original",
+   "start": 18.203,
+   "end": 18.563,
+   "section": 2
+  },
+  {
+   "word": "post:",
+   "start": 18.563,
+   "end": 19.003,
+   "section": 2
+  },
+  {
+   "word": "a",
+   "start": 19.163,
+   "end": 19.323,
+   "section": 2
+  },
+  {
+   "word": "poster",
+   "start": 19.323,
+   "end": 19.503,
+   "section": 2
+  },
+  {
+   "word": "who",
+   "start": 19.503,
+   "end": 19.763,
+   "section": 2
+  },
+  {
+   "word": "says",
+   "start": 19.763,
+   "end": 19.923,
+   "section": 2
+  },
+  {
+   "word": "he",
+   "start": 19.923,
+   "end": 20.123,
+   "section": 2
+  },
+  {
+   "word": "runs",
+   "start": 20.123,
+   "end": 20.383,
+   "section": 2
+  },
+  {
+   "word": "psychic",
+   "start": 20.383,
+   "end": 20.683,
+   "section": 2
+  },
+  {
+   "word": "\"experiments\"",
+   "start": 20.683,
+   "end": 21.243,
+   "section": 2
+  },
+  {
+   "word": "has",
+   "start": 21.243,
+   "end": 21.523,
+   "section": 2
+  },
+  {
+   "word": "been",
+   "start": 21.523,
+   "end": 21.703,
+   "section": 2
+  },
+  {
+   "word": "silent",
+   "start": 21.703,
+   "end": 22.003,
+   "section": 2
+  },
+  {
+   "word": "for",
+   "start": 22.003,
+   "end": 22.263,
+   "section": 2
+  },
+  {
+   "word": "a",
+   "start": 22.263,
+   "end": 22.343,
+   "section": 2
+  },
+  {
+   "word": "week,",
+   "start": 22.343,
+   "end": 22.683,
+   "section": 2
+  },
+  {
+   "word": "on",
+   "start": 22.803,
+   "end": 22.883,
+   "section": 2
+  },
+  {
+   "word": "the",
+   "start": 22.883,
+   "end": 23.003,
+   "section": 2
+  },
+  {
+   "word": "board",
+   "start": 23.003,
+   "end": 23.223,
+   "section": 2
+  },
+  {
+   "word": "and",
+   "start": 23.223,
+   "end": 23.363,
+   "section": 2
+  },
+  {
+   "word": "on",
+   "start": 23.363,
+   "end": 23.483,
+   "section": 2
+  },
+  {
+   "word": "his",
+   "start": 23.483,
+   "end": 23.703,
+   "section": 2
+  },
+  {
+   "word": "blog.",
+   "start": 23.703,
+   "end": 24.083,
+   "section": 2
+  },
+  {
+   "word": "His",
+   "start": 24.463,
+   "end": 24.643,
+   "section": 2
+  },
+  {
+   "word": "last",
+   "start": 24.643,
+   "end": 24.943,
+   "section": 2
+  },
+  {
+   "word": "thread",
+   "start": 24.943,
+   "end": 25.163,
+   "section": 2
+  },
+  {
+   "word": "has",
+   "start": 25.163,
+   "end": 25.403,
+   "section": 2
+  },
+  {
+   "word": "been",
+   "start": 25.403,
+   "end": 25.643,
+   "section": 2
+  },
+  {
+   "word": "archived.",
+   "start": 25.643,
+   "end": 25.883,
+   "section": 2
+  },
+  {
+   "word": "First",
+   "start": 26.627,
+   "end": 27.087,
+   "section": 3
+  },
+  {
+   "word": "reply,",
+   "start": 27.087,
+   "end": 27.507,
+   "section": 3
+  },
+  {
+   "word": "with",
+   "start": 27.867,
+   "end": 28.027,
+   "section": 3
+  },
+  {
+   "word": "theories:",
+   "start": 28.027,
+   "end": 28.387,
+   "section": 3
+  },
+  {
+   "word": "real",
+   "start": 28.767,
+   "end": 28.847,
+   "section": 3
+  },
+  {
+   "word": "life,",
+   "start": 28.847,
+   "end": 29.367,
+   "section": 3
+  },
+  {
+   "word": "no",
+   "start": 29.427,
+   "end": 29.567,
+   "section": 3
+  },
+  {
+   "word": "results,",
+   "start": 29.567,
+   "end": 29.967,
+   "section": 3
+  },
+  {
+   "word": "boredom,",
+   "start": 29.967,
+   "end": 30.807,
+   "section": 3
+  },
+  {
+   "word": "the",
+   "start": 30.807,
+   "end": 30.907,
+   "section": 3
+  },
+  {
+   "word": "feds.",
+   "start": 30.907,
+   "end": 31.287,
+   "section": 3
+  },
+  {
+   "word": "It",
+   "start": 31.827,
+   "end": 31.907,
+   "section": 3
+  },
+  {
+   "word": "wishes",
+   "start": 31.907,
+   "end": 32.107,
+   "section": 3
+  },
+  {
+   "word": "he'd",
+   "start": 32.107,
+   "end": 32.467,
+   "section": 3
+  },
+  {
+   "word": "published",
+   "start": 32.467,
+   "end": 32.707,
+   "section": 3
+  },
+  {
+   "word": "his",
+   "start": 32.707,
+   "end": 32.987,
+   "section": 3
+  },
+  {
+   "word": "method.",
+   "start": 32.987,
+   "end": 33.207,
+   "section": 3
+  },
+  {
+   "word": "Second",
+   "start": 33.827,
+   "end": 34.407,
+   "section": 4
+  },
+  {
+   "word": "reply,",
+   "start": 34.807,
+   "end": 34.887,
+   "section": 4
+  },
+  {
+   "word": "the",
+   "start": 35.267,
+   "end": 35.347,
+   "section": 4
+  },
+  {
+   "word": "number:",
+   "start": 35.347,
+   "end": 35.607,
+   "section": 4
+  },
+  {
+   "word": "three",
+   "start": 35.607,
+   "end": 36.027,
+   "section": 4
+  },
+  {
+   "word": "successes",
+   "start": 36.027,
+   "end": 36.627,
+   "section": 4
+  },
+  {
+   "word": "out",
+   "start": 36.627,
+   "end": 36.787,
+   "section": 4
+  },
+  {
+   "word": "of",
+   "start": 36.787,
+   "end": 36.867,
+   "section": 4
+  },
+  {
+   "word": "eight",
+   "start": 36.867,
+   "end": 37.087,
+   "section": 4
+  },
+  {
+   "word": "experiments",
+   "start": 37.087,
+   "end": 37.627,
+   "section": 4
+  },
+  {
+   "word": "in",
+   "start": 37.627,
+   "end": 37.847,
+   "section": 4
+  },
+  {
+   "word": "October.",
+   "start": 37.847,
+   "end": 38.167,
+   "section": 4
+  },
+  {
+   "word": "Huge,",
+   "start": 38.707,
+   "end": 39.047,
+   "section": 4
+  },
+  {
+   "word": "it",
+   "start": 39.387,
+   "end": 39.507,
+   "section": 4
+  },
+  {
+   "word": "says,",
+   "start": 39.507,
+   "end": 39.827,
+   "section": 4
+  },
+  {
+   "word": "like",
+   "start": 40.087,
+   "end": 40.187,
+   "section": 4
+  },
+  {
+   "word": "hitting",
+   "start": 40.187,
+   "end": 40.387,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 40.387,
+   "end": 40.587,
+   "section": 4
+  },
+  {
+   "word": "one-metre",
+   "start": 40.587,
+   "end": 40.947,
+   "section": 4
+  },
+  {
+   "word": "target",
+   "start": 40.947,
+   "end": 41.227,
+   "section": 4
+  },
+  {
+   "word": "at",
+   "start": 41.227,
+   "end": 41.447,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 41.447,
+   "end": 41.66,
+   "section": 4
+  },
+  {
+   "word": "thousand",
+   "start": 41.66,
+   "end": 41.873,
+   "section": 4
+  },
+  {
+   "word": "metres",
+   "start": 41.873,
+   "end": 42.087,
+   "section": 4
+  },
+  {
+   "word": "in",
+   "start": 42.087,
+   "end": 42.267,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 42.267,
+   "end": 42.447,
+   "section": 4
+  },
+  {
+   "word": "storm.",
+   "start": 42.447,
+   "end": 42.607,
+   "section": 4
+  },
+  {
+   "word": "A",
+   "start": 43.232,
+   "end": 43.692,
+   "section": 5
+  },
+  {
+   "word": "third",
+   "start": 43.692,
+   "end": 43.872,
+   "section": 5
+  },
+  {
+   "word": "reply",
+   "start": 43.872,
+   "end": 44.192,
+   "section": 5
+  },
+  {
+   "word": "says",
+   "start": 44.192,
+   "end": 44.472,
+   "section": 5
+  },
+  {
+   "word": "he",
+   "start": 44.472,
+   "end": 44.672,
+   "section": 5
+  },
+  {
+   "word": "keeps",
+   "start": 44.672,
+   "end": 44.912,
+   "section": 5
+  },
+  {
+   "word": "writing",
+   "start": 44.912,
+   "end": 45.192,
+   "section": 5
+  },
+  {
+   "word": "about",
+   "start": 45.192,
+   "end": 45.572,
+   "section": 5
+  },
+  {
+   "word": "failure,",
+   "start": 45.572,
+   "end": 45.892,
+   "section": 5
+  },
+  {
+   "word": "as",
+   "start": 46.212,
+   "end": 46.372,
+   "section": 5
+  },
+  {
+   "word": "if",
+   "start": 46.372,
+   "end": 46.492,
+   "section": 5
+  },
+  {
+   "word": "he",
+   "start": 46.492,
+   "end": 46.872,
+   "section": 5
+  },
+  {
+   "word": "expected",
+   "start": 46.872,
+   "end": 46.992,
+   "section": 5
+  },
+  {
+   "word": "to",
+   "start": 46.992,
+   "end": 47.212,
+   "section": 5
+  },
+  {
+   "word": "win",
+   "start": 47.212,
+   "end": 47.312,
+   "section": 5
+  },
+  {
+   "word": "every",
+   "start": 47.312,
+   "end": 47.552,
+   "section": 5
+  },
+  {
+   "word": "time.",
+   "start": 47.552,
+   "end": 48.092,
+   "section": 5
+  },
+  {
+   "word": "It",
+   "start": 48.432,
+   "end": 48.512,
+   "section": 5
+  },
+  {
+   "word": "cites",
+   "start": 48.512,
+   "end": 48.692,
+   "section": 5
+  },
+  {
+   "word": "a",
+   "start": 48.692,
+   "end": 48.872,
+   "section": 5
+  },
+  {
+   "word": "book,",
+   "start": 48.872,
+   "end": 49.152,
+   "section": 5
+  },
+  {
+   "word": "The",
+   "start": 49.572,
+   "end": 49.652,
+   "section": 5
+  },
+  {
+   "word": "Forbidden",
+   "start": 49.652,
+   "end": 49.832,
+   "section": 5
+  },
+  {
+   "word": "Parapsychology:",
+   "start": 49.832,
+   "end": 50.952,
+   "section": 5
+  },
+  {
+   "word": "a",
+   "start": 50.952,
+   "end": 51.112,
+   "section": 5
+  },
+  {
+   "word": "2020",
+   "start": 51.112,
+   "end": 51.632,
+   "section": 5
+  },
+  {
+   "word": "paperback,",
+   "start": 51.632,
+   "end": 52.172,
+   "section": 5
+  },
+  {
+   "word": "112",
+   "start": 53.032,
+   "end": 53.212,
+   "section": 5
+  },
+  {
+   "word": "pages,",
+   "start": 53.212,
+   "end": 53.752,
+   "section": 5
+  },
+  {
+   "word": "sold",
+   "start": 54.112,
+   "end": 54.192,
+   "section": 5
+  },
+  {
+   "word": "as",
+   "start": 54.192,
+   "end": 54.412,
+   "section": 5
+  },
+  {
+   "word": "techniques",
+   "start": 54.412,
+   "end": 54.652,
+   "section": 5
+  },
+  {
+   "word": "for",
+   "start": 54.652,
+   "end": 54.992,
+   "section": 5
+  },
+  {
+   "word": "influencing",
+   "start": 54.992,
+   "end": 55.352,
+   "section": 5
+  },
+  {
+   "word": "people",
+   "start": 55.352,
+   "end": 55.772,
+   "section": 5
+  },
+  {
+   "word": "from",
+   "start": 55.772,
+   "end": 56.032,
+   "section": 5
+  },
+  {
+   "word": "a",
+   "start": 56.032,
+   "end": 56.152,
+   "section": 5
+  },
+  {
+   "word": "distance.",
+   "start": 56.152,
+   "end": 56.472,
+   "section": 5
+  },
+  {
+   "word": "The",
+   "start": 57.072,
+   "end": 57.332,
+   "section": 5
+  },
+  {
+   "word": "replier",
+   "start": 57.332,
+   "end": 57.432,
+   "section": 5
+  },
+  {
+   "word": "says",
+   "start": 57.432,
+   "end": 57.792,
+   "section": 5
+  },
+  {
+   "word": "it",
+   "start": 57.792,
+   "end": 57.992,
+   "section": 5
+  },
+  {
+   "word": "covers",
+   "start": 57.992,
+   "end": 58.272,
+   "section": 5
+  },
+  {
+   "word": "psychic",
+   "start": 58.272,
+   "end": 58.572,
+   "section": 5
+  },
+  {
+   "word": "attacks",
+   "start": 58.572,
+   "end": 58.932,
+   "section": 5
+  },
+  {
+   "word": "on",
+   "start": 58.932,
+   "end": 59.212,
+   "section": 5
+  },
+  {
+   "word": "strangers,",
+   "start": 59.212,
+   "end": 59.552,
+   "section": 5
+  },
+  {
+   "word": "not",
+   "start": 59.932,
+   "end": 60.092,
+   "section": 5
+  },
+  {
+   "word": "meant",
+   "start": 60.092,
+   "end": 60.272,
+   "section": 5
+  },
+  {
+   "word": "to",
+   "start": 60.272,
+   "end": 60.452,
+   "section": 5
+  },
+  {
+   "word": "kill.",
+   "start": 60.452,
+   "end": 60.592,
+   "section": 5
+  },
+  {
+   "word": "The",
+   "start": 61.16,
+   "end": 61.58,
+   "section": 6
+  },
+  {
+   "word": "idea",
+   "start": 61.58,
+   "end": 61.84,
+   "section": 6
+  },
+  {
+   "word": "is",
+   "start": 61.84,
+   "end": 62.14,
+   "section": 6
+  },
+  {
+   "word": "old.",
+   "start": 62.14,
+   "end": 62.82,
+   "section": 6
+  },
+  {
+   "word": "Occultist",
+   "start": 62.82,
+   "end": 63.233,
+   "section": 6
+  },
+  {
+   "word": "Dion",
+   "start": 63.233,
+   "end": 63.647,
+   "section": 6
+  },
+  {
+   "word": "Fortune",
+   "start": 63.647,
+   "end": 64.06,
+   "section": 6
+  },
+  {
+   "word": "published",
+   "start": 64.06,
+   "end": 64.38,
+   "section": 6
+  },
+  {
+   "word": "Psychic",
+   "start": 64.38,
+   "end": 64.7,
+   "section": 6
+  },
+  {
+   "word": "Self-Defence",
+   "start": 64.7,
+   "end": 65.24,
+   "section": 6
+  },
+  {
+   "word": "in",
+   "start": 65.24,
+   "end": 65.74,
+   "section": 6
+  },
+  {
+   "word": "1930,",
+   "start": 65.74,
+   "end": 66.12,
+   "section": 6
+  },
+  {
+   "word": "and",
+   "start": 66.12,
+   "end": 66.58,
+   "section": 6
+  },
+  {
+   "word": "said",
+   "start": 66.58,
+   "end": 66.7,
+   "section": 6
+  },
+  {
+   "word": "a",
+   "start": 66.7,
+   "end": 67.0,
+   "section": 6
+  },
+  {
+   "word": "psychic",
+   "start": 67.0,
+   "end": 67.18,
+   "section": 6
+  },
+  {
+   "word": "attack",
+   "start": 67.18,
+   "end": 67.5,
+   "section": 6
+  },
+  {
+   "word": "had",
+   "start": 67.5,
+   "end": 67.78,
+   "section": 6
+  },
+  {
+   "word": "caused",
+   "start": 67.78,
+   "end": 68.02,
+   "section": 6
+  },
+  {
+   "word": "her",
+   "start": 68.02,
+   "end": 68.26,
+   "section": 6
+  },
+  {
+   "word": "own",
+   "start": 68.26,
+   "end": 68.46,
+   "section": 6
+  },
+  {
+   "word": "breakdown.",
+   "start": 68.46,
+   "end": 68.76,
+   "section": 6
+  },
+  {
+   "word": "In",
+   "start": 69.56,
+   "end": 69.64,
+   "section": 6
+  },
+  {
+   "word": "1942,",
+   "start": 69.64,
+   "end": 70.2,
+   "section": 6
+  },
+  {
+   "word": "physiologist",
+   "start": 70.7,
+   "end": 71.22,
+   "section": 6
+  },
+  {
+   "word": "Walter",
+   "start": 71.22,
+   "end": 71.56,
+   "section": 6
+  },
+  {
+   "word": "Cannon",
+   "start": 71.56,
+   "end": 71.92,
+   "section": 6
+  },
+  {
+   "word": "argued",
+   "start": 71.92,
+   "end": 72.2,
+   "section": 6
+  },
+  {
+   "word": "in",
+   "start": 72.2,
+   "end": 72.44,
+   "section": 6
+  },
+  {
+   "word": "\"Voodoo",
+   "start": 72.44,
+   "end": 72.66,
+   "section": 6
+  },
+  {
+   "word": "Death\"",
+   "start": 72.66,
+   "end": 72.88,
+   "section": 6
+  },
+  {
+   "word": "that",
+   "start": 72.88,
+   "end": 73.04,
+   "section": 6
+  },
+  {
+   "word": "belief",
+   "start": 73.04,
+   "end": 73.32,
+   "section": 6
+  },
+  {
+   "word": "in",
+   "start": 73.32,
+   "end": 73.56,
+   "section": 6
+  },
+  {
+   "word": "a",
+   "start": 73.56,
+   "end": 73.64,
+   "section": 6
+  },
+  {
+   "word": "curse",
+   "start": 73.64,
+   "end": 73.78,
+   "section": 6
+  },
+  {
+   "word": "could",
+   "start": 73.78,
+   "end": 73.96,
+   "section": 6
+  },
+  {
+   "word": "kill",
+   "start": 73.96,
+   "end": 74.12,
+   "section": 6
+  },
+  {
+   "word": "through",
+   "start": 74.12,
+   "end": 74.34,
+   "section": 6
+  },
+  {
+   "word": "fear",
+   "start": 74.34,
+   "end": 74.52,
+   "section": 6
+  },
+  {
+   "word": "alone.",
+   "start": 74.52,
+   "end": 74.96,
+   "section": 6
+  },
+  {
+   "word": "Later",
+   "start": 75.44,
+   "end": 75.54,
+   "section": 6
+  },
+  {
+   "word": "researchers",
+   "start": 75.54,
+   "end": 76.06,
+   "section": 6
+  },
+  {
+   "word": "proposed",
+   "start": 76.06,
+   "end": 76.46,
+   "section": 6
+  },
+  {
+   "word": "other",
+   "start": 76.46,
+   "end": 76.8,
+   "section": 6
+  },
+  {
+   "word": "causes,",
+   "start": 76.8,
+   "end": 77.18,
+   "section": 6
+  },
+  {
+   "word": "from",
+   "start": 77.18,
+   "end": 77.7,
+   "section": 6
+  },
+  {
+   "word": "slowed",
+   "start": 77.7,
+   "end": 78.02,
+   "section": 6
+  },
+  {
+   "word": "heart",
+   "start": 78.02,
+   "end": 78.18,
+   "section": 6
+  },
+  {
+   "word": "rate",
+   "start": 78.18,
+   "end": 78.42,
+   "section": 6
+  },
+  {
+   "word": "to",
+   "start": 78.42,
+   "end": 78.56,
+   "section": 6
+  },
+  {
+   "word": "dehydration.",
+   "start": 78.56,
+   "end": 79.0,
+   "section": 6
+  },
+  {
+   "word": "At",
+   "start": 79.703,
+   "end": 80.163,
+   "section": 7
+  },
+  {
+   "word": "two",
+   "start": 80.163,
+   "end": 80.323,
+   "section": 7
+  },
+  {
+   "word": "fifteen,",
+   "start": 80.323,
+   "end": 80.763,
+   "section": 7
+  },
+  {
+   "word": "an",
+   "start": 80.763,
+   "end": 81.143,
+   "section": 7
+  },
+  {
+   "word": "anon",
+   "start": 81.143,
+   "end": 81.383,
+   "section": 7
+  },
+  {
+   "word": "says",
+   "start": 81.383,
+   "end": 81.603,
+   "section": 7
+  },
+  {
+   "word": "they",
+   "start": 81.603,
+   "end": 81.803,
+   "section": 7
+  },
+  {
+   "word": "didn't",
+   "start": 81.803,
+   "end": 82.003,
+   "section": 7
+  },
+  {
+   "word": "think",
+   "start": 82.003,
+   "end": 82.223,
+   "section": 7
+  },
+  {
+   "word": "there",
+   "start": 82.223,
+   "end": 82.383,
+   "section": 7
+  },
+  {
+   "word": "were",
+   "start": 82.383,
+   "end": 82.503,
+   "section": 7
+  },
+  {
+   "word": "others",
+   "start": 82.503,
+   "end": 82.723,
+   "section": 7
+  },
+  {
+   "word": "like",
+   "start": 82.723,
+   "end": 83.023,
+   "section": 7
+  },
+  {
+   "word": "them.",
+   "start": 83.023,
+   "end": 83.443,
+   "section": 7
+  },
+  {
+   "word": "Three",
+   "start": 83.683,
+   "end": 83.863,
+   "section": 7
+  },
+  {
+   "word": "minutes",
+   "start": 83.863,
+   "end": 84.163,
+   "section": 7
+  },
+  {
+   "word": "later,",
+   "start": 84.163,
+   "end": 84.603,
+   "section": 7
+  },
+  {
+   "word": "another",
+   "start": 85.083,
+   "end": 85.163,
+   "section": 7
+  },
+  {
+   "word": "notes",
+   "start": 85.163,
+   "end": 85.373,
+   "section": 7
+  },
+  {
+   "word": "his",
+   "start": 85.373,
+   "end": 85.643,
+   "section": 7
+  },
+  {
+   "word": "blog",
+   "start": 85.643,
+   "end": 85.943,
+   "section": 7
+  },
+  {
+   "word": "takes",
+   "start": 85.943,
+   "end": 86.243,
+   "section": 7
+  },
+  {
+   "word": "anonymous",
+   "start": 86.243,
+   "end": 86.583,
+   "section": 7
+  },
+  {
+   "word": "comments.",
+   "start": 86.583,
+   "end": 87.243,
+   "section": 7
+  },
+  {
+   "word": "At",
+   "start": 87.723,
+   "end": 87.863,
+   "section": 7
+  },
+  {
+   "word": "two",
+   "start": 87.863,
+   "end": 88.103,
+   "section": 7
+  },
+  {
+   "word": "forty-three,",
+   "start": 88.103,
+   "end": 88.783,
+   "section": 7
+  },
+  {
+   "word": "a",
+   "start": 89.043,
+   "end": 89.123,
+   "section": 7
+  },
+  {
+   "word": "third",
+   "start": 89.123,
+   "end": 89.243,
+   "section": 7
+  },
+  {
+   "word": "says",
+   "start": 89.243,
+   "end": 89.523,
+   "section": 7
+  },
+  {
+   "word": "they",
+   "start": 89.523,
+   "end": 89.703,
+   "section": 7
+  },
+  {
+   "word": "left",
+   "start": 89.703,
+   "end": 89.883,
+   "section": 7
+  },
+  {
+   "word": "one.",
+   "start": 89.883,
+   "end": 90.183,
+   "section": 7
+  },
+  {
+   "word": "The",
+   "start": 90.688,
+   "end": 91.108,
+   "section": 8
+  },
+  {
+   "word": "thread",
+   "start": 91.108,
+   "end": 91.308,
+   "section": 8
+  },
+  {
+   "word": "never",
+   "start": 91.308,
+   "end": 91.608,
+   "section": 8
+  },
+  {
+   "word": "defines",
+   "start": 91.608,
+   "end": 91.928,
+   "section": 8
+  },
+  {
+   "word": "a",
+   "start": 91.928,
+   "end": 92.328,
+   "section": 8
+  },
+  {
+   "word": "success,",
+   "start": 92.328,
+   "end": 92.748,
+   "section": 8
+  },
+  {
+   "word": "never",
+   "start": 93.088,
+   "end": 93.228,
+   "section": 8
+  },
+  {
+   "word": "names",
+   "start": 93.228,
+   "end": 93.488,
+   "section": 8
+  },
+  {
+   "word": "a",
+   "start": 93.488,
+   "end": 93.768,
+   "section": 8
+  },
+  {
+   "word": "target,",
+   "start": 93.768,
+   "end": 93.908,
+   "section": 8
+  },
+  {
+   "word": "and",
+   "start": 94.308,
+   "end": 94.388,
+   "section": 8
+  },
+  {
+   "word": "shows",
+   "start": 94.388,
+   "end": 94.528,
+   "section": 8
+  },
+  {
+   "word": "no",
+   "start": 94.528,
+   "end": 94.808,
+   "section": 8
+  },
+  {
+   "word": "reply",
+   "start": 94.808,
+   "end": 95.068,
+   "section": 8
+  },
+  {
+   "word": "from",
+   "start": 95.068,
+   "end": 95.348,
+   "section": 8
+  },
+  {
+   "word": "him.",
+   "start": 95.348,
+   "end": 95.808,
+   "section": 8
+  },
+  {
+   "word": "None",
+   "start": 96.068,
+   "end": 96.188,
+   "section": 8
+  },
+  {
+   "word": "of",
+   "start": 96.188,
+   "end": 96.308,
+   "section": 8
+  },
+  {
+   "word": "it",
+   "start": 96.308,
+   "end": 96.428,
+   "section": 8
+  },
+  {
+   "word": "can",
+   "start": 96.428,
+   "end": 96.668,
+   "section": 8
+  },
+  {
+   "word": "be",
+   "start": 96.668,
+   "end": 96.808,
+   "section": 8
+  },
+  {
+   "word": "verified.",
+   "start": 96.808,
+   "end": 97.048,
+   "section": 8
+  }
+ ]
+}

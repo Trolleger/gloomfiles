@@ -3,7 +3,7 @@
 // Gloom is a guide in the room. Script: SCRIPT_v6_info_heavy.md. No names, handles or links anywhere.
 import React, { useMemo } from "react";
 import * as THREE from "three";
-import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { Rig, camPath, Key, SU, smooth, clamp01 } from "./core";
 import { Stage3D, ShotView } from "./Shot";
 import { box, plane, lam, glow, canvasTex } from "./mats";
@@ -13,11 +13,19 @@ import { fxPlate, fxBeam, fxBubble } from "./fxdraw";
 import { drawSilhouette } from "./props/figures";
 import * as P from "./props";
 import { CaptionTrack, Cap } from "../../Caption";
-import { mouthFromWords, evenWords, Word, blinkAt } from "../../lib/anim";
+import { mouthFromWords, Word, blinkAt } from "../../lib/anim";
+import takeDefault from "../../../build/ep01/ep01_words.json";
+import takeFast from "../../../build/ep01/ep01_words_fast.json";
 import { rnd } from "./props/util";
 
 export const FPS = 30;
-const WPS = 3.7, GAP = 0.3, LEAD = 2.6; // LEAD = opening disclaimer seconds
+// Voice take: real Piper (Joe) timings from build/ep01/*.json. ONE-LINE SWITCH: "default" (107.9 s) or "fast" (97.5 s).
+export const TAKE = "default" as "default" | "fast";
+const TK = TAKE === "fast" ? takeFast : takeDefault;
+export const VOICE_FILE = TAKE === "fast" ? "audio/ep01/ep01_voice_fast.wav" : "audio/ep01/ep01_voice.wav";
+const LEAD = 2.6, TAIL = 1.5; // LEAD = opening disclaimer seconds before the voice starts; TAIL after the last word
+type TW = { word: string; start: number; end: number; section: number };
+const TWORDS = TK.words as TW[];
 const RAW: string[] = [
   "/x/ is 4chan's paranormal board. It began in January 2005 as a photography board and switched to the unexplained in February 2007.",
   "Eight posts, two hours and forty-three minutes. The title borrows from Death Note, the 2003 manga where writing a name in a notebook kills.",
@@ -30,17 +38,24 @@ const RAW: string[] = [
   "The thread never defines a success, never names a target, and shows no reply from him. None of it can be verified.",
 ];
 export type Line = { text: string; t0: number; t1: number };
-export const LINES: Line[] = (() => { let t = LEAD; return RAW.map((text) => { const n = text.split(/\s+/).length, d = n / WPS, l = { text, t0: t, t1: t + d }; t += d + GAP; return l; }); })();
-export const TOTAL_S = LINES[LINES.length - 1].t1 + 3.2;
+export const LINES: Line[] = RAW.map((text, i) => ({ text, t0: LEAD + TK.sections[i].start, t1: LEAD + TK.sections[i].end }));
+export const TOTAL_S = LEAD + TK.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
-const WORDS: Word[][] = LINES.map((l) => evenWords(l.text, l.t0, l.t1));
+const WORDS: Word[][] = LINES.map((_l, i) => TWORDS.filter((w) => w.section === i).map((w) => ({ start: LEAD + w.start, end: LEAD + w.end })));
 const talkNow = (f: number) => LINES.reduce((m, _l, i) => Math.max(m, mouthFromWords(f, FPS, WORDS[i])), 0);
 const A = (i: number, off = 0) => Math.round((LINES[i].t0 + off) * FPS); // frame at line i start + off seconds
 const S = (i: number, off: number) => LINES[i].t0 + off; // seconds
+/** seconds at the n-th word of line i matching re (+ off); throws if the script word is missing */
+const WT = (i: number, re: RegExp, n = 0, off = 0) => {
+  const hits = TWORDS.filter((w) => w.section === i && re.test(w.word)), w = hits[Math.min(n, hits.length - 1)];
+  if (!w) throw new Error(`ep01: no word ${re} in line ${i}`);
+  return LEAD + w.start + off;
+};
+const WF = (i: number, re: RegExp, n = 0, off = 0) => Math.round(WT(i, re, n, off) * FPS); // frame at that word
 
 export const CAPS: Cap[] = [
-  { from: S(0, 0.4), to: S(0, 3.6), text: "JAN 2005" },
-  { from: S(0, 4.0), to: S(0, 7.4), text: "FEB 2007" },
+  { from: WT(0, /^January/, 0, -0.1), to: WT(0, /^February/, 0, -0.3), text: "JAN 2005" },
+  { from: WT(0, /^February/, 0, -0.1), to: LINES[0].t1 + 0.3, text: "FEB 2007" },
   { from: S(1, 0.2), to: S(1, 3.2), text: "EIGHT POSTS" },
   { from: S(1, 3.4), to: S(1, 6.4), text: "2 H 43 MIN" },
   { from: S(2, 0.4), to: S(2, 3.2), text: "POST 1: +0" },
@@ -48,15 +63,15 @@ export const CAPS: Cap[] = [
   { from: S(3, 0.3), to: S(3, 3.6), text: "+33 MIN" },
   { from: S(3, 3.8), to: S(3, 6.8), text: "NO METHOD" },
   { from: S(4, 0.3), to: S(4, 3.2), text: "+1 H" },
-  { from: S(4, 3.6), to: S(4, 7.0), text: "3 OF 8" },
+  { from: WT(4, /^three/, 0, -0.1), to: WT(4, /^October/, 0, 0.5), text: "3 OF 8" },
   { from: S(5, 0.3), to: S(5, 3.4), text: "+1 H 27" },
-  { from: S(5, 8.8), to: S(5, 12.0), text: "112 PAGES" },
-  { from: S(6, 0.3), to: S(6, 3.0), text: "1930" },
-  { from: S(6, 3.2), to: S(6, 5.6), text: "BREAKDOWN" },
-  { from: S(6, 9.0), to: S(6, 12.0), text: "1942" },
-  { from: S(7, 0.2), to: S(7, 3.0), text: "+2 H 15" },
-  { from: S(7, 5.6), to: S(7, 8.2), text: "+2 H 18" },
-  { from: S(7, 9.8), to: S(7, 12.6), text: "+2 H 43" },
+  { from: WT(5, /^112/, 0, -0.1), to: WT(5, /^112/, 0, 3.0), text: "112 PAGES" },
+  { from: WT(6, /^1930/, 0, -0.1), to: WT(6, /^attack/, 0, -0.2), text: "1930" },
+  { from: WT(6, /^breakdown/, 0, -0.1), to: WT(6, /^breakdown/, 0, 1.6), text: "BREAKDOWN" },
+  { from: WT(6, /^1942/, 0, -0.1), to: WT(6, /^1942/, 0, 3.0), text: "1942" },
+  { from: WT(7, /^At/, 0, -0.1), to: WT(7, /^Three/, 0, -0.3), text: "+2 H 15" },
+  { from: WT(7, /^Three/, 0, -0.1), to: WT(7, /^At/, 1, -0.3), text: "+2 H 18" },
+  { from: WT(7, /^At/, 1, -0.1), to: LINES[7].t1 + 0.4, text: "+2 H 43" },
   { from: S(8, 0.4), to: S(8, 3.4), text: "NO REPLY" },
 ];
 
@@ -134,7 +149,7 @@ class Room implements Stage3D {
     R.add(P.at(P.desk(2.6, 0.9), -8.6, 0, -2.0));
     const h1 = new THREE.Group(); const bk = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.86, 0.1), [lam("#2a2a3a"), lam("#2a2a3a"), lam("#2a2a3a"), lam("#2a2a3a"), new THREE.MeshBasicMaterial({ map: bookTex("1930", "#3a4a7a", "SELF-DEFENCE"), color: new THREE.Color(1.3, 1.3, 1.3) }), lam("#2a2a3a")] as any); bk.position.set(-8.6, 0.945 + 0.43 + 0.04, -2.0); bk.rotation.x = -0.2;
     const jr = P.at(P.openBook(pageTex("1942"), 0.34, 0.5), -7.8, 0.945, -1.9); jr.rotation.x = -0.35; jr.rotation.y = -0.1;
-    const cal1906 = P.notice("ATTACK", 4, 2, 0.5, 0.62); cal1906.scale.setScalar(2.0); const c1 = new THREE.Group(); c1.add(cal1906); c1.position.set(-9.4, 1.35, -2.0); c1.visible = false;
+    const attackNote = P.notice("ATTACK", 4, 2, 0.5, 0.62); attackNote.scale.setScalar(2.0); const c1 = new THREE.Group(); c1.add(attackNote); // no year shown (script gives none) c1.position.set(-9.4, 1.35, -2.0); c1.visible = false;
     h1.visible = false; bk.visible = false; jr.visible = false; this.histItems = [c1, bk, jr]; for (const o of [c1, bk, jr]) R.add(o);
     // monitor desk with three seated-looking silhouettes (posts 5, 7, 8)
     R.add(P.at(P.desk(4.0, 0.9), 7.8, 0, -2.2));
@@ -156,23 +171,24 @@ class Room implements Stage3D {
     const at0 = (i: number, off = 0) => A(i, off);
 
     // ---- which cards are pinned (appear when the narration reaches them)
-    const appear = [at0(2, 1.2), at0(3, 0.6), at0(4, 0.6), at0(5, 0.6), at0(7, 0.4), at0(7, 0.2), at0(7, 5.8), at0(7, 10.0)];
+    const appear = [at0(2, 1.2), at0(3, 0.6), at0(4, 0.6), at0(5, 0.6), WF(7, /^At/, 0, 0.2), WF(7, /^At/, 0, 0.1), WF(7, /^Three/, 0, 0.1), WF(7, /^At/, 1, 0.1)];
     this.cards.forEach((g, i) => { const u = pop(appear[i]); g.visible = u > 0.001; g.scale.setScalar(Math.max(0.01, u)); if (i > 0) this.threads[i - 1].visible = u > 0.5; });
     // card 6 (the unmentioned post) appears with post 5 but stays unlit; fine.
     // ---- opening and closing disclaimer
-    const dOpen = f < A(0, 0) - 6, dClose = f > at0(8, 3.8);
-    this.discl.visible = dOpen || dClose; this.discl.scale.setScalar(dOpen ? 1 : Math.max(0.01, pop(at0(8, 3.8), 8)));
+    const dOpen = f < A(0, 0) - 6, dClose = f > WF(8, /^None/, 0, -0.1);
+    this.discl.visible = dOpen || dClose; this.discl.scale.setScalar(dOpen ? 1 : Math.max(0.01, pop(WF(8, /^None/, 0, -0.1), 8)));
     // ---- context 1 items
-    this.calA.visible = f > at0(0, 0.2); this.calB.visible = f > at0(0, 3.9); this.thr1.visible = f > at0(0, 4.3);
-    this.items[0].visible = f > at0(0, 1.0); this.items[1].visible = f > at0(0, 4.6);
-    this.calA.scale.setScalar(1.1 * Math.max(0.01, pop(at0(0, 0.2)))); this.calB.scale.setScalar(1.1 * Math.max(0.01, pop(at0(0, 3.9))));
+    const fJan = WF(0, /^January/, 0, -0.1), fFeb = WF(0, /^February/, 0, -0.1);
+    this.calA.visible = f > fJan; this.calB.visible = f > fFeb; this.thr1.visible = f > fFeb + 12;
+    this.items[0].visible = f > fJan + 20; this.items[1].visible = f > fFeb + 20;
+    this.calA.scale.setScalar(1.1 * Math.max(0.01, pop(fJan))); this.calB.scale.setScalar(1.1 * Math.max(0.01, pop(fFeb)));
     // ---- 3 of 8 pegs
-    this.pegs.forEach((m, i) => { m.visible = f > at0(4, 3.4) && f < at0(5, 0); const on = i < 3 && f > at0(4, 3.8 + i * 0.5); (m.material as THREE.MeshBasicMaterial).color.set(on ? "#4dffb0" : "#3a4a8a").multiplyScalar(on ? 2.4 : 1); });
+    this.pegs.forEach((m, i) => { m.visible = f > WF(4, /^three/, 0, -0.4) && f < at0(5, 0); const on = i < 3 && f > WF(4, /^three/, 0, i * 0.35); (m.material as THREE.MeshBasicMaterial).color.set(on ? "#4dffb0" : "#3a4a8a").multiplyScalar(on ? 2.4 : 1); });
     // ---- book on plinth, history items
-    this.tableBook.visible = f > at0(5, 8.0); this.tableBook.scale.setScalar(Math.max(0.01, pop(at0(5, 8.0), 12)));
-    this.histItems[0].visible = f > at0(6, 3.0); this.histItems[1].visible = f > at0(6, 0.2); this.histItems[2].visible = f > at0(6, 8.8);
+    const fBook = WF(5, /^book/, 0, -0.1); this.tableBook.visible = f > fBook; this.tableBook.scale.setScalar(Math.max(0.01, pop(fBook, 12)));
+    this.histItems[0].visible = f > WF(6, /^attack/, 0, -0.1); this.histItems[1].visible = f > WF(6, /^1930/, 0, -0.2); this.histItems[2].visible = f > WF(6, /^1942/, 0, -0.2);
     // ---- monitors light in turn
-    const mt = [at0(7, 0.0), at0(7, 5.6), at0(7, 9.8)];
+    const mt = [WF(7, /^At/, 0, -0.1), WF(7, /^Three/, 0, -0.1), WF(7, /^At/, 1, -0.1)];
     this.screens.forEach((s, i) => { const on = f > mt[i]; (s.material as THREE.MeshBasicMaterial).color.set("#6aa8ff").multiplyScalar(on ? 1.9 : 0.12); });
     // ---- no-reply card
     this.noReply.scale.setScalar(Math.max(0.01, pop(at0(8, 0.2), 10)));
@@ -192,13 +208,13 @@ class Room implements Stage3D {
 
     // ---------- floating plates ----------
     if (f > at0(1, 0.2) && f < at0(5, 0)) fxp("p8", "8", 0, 6.45, -2.9, 0.9, "#ffe44d", pop(at0(1, 0.2)));
-    if (f > at0(2, 4.0) && f < at0(3, 0)) fxp("p7d", "7 DAYS", 0, 1.6, -2.9, 1.5, "#e8f6ff", pop(at0(2, 4.0)));
-    if (f > at0(3, 0.8) && f < at0(3, 7.0)) this.bubbles(cam, ["REAL LIFE", "NO RESULTS", "BORED", "THE FEDS"], at0(3, 0.8), f, 5.0);
-    if (f > at0(4, 7.4) && f < at0(5, 0)) fxp("pT", "1 IN 1000", 0, 1.6, -2.9, 1.6, "#ffe44d", pop(at0(4, 7.4)));
-    if (f > at0(5, 9.0) && f < at0(6, 0)) { fxp("p112", "112 PAGES", -5.2, 2.55, -1.6, 1.5, "#e8f6ff", pop(at0(5, 9.0))); fxp("p2020", "2020", -5.2, 2.0, -1.6, 0.9, "#ffe44d", pop(at0(5, 10.0))); }
-    if (f > at0(6, 0.4) && f < at0(7, 0)) fxp("y30", "1930", -8.6, 2.5, -1.6, 1.1, "#e8f6ff", pop(at0(6, 0.4)));
-    if (f > at0(6, 9.2) && f < at0(7, 0)) fxp("y42", "1942", -7.8, 2.2, -1.5, 1.1, "#e8f6ff", pop(at0(6, 9.2)));
-    if (f > at0(6, 12.0) && f < at0(7, 0)) fxp("fear", "FEAR ALONE?", -8.6, 3.4, -1.6, 1.8, "#ffe44d", pop(at0(6, 12.0)));
+    if (f > WF(2, /^silent/) && f < at0(3, 0)) fxp("p7d", "7 DAYS", 0, 1.6, -2.9, 1.5, "#e8f6ff", pop(WF(2, /^silent/)));
+    if (f > WF(3, /^real/, 0, -0.1) && f < at0(4, 0)) this.bubbles(cam, ["REAL LIFE", "NO RESULTS", "BORED", "THE FEDS"], WF(3, /^real/, 0, -0.1), f, 5.0);
+    if (f > WF(4, /^thousand/, 0, -0.1) && f < at0(5, 0)) fxp("pT", "1 IN 1000", 0, 1.6, -2.9, 1.6, "#ffe44d", pop(WF(4, /^thousand/, 0, -0.1)));
+    if (f > WF(5, /^2020/, 0, -0.1) && f < at0(6, 0)) { fxp("p2020", "2020", -5.2, 2.0, -1.6, 0.9, "#ffe44d", pop(WF(5, /^2020/, 0, -0.1))); if (f > WF(5, /^112/, 0, -0.1)) fxp("p112", "112 PAGES", -5.2, 2.55, -1.6, 1.5, "#e8f6ff", pop(WF(5, /^112/, 0, -0.1))); }
+    if (f > WF(6, /^1930/, 0, -0.1) && f < at0(7, 0)) fxp("y30", "1930", -8.6, 2.5, -1.6, 1.1, "#e8f6ff", pop(WF(6, /^1930/, 0, -0.1)));
+    if (f > WF(6, /^1942/, 0, -0.1) && f < at0(7, 0)) fxp("y42", "1942", -7.8, 2.2, -1.5, 1.1, "#e8f6ff", pop(WF(6, /^1942/, 0, -0.1)));
+    if (f > WF(6, /^fear/, 0, -0.1) && f < at0(7, 0)) fxp("fear", "FEAR ALONE?", -8.6, 3.4, -1.6, 1.8, "#ffe44d", pop(WF(6, /^fear/, 0, -0.1)));
     ["+2 H 15", "+2 H 18", "+2 H 43"].forEach((s, i) => { if (f > mt[i] && f < at0(8, 0)) fxp("ts" + i, s, sx[i], 2.9, -2.3, 1.0, "#ffe44d", pop(mt[i])); });
 
     this.rig.finish();
@@ -259,6 +275,7 @@ export const Ep01: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       <ShotView make={make} frame={f} />
+      <Sequence from={Math.round(LEAD * FPS)}><Audio src={staticFile(VOICE_FILE)} /></Sequence>
       <CaptionTrack caps={CAPS} y={1240} />
     </AbsoluteFill>
   );

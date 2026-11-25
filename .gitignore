@@ -4,3 +4,4 @@ build-bundle/
 *.mp4
 *.mov
 .DS_Store
+public/audio/
