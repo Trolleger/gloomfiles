@@ -65,7 +65,6 @@ export const CAPS: Cap[] = [
   { from: S(4, 0.3), to: S(4, 3.2), text: "+1 H" },
   { from: WT(4, /^three/, 0, -0.1), to: WT(4, /^October/, 0, 0.5), text: "3 OF 8" },
   { from: S(5, 0.3), to: S(5, 3.4), text: "+1 H 27" },
-  { from: WT(5, /^112/, 0, -0.1), to: WT(5, /^112/, 0, 3.0), text: "112 PAGES" },
   { from: WT(6, /^1930/, 0, -0.1), to: WT(6, /^attack/, 0, -0.2), text: "1930" },
   { from: WT(6, /^breakdown/, 0, -0.1), to: WT(6, /^breakdown/, 0, 1.6), text: "BREAKDOWN" },
   { from: WT(6, /^1942/, 0, -0.1), to: WT(6, /^1942/, 0, 3.0), text: "1942" },
@@ -99,7 +98,7 @@ const pageTex = (txt: string) => canvasTex(256, 340, (g, W, H) => { g.fillStyle 
 // ---------------- room ----------------
 const COLX = [-0.95, 0.95], rowY = (r: number) => 4.9 - r * 1.3;
 const cardPos = (i: number): [number, number] => [COLX[i % 2], rowY(Math.floor(i / 2))];
-const STAMPS = ["+0", "+33 MIN", "+1 H", "+1 H 27", "+2 H 15", "POST 6", "+2 H 18", "+2 H 43"];
+const STAMPS = ["+0", "+33 MIN", "+1 H", "+1 H 27", "+2 H 15", "+2 H 15", "+2 H 18", "+2 H 43"];
 const TAGS = ["THE ORIGINAL POST", "FIRST REPLY", "SECOND REPLY", "THIRD REPLY", "AN ANON", "", "ANOTHER ANON", "A THIRD ANON"];
 
 class Room implements Stage3D {
@@ -211,7 +210,7 @@ class Room implements Stage3D {
     if (f > WF(2, /^silent/) && f < at0(3, 0)) fxp("p7d", "7 DAYS", 0, 1.6, -2.9, 1.5, "#e8f6ff", pop(WF(2, /^silent/)));
     if (f > WF(3, /^real/, 0, -0.1) && f < at0(4, 0)) this.bubbles(cam, ["REAL LIFE", "NO RESULTS", "BORED", "THE FEDS"], WF(3, /^real/, 0, -0.1), f, 5.0);
     if (f > WF(4, /^thousand/, 0, -0.1) && f < at0(5, 0)) fxp("pT", "1 IN 1000", 0, 1.6, -2.9, 1.6, "#ffe44d", pop(WF(4, /^thousand/, 0, -0.1)));
-    if (f > WF(5, /^2020/, 0, -0.1) && f < at0(6, 0)) { fxp("p2020", "2020", -5.2, 2.0, -1.6, 0.9, "#ffe44d", pop(WF(5, /^2020/, 0, -0.1))); if (f > WF(5, /^112/, 0, -0.1)) fxp("p112", "112 PAGES", -5.2, 2.55, -1.6, 1.5, "#e8f6ff", pop(WF(5, /^112/, 0, -0.1))); }
+    if (f > WF(5, /^2020/, 0, -0.1) && f < at0(6, 0)) { fxp("p2020", "2020", -5.2, 2.0, -1.6, 0.6, "#ffe44d", pop(WF(5, /^2020/, 0, -0.1))); if (f > WF(5, /^112/, 0, -0.1)) fxp("p112", "112 PAGES", -5.2, 2.5, -1.6, 0.95, "#e8f6ff", pop(WF(5, /^112/, 0, -0.1))); }
     if (f > WF(6, /^1930/, 0, -0.1) && f < at0(7, 0)) fxp("y30", "1930", -8.6, 2.5, -1.6, 1.1, "#e8f6ff", pop(WF(6, /^1930/, 0, -0.1)));
     if (f > WF(6, /^1942/, 0, -0.1) && f < at0(7, 0)) fxp("y42", "1942", -7.8, 2.2, -1.5, 1.1, "#e8f6ff", pop(WF(6, /^1942/, 0, -0.1)));
     if (f > WF(6, /^fear/, 0, -0.1) && f < at0(7, 0)) fxp("fear", "FEAR ALONE?", -8.6, 3.4, -1.6, 1.8, "#ffe44d", pop(WF(6, /^fear/, 0, -0.1)));
@@ -231,13 +230,13 @@ class Room implements Stage3D {
     const k = Math.max(0, i);
     switch (k) {
       case 0: return f / FPS < LINES[0].t0 ? { gx: 0.0, gz: -1.2, gs: 0.7, cInf: 4 } : { gx: 2.5, gz: -2.2, point: 70, beam: 1.4, cInf: 5 };
-      case 1: return { gx: -1.7, gz: -1.9, point: 60, beam: 1.4, cInf: 5 };
-      case 2: return { gx: -1.6, gz: -2.2, point: 78, beam: 1.4, cInf: 5 };
-      case 3: return { gx: -1.7, gz: -2.2, point: 68, beam: 1.4, cInf: 5 };
-      case 4: return { gx: 1.7, gz: -2.2, point: 66, beam: 1.4, cInf: 5 };
-      case 5: return { gx: -4.0, gz: -1.3, point: 40, beam: 1.2, cInf: 5 };
-      case 6: return { gx: -7.0, gz: -1.2, point: 55, beam: 1.2, cInf: 5 };
-      case 7: return { gx: 6.2, gz: -1.2, point: 50, beam: 1.2, cInf: 5 };
+      case 1: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 60, beam: 1.4, cInf: 5 };
+      case 2: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 78, beam: 1.4, cInf: 5 };
+      case 3: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 68, beam: 1.4, cInf: 5 };
+      case 4: return { gx: 1.25, gz: -1.9, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
+      case 5: return { gx: -4.3, gz: -1.0, gs: 1.05, point: 40, beam: 1.2, cInf: 5 };
+      case 6: return { gx: -7.2, gz: -1.0, gs: 1.05, point: 55, beam: 1.2, cInf: 5 };
+      case 7: return { gx: 6.2, gz: -1.0, gs: 1.05, point: 50, beam: 1.2, cInf: 5 };
       default: return { gx: 1.7, gz: -2.0, gs: 0.9, cInf: 5 };
     }
   }
@@ -247,23 +246,23 @@ export const buildRoom = () => {
   const r = new Room();
   const K = (i: number, off: number, pos: [number, number, number], look: [number, number, number], fov = 44, o: Partial<Key> = {}): Key => ({ f: A(i, off), pos, look, fov, ...o });
   r.keys = [
-    { f: 0, pos: [0.0, 3.0, 5.6], look: [0, 3.0, -3.0], fov: 44 },
-    K(0, -0.2, [0.0, 3.0, 5.6], [0, 3.0, -3.0], 44, { dur: 12 }),
-    K(0, 0.6, [3.7, 3.0, 2.4], [3.8, 2.9, -3.3], 40, { dur: 40 }),
-    K(0, 4.8, [3.9, 2.8, 2.0], [3.9, 2.9, -3.3], 40, { dur: 40 }),
-    K(1, 0.0, [0.0, 3.0, 5.6], [0, 3.2, -3.3], 48, { dur: 40 }),
-    K(1, 3.6, [-0.2, 1.4, 1.6], [-0.6, 0.95, -3.0], 36, { dur: 36 }),
-    K(2, 0.0, [0.4, 4.2, 3.0], [-0.7, 4.9, -3.3], 42, { dur: 40 }),
-    K(2, 4.0, [0.0, 3.0, 5.4], [0, 3.6, -3.3], 48, { dur: 40 }),
-    K(3, 0.0, [0.2, 4.2, 3.2], [0.1, 4.2, -3.3], 42, { dur: 30 }),
-    K(4, 0.0, [0.3, 3.4, 3.2], [0.6, 3.5, -3.3], 40, { dur: 30 }),
-    K(4, 3.2, [0.1, 5.4, 3.2], [0.0, 5.9, -3.3], 42, { dur: 26 }),
-    K(5, 0.0, [0.3, 2.6, 3.6], [0.3, 2.6, -3.3], 44, { dur: 30 }),
-    K(5, 6.8, [-4.9, 1.9, 1.0], [-5.2, 1.6, -2.0], 38, { dur: 50 }),
-    K(6, 0.0, [-8.5, 1.9, 1.4], [-8.6, 1.4, -2.0], 40, { dur: 60 }),
-    K(7, -0.5, [7.7, 2.1, 1.4], [7.8, 1.9, -2.5], 40, { dur: 70 }),
-    K(8, 0.0, [0.4, 3.6, 5.8], [0, 3.8, -3.3], 48, { dur: 60 }),
-    K(8, 3.6, [0.0, 3.0, 4.2], [0, 3.0, -3.0], 38, { dur: 30 }),
+    { f: 0, pos: [0.4, 3.3, 11.0], look: [0, 2.9, -3.0], fov: 46 },
+    K(0, -0.2, [0.4, 3.3, 11.0], [0, 2.9, -3.0], 46, { dur: 12 }),
+    K(0, 0.6, [3.6, 2.9, 4.6], [3.8, 2.8, -3.3], 44, { dur: 40 }),
+    K(0, 4.8, [3.9, 2.9, 4.2], [3.9, 2.9, -3.3], 44, { dur: 40 }),
+    K(1, 0.0, [0.0, 3.0, 6.4], [0, 3.1, -3.3], 48, { dur: 40 }),
+    K(1, 3.6, [-0.2, 1.6, 2.4], [-0.6, 1.1, -3.0], 38, { dur: 36 }),
+    K(2, 0.0, [-0.3, 3.4, 6.0], [-0.5, 3.6, -3.3], 46, { dur: 40 }),
+    K(2, 4.0, [0.0, 3.2, 5.6], [-0.2, 3.4, -3.3], 46, { dur: 40 }),
+    K(3, 0.0, [0.0, 3.4, 6.0], [-0.4, 3.6, -3.3], 46, { dur: 30 }),
+    K(4, 0.0, [0.4, 3.0, 6.0], [0.3, 3.2, -3.3], 46, { dur: 30 }),
+    K(4, 3.2, [0.3, 3.2, 5.6], [0.3, 3.4, -3.3], 46, { dur: 26 }),
+    K(5, 0.0, [0.3, 3.0, 6.2], [0.2, 3.2, -3.3], 46, { dur: 30 }),
+    K(5, 6.8, [-4.6, 2.4, 4.4], [-4.9, 1.9, -2.2], 44, { dur: 50 }),
+    K(6, 0.0, [-8.2, 2.5, 4.2], [-8.3, 1.8, -2.2], 44, { dur: 60 }),
+    K(7, -0.5, [7.3, 2.5, 4.4], [7.6, 1.9, -2.4], 44, { dur: 70 }),
+    K(8, 0.0, [0.4, 3.4, 8.5], [0, 3.4, -3.3], 48, { dur: 60 }),
+    K(8, 3.6, [0.0, 3.1, 6.0], [0, 3.0, -3.0], 42, { dur: 30 }),
   ];
   return r;
 };
