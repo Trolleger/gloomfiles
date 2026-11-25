@@ -5,3 +5,4 @@ build-bundle/
 *.mov
 .DS_Store
 public/audio/
+audio/music/
