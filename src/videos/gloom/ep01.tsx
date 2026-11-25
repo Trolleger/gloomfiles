@@ -71,7 +71,6 @@ export const CAPS: Cap[] = [
   { from: WT(7, /^At/, 0, -0.1), to: WT(7, /^Three/, 0, -0.3), text: "+2 H 15" },
   { from: WT(7, /^Three/, 0, -0.1), to: WT(7, /^At/, 1, -0.3), text: "+2 H 18" },
   { from: WT(7, /^At/, 1, -0.1), to: LINES[7].t1 + 0.4, text: "+2 H 43" },
-  { from: S(8, 0.4), to: S(8, 3.4), text: "NO REPLY" },
 ];
 
 // ---------------- textures ----------------
@@ -154,6 +153,15 @@ class Room implements Stage3D {
     R.add(P.at(P.desk(4.0, 0.9), 7.8, 0, -2.2));
     for (let i = 0; i < 3; i++) { const m = P.monitor("#6aa8ff"); P.at(m, 6.8 + i * 1.0, 0.945, -2.15); R.add(m); this.screens.push(m.h.screen as THREE.Mesh); }
     R.add(P.stars(300, 5, 25, 0.2));
+    // ---- pass 2: warm light pools, filler on cork and wall
+    const warm = (x: number, y: number, z: number, size: number, col = "#ffb86b") => { const g = P.glowSprite(col, size); g.position.set(x, y, z); R.add(g); };
+    warm(0, 3.0, -3.15, 9.0, "#d98a4a"); warm(3.9, 2.6, -3.15, 5.5, "#c9803f"); warm(-5.2, 2.4, -2.6, 6.0, "#d98a4a"); warm(-8.6, 2.0, -2.6, 5.0, "#c9803f"); warm(7.8, 1.6, -2.4, 5.0, "#6aa8ff");
+    for (const [lx, lz] of [[-6.0, -2.0], [-1.9, -2.9], [8.9, -2.2]] as [number, number][]) { const L = P.lampDesk("#ffd9a0"); P.at(L, lx, lx === -1.9 ? 0.95 : 0.945, lz); R.add(L); warm(lx, 1.55, lz + 0.1, 2.4, "#ffc27a"); }
+    const sticky = (x: number, y: number, z: number, c: string, rz: number) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.34), new THREE.MeshBasicMaterial({ color: c })); m.position.set(x, y, z); m.rotation.z = rz; R.add(m); const pn = P.pin("#d62b45"); P.at(pn, x, y + 0.12, z + 0.03); R.add(pn); };
+    [[-1.65, 5.95, "#ffe27a", 0.1], [-1.55, 3.0, "#ff9ab0", -0.12], [1.7, 4.2, "#9ae0ff", 0.08], [1.65, 2.2, "#ffe27a", -0.1], [-1.6, 1.7, "#9ae0ff", 0.14], [1.6, 6.2, "#ff9ab0", -0.06], [0, 1.45, "#ffe27a", 0.05]].forEach(([x, y, c, r]: any) => sticky(x, y, -3.3, c, r));
+    [[3.2, 4.0, "#ff9ab0", 0.1], [4.6, 4.0, "#ffe27a", -0.1], [3.2, 1.2, "#9ae0ff", -0.08], [4.7, 1.2, "#ff9ab0", 0.12]].forEach(([x, y, c, r]: any) => sticky(x, y, -3.3, c, r));
+    R.add(P.at(P.clockWall("23:47"), -2.9, 5.9, -3.3)); R.add(P.at(P.clockWall("00:00"), 7.8, 3.8, -3.3));
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(40, 12), new THREE.MeshBasicMaterial({ color: "#241f44" })); wall.position.set(0, 5.5, -3.6); R.add(wall);
   }
   update(f: number, cam: THREE.PerspectiveCamera, scene: THREE.Scene) {
     const t = f / FPS;
@@ -165,7 +173,7 @@ class Room implements Stage3D {
       const [w, h, k] = this.rig.tier(d);
       this.rig.card(cam, { key: key + JSON.stringify(o) + lt, draw: (p) => draw(p, { ...o, light: lt }), w, h, k, x, y, z, scale });
     };
-    const fxp = (key: string, text: string, x: number, y: number, z: number, w: number, fill = "#ffe44d", pop = 1) => this.rig.fxCard(cam, { key, cw: 440, ch: 220, draw: (p) => fxPlate(p, 440, 220, text, fill, "#241726", text.length > 7 ? 120 : 170), x, y, z, w: w * pop, h: w * 0.5 * pop });
+    const fxp = (key: string, text: string, x: number, y: number, z: number, w: number, fill = "#ffe44d", pop = 1) => this.rig.fxCard(cam, { key, cw: 440, ch: 220, draw: (p) => fxPlate(p, 440, 220, text, fill, "#241726", text.length > 8 ? 92 : text.length > 7 ? 120 : 170), x, y, z, w: w * pop, h: w * 0.5 * pop });
     const pop = (a: number, dur = 10) => smooth(clamp01((f - a) / dur));
     const at0 = (i: number, off = 0) => A(i, off);
 
@@ -216,6 +224,7 @@ class Room implements Stage3D {
     if (f > WF(6, /^fear/, 0, -0.1) && f < at0(7, 0)) fxp("fear", "FEAR ALONE?", -8.6, 3.4, -1.6, 1.8, "#ffe44d", pop(WF(6, /^fear/, 0, -0.1)));
     ["+2 H 15", "+2 H 18", "+2 H 43"].forEach((s, i) => { if (f > mt[i] && f < at0(8, 0)) fxp("ts" + i, s, sx[i], 2.9, -2.3, 1.0, "#ffe44d", pop(mt[i])); });
 
+    if (f > at0(8, 0.4) && f < at0(8, 3.6)) fxp("pNR", "NO REPLY", 0, 7.0, -2.9, 1.7, "#ffe44d", pop(at0(8, 0.4)));
     this.rig.finish();
     void t;
     return { focus: new THREE.Vector3(...c.look), cInf: st.cInf ?? 5, light: "night" as const };
@@ -234,7 +243,8 @@ class Room implements Stage3D {
       case 2: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 78, beam: 1.4, cInf: 5 };
       case 3: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 68, beam: 1.4, cInf: 5 };
       case 4: return { gx: 1.25, gz: -1.9, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
-      case 5: return { gx: -4.3, gz: -1.0, gs: 1.05, point: 40, beam: 1.2, cInf: 5 };
+      case 5: if (f / FPS < LINES[5].t0 + 6.8) return { gx: 1.25, gz: -1.9, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
+        return { gx: -4.3, gz: -1.0, gs: 1.05, point: 40, beam: 1.2, cInf: 5 };
       case 6: return { gx: -7.2, gz: -1.0, gs: 1.05, point: 55, beam: 1.2, cInf: 5 };
       case 7: return { gx: 6.2, gz: -1.0, gs: 1.05, point: 50, beam: 1.2, cInf: 5 };
       default: return { gx: 1.7, gz: -2.0, gs: 0.9, cInf: 5 };
