@@ -1,0 +1,158 @@
+{
+ "source": "build/ep01/ep01_words_fast.json",
+ "fps": 30,
+ "lead": 2.6,
+ "lead_frames": 2,
+ "cues": [
+  {
+   "t": 6.313,
+   "type": "tick",
+   "visual": "JAN 2005 calendar",
+   "visual_t": 6.38
+  },
+  {
+   "t": 10.153,
+   "type": "tick",
+   "visual": "FEB 2007 calendar",
+   "visual_t": 10.22
+  },
+  {
+   "t": 21.81,
+   "type": "slap",
+   "visual": "post card 1 lands",
+   "visual_t": 21.876
+  },
+  {
+   "t": 21.91,
+   "type": "pin",
+   "visual": "post card 1 pinned",
+   "visual_t": 21.976
+  },
+  {
+   "t": 30.094,
+   "type": "slap",
+   "visual": "post card 2 lands",
+   "visual_t": 30.16
+  },
+  {
+   "t": 30.194,
+   "type": "pin",
+   "visual": "post card 2 pinned",
+   "visual_t": 30.26
+  },
+  {
+   "t": 37.294,
+   "type": "slap",
+   "visual": "post card 3 lands",
+   "visual_t": 37.36
+  },
+  {
+   "t": 37.394,
+   "type": "pin",
+   "visual": "post card 3 pinned",
+   "visual_t": 37.46
+  },
+  {
+   "t": 38.14,
+   "type": "tick",
+   "visual": "3 OF 8 peg 1 lights",
+   "visual_t": 38.207
+  },
+  {
+   "t": 38.49,
+   "type": "tick",
+   "visual": "3 OF 8 peg 2 lights",
+   "visual_t": 38.557
+  },
+  {
+   "t": 38.84,
+   "type": "tick",
+   "visual": "3 OF 8 peg 3 lights",
+   "visual_t": 38.907
+  },
+  {
+   "t": 46.699,
+   "type": "slap",
+   "visual": "post card 4 lands",
+   "visual_t": 46.765
+  },
+  {
+   "t": 46.799,
+   "type": "pin",
+   "visual": "post card 4 pinned",
+   "visual_t": 46.865
+  },
+  {
+   "t": 55.465,
+   "type": "page",
+   "visual": "112 PAGES plate",
+   "visual_t": 55.532
+  },
+  {
+   "t": 68.073,
+   "type": "slap",
+   "visual": "1930 book",
+   "visual_t": 68.14
+  },
+  {
+   "t": 69.613,
+   "type": "slap",
+   "visual": "attack note",
+   "visual_t": 69.68
+  },
+  {
+   "t": 71.973,
+   "type": "slap",
+   "visual": "1942 journal",
+   "visual_t": 72.04
+  },
+  {
+   "t": 82.136,
+   "type": "pin",
+   "visual": "+2 H 15 (monitor 1)",
+   "visual_t": 82.203
+  },
+  {
+   "t": 82.77,
+   "type": "slap",
+   "visual": "post card 5 lands",
+   "visual_t": 82.836
+  },
+  {
+   "t": 86.116,
+   "type": "pin",
+   "visual": "+2 H 18 (monitor 2)",
+   "visual_t": 86.183
+  },
+  {
+   "t": 86.65,
+   "type": "slap",
+   "visual": "post card 7 lands",
+   "visual_t": 86.716
+  },
+  {
+   "t": 90.156,
+   "type": "pin",
+   "visual": "+2 H 43 (monitor 3)",
+   "visual_t": 90.223
+  },
+  {
+   "t": 90.69,
+   "type": "slap",
+   "visual": "post card 8 lands",
+   "visual_t": 90.756
+  },
+  {
+   "t": 92.236,
+   "type": "keys",
+   "visual": "'left one'",
+   "visual_t": 92.303
+  },
+  {
+   "t": 98.501,
+   "type": "powerdown",
+   "visual": "closing notice",
+   "visual_t": 98.568
+  }
+ ]
+}

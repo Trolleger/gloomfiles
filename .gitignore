@@ -6,3 +6,4 @@ build-bundle/
 .DS_Store
 public/audio/
 audio/music/
+audio/out_ep01/
