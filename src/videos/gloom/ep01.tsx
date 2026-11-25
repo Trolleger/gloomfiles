@@ -205,17 +205,16 @@ class Room implements Stage3D {
     sx.forEach((x, i) => put("sil" + i, x, -2.85, drawSilhouette, { col: "#171430", seed: i + 1, arm: i === 1 ? [0, -80] : [0, 0] }, 0.9));
     // chair-less "empty seat" in front of post 1: a single dark silhouette absent -> show an empty chair
     const chair = null; void chair;
-    const gl = (x: number, z: number, o: any, scale = 0.9) => put("gloom", x, z, drawGloom, { talk: Math.round(talkNow(f) * 8) / 8, blink: blinkAt(f, 3) > 0.3 ? 1 : 0, ...o }, scale);
+    const gl = (x: number, z: number, o: any, scale = 0.9, y = 0) => put("gloom", x, z, drawGloom, { talk: Math.round(talkNow(f) * 8) / 8, blink: blinkAt(f, 3) > 0.3 ? 1 : 0, ...o }, scale, y);
     const st = this.station(f);
     const pt = 58 + 6 * Math.sin(f / 22);
-    gl(st.gx, st.gz, { expr: "neutral", point: st.point ?? pt, bend: 12, flash: !!st.beam }, st.gs ?? 0.9);
+    gl(st.gx, st.gz, { expr: "neutral", point: st.point ?? pt, bend: 12, flash: !!st.beam }, st.gs ?? 0.9, st.gy ?? 0);
     if (st.beam) { const fh = flashHand(GLOOM, 3, st.point ?? pt, 12), Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), s = SU * (st.gs ?? 0.9);
-      const hx = st.gx + Rv.x * (fh.x - 300) * s, hz = st.gz + Rv.z * (fh.x - 300) * s, hy = (975 - fh.y) * s, ang = Math.atan2(-fh.dy, fh.dx), L = st.beam;
+      const hx = st.gx + Rv.x * (fh.x - 300) * s, hz = st.gz + Rv.z * (fh.x - 300) * s, hy = (975 - fh.y) * s + (st.gy ?? 0), ang = Math.atan2(-fh.dy, fh.dx), L = st.beam;
       this.rig.fxCard(cam, { key: "beam", cw: 512, ch: 256, draw: (p) => fxBeam(p, 512, 256), x: hx + Rv.x * Math.cos(ang) * L / 2, y: hy + Math.sin(ang) * L / 2, z: hz + Rv.z * Math.cos(ang) * L / 2, w: L, h: L * 0.42, soft: true, rot: ang }); }
 
     // ---------- floating plates ----------
     if (f > at0(1, 0.2) && f < at0(5, 0)) fxp("p8", "8", 0, 6.45, -2.9, 0.9, "#ffe44d", pop(at0(1, 0.2)));
-    if (f > WF(2, /^silent/) && f < at0(3, 0)) fxp("p7d", "7 DAYS", 0, 1.6, -2.9, 1.5, "#e8f6ff", pop(WF(2, /^silent/)));
     if (f > WF(3, /^real/, 0, -0.1) && f < at0(4, 0)) this.bubbles(cam, ["REAL LIFE", "NO RESULTS", "BORED", "THE FEDS"], WF(3, /^real/, 0, -0.1), f, 5.0);
     if (f > WF(4, /^thousand/, 0, -0.1) && f < at0(5, 0)) fxp("pT", "1 IN 1000", 0, 1.6, -2.9, 1.6, "#ffe44d", pop(WF(4, /^thousand/, 0, -0.1)));
     if (f > WF(5, /^2020/, 0, -0.1) && f < at0(6, 0)) { fxp("p2020", "2020", -5.2, 2.0, -1.6, 0.6, "#ffe44d", pop(WF(5, /^2020/, 0, -0.1))); if (f > WF(5, /^112/, 0, -0.1)) fxp("p112", "112 PAGES", -5.2, 2.5, -1.6, 0.95, "#e8f6ff", pop(WF(5, /^112/, 0, -0.1))); }
@@ -231,19 +230,19 @@ class Room implements Stage3D {
   }
   bubbles(cam: THREE.PerspectiveCamera, txt: string[], a: number, f: number, y0: number) {
     const Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0);
-    txt.forEach((s, i) => { const u = smooth(clamp01((f - a - i * 24) / 10)); if (u < 0.01) return; const dx = (i % 2 ? 1 : -1) * 0.95; this.rig.fxCard(cam, { key: "bb" + s, cw: 760, ch: 400, draw: (p) => fxBubble(p, 760, 400, s, "#f4f1ff", "#241726", s.length > 8 ? 90 : 112), x: -0.0 + Rv.x * dx, y: y0 - i * 0.62, z: -2.6 + Rv.z * dx, w: 1.15 * u, h: 0.6 * u }); });
+    txt.forEach((s, i) => { const u = smooth(clamp01((f - a - i * 24) / 10)); if (u < 0.01) return; const dx = (i % 2 ? 1 : -1) * 0.62; this.rig.fxCard(cam, { key: "bb" + s, cw: 760, ch: 400, draw: (p) => fxBubble(p, 760, 400, s, "#f4f1ff", "#241726", s.length > 8 ? 90 : 112), x: -0.0 + Rv.x * dx, y: y0 - i * 0.62, z: -2.6 + Rv.z * dx, w: 1.0 * u, h: 0.52 * u }); });
   }
-  station(f: number): { gx: number; gz: number; gs?: number; point?: number; beam?: number; cInf?: number } {
+  station(f: number): { gx: number; gz: number; gy?: number; gs?: number; point?: number; beam?: number; cInf?: number } {
     // Gloom placement per narration beat (world x,z). He stands beside the thing being described.
     const i = LINES.findIndex((l, k) => f / FPS < (LINES[k + 1]?.t0 ?? 1e9));
     const k = Math.max(0, i);
     switch (k) {
       case 0: return f / FPS < LINES[0].t0 ? { gx: 0.0, gz: -1.2, gs: 0.7, cInf: 4 } : { gx: 2.5, gz: -2.2, point: 70, beam: 1.4, cInf: 5 };
-      case 1: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 60, beam: 1.4, cInf: 5 };
-      case 2: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 78, beam: 1.4, cInf: 5 };
-      case 3: return { gx: -1.15, gz: -1.9, gs: 1.05, point: 68, beam: 1.4, cInf: 5 };
-      case 4: return { gx: 1.25, gz: -1.9, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
-      case 5: if (f / FPS < LINES[5].t0 + 6.8) return { gx: 1.25, gz: -1.9, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
+      case 1: return { gx: -1.15, gz: -1.9, gy: 0.5, gs: 1.05, point: 60, beam: 1.4, cInf: 5 };
+      case 2: return { gx: -1.15, gz: -1.9, gy: 0.5, gs: 1.05, point: 78, beam: 1.4, cInf: 5 };
+      case 3: return { gx: -1.15, gz: -1.9, gy: 0.5, gs: 1.05, point: 68, beam: 1.4, cInf: 5 };
+      case 4: return { gx: 1.25, gz: -1.9, gy: 0.5, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
+      case 5: if (f / FPS < LINES[5].t0 + 6.8) return { gx: 1.25, gz: -1.9, gy: 0.5, gs: 1.05, point: 66, beam: 1.4, cInf: 5 };
         return { gx: -4.3, gz: -1.0, gs: 1.05, point: 40, beam: 1.2, cInf: 5 };
       case 6: return { gx: -7.2, gz: -1.0, gs: 1.05, point: 55, beam: 1.2, cInf: 5 };
       case 7: return { gx: 6.2, gz: -1.0, gs: 1.05, point: 50, beam: 1.2, cInf: 5 };
@@ -265,6 +264,7 @@ export const buildRoom = () => {
     K(2, 0.0, [-0.3, 3.4, 6.0], [-0.5, 3.6, -3.3], 46, { dur: 40 }),
     K(2, 4.0, [0.0, 3.2, 5.6], [-0.2, 3.4, -3.3], 46, { dur: 40 }),
     K(3, 0.0, [0.0, 3.4, 6.0], [-0.4, 3.6, -3.3], 46, { dur: 30 }),
+    K(3, 4.0, [0.0, 3.3, 5.0], [-0.3, 3.5, -3.3], 44, { dur: 40 }),
     K(4, 0.0, [0.4, 3.0, 6.0], [0.3, 3.2, -3.3], 46, { dur: 30 }),
     K(4, 3.2, [0.3, 3.2, 5.6], [0.3, 3.4, -3.3], 46, { dur: 26 }),
     K(5, 0.0, [0.3, 3.0, 6.2], [0.2, 3.2, -3.3], 46, { dur: 30 }),
