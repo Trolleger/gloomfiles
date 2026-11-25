@@ -28,14 +28,14 @@ def main():
     for i, a in enumerate(starts):
         b = ends[i] if i < len(ends) else "end"
         problems.append(f"frozen picture {a}-{b} s (check it is intentional)")
-    # white frames: average luma above 245 for a frame
+    # white frames: average luma above 228 (limited-range white is 235) for a frame
     r = run(["ffmpeg", "-hide_banner", "-nostats", "-i", path, "-vf", "signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-", "-an", "-f", "null", "-"])
     ts = None; whites = []
     for line in r.stdout.splitlines():
         m = re.search(r"pts_time:([\d.]+)", line)
         if m: ts = float(m.group(1))
         m = re.search(r"YAVG=([\d.]+)", line)
-        if m and float(m.group(1)) > 245 and ts is not None: whites.append(ts)
+        if m and float(m.group(1)) > 228 and ts is not None: whites.append(ts)
     if whites: problems.append(f"{len(whites)} near-white frames, first at {whites[0]:.2f} s")
     # loudness
     if "audio" in kinds:
