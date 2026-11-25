@@ -7,6 +7,7 @@ Copy and paste per platform. Titles are plain and accurate (no fake urgency). Ev
 - Add the sources line in the YouTube description. On TikTok and Reels, put it in the caption if it fits, or pin it in a comment.
 - Check each app's "AI-generated / synthetic content" label option at upload and use it if it applies (synthetic voice, animated). I have not verified each platform's current rules, so Andrew should confirm once and then follow that for every post.
 - Post from the app when possible. Third-party upload tools can lower reach on some platforms (unverified).
+- Music credit (CC BY 4.0 requires it): paste the credit block of the episode at the end of the YouTube description, and at the end of the TikTok caption and the Reels caption (or in a pinned comment if the caption is full). Credit blocks live in audio/MUSIC_CREDIT.md. YouTube may show a Content ID claim on a licensed track; keep the track page link handy to dispute it.
 - Standard footer, all platforms: "Gloom Files. Internet mysteries and strange true stories."
 
 ---
@@ -17,6 +18,10 @@ Copy and paste per platform. Titles are plain and accurate (no fake urgency). Ev
 - **TikTok caption:** An anonymous thread about a poster who stopped posting. Claims, replies, and what can't be checked. Unverified.
 - **Reels caption:** Eight anonymous posts, two hours, one poster gone quiet. A neutral look at what the thread says, and what it doesn't.
 - **Hashtags:** #internetmysteries #unexplained #creepyfacts #paranormal #explained
+- **Music credit (add to all three posts):**
+  "Ossuary 5 - Rest" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
 
 ## EP 2: The Wow! Signal (funny)
 - **YouTube title:** The Wow! Signal: 72 Seconds From Space, Never Heard Again
