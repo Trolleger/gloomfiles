@@ -1,11 +1,11 @@
 # Gloom Files: master index
 
-Everything for the series, in `/mnt/project-files/shorts/`. Written as markdown so it can sync to Notion later.
+Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The same files live in the repo under docs/.
 
 | File | What it is |
 |---|---|
 | SERIES_BIBLE.md | Cast, tone rules, safety rules, platforms, pipeline, script format |
-| EPISODE_TRACKER.md | One row per episode: status, tone, source, dates, views |
+| EPISODE_TRACKER.md | One row per episode: status, tone, source, dates, views, plus the banger checklist |
 | SCRIPT_v6_info_heavy.md | Episode 1 (pilot) approved script. Earlier versions v2 to v5 are superseded. |
 | SCRIPTS_batch1.md | Approved scripts for episodes 2 to 9 |
 | SHOT_PLANS.md | Scene-by-scene plans for episodes 1 to 9, for the Remotion build |
@@ -21,6 +21,7 @@ Everything for the series, in `/mnt/project-files/shorts/`. Written as markdown 
 
 ## Status at a glance
 - Scripts approved: episodes 1 to 9. Scripts written, awaiting approval: episodes 10 to 17.
-- 3D art (cloud, 2026-11-25): Ep 1 and Ep 2 sets built as stills-verified Remotion compositions, 55-prop library, cast redesigned (anglo Professor Gloom, long beard, blue eyes). Source in remotion/ (README, PROPS.md, previews/). Nothing fully rendered. Rendering happens on Andrew's PC only when he says (about 90 min each).
-- Open decisions: posting cadence, handles (availability unchecked), whether Piper gets installed on his PC.
-- Notion: not connected. Two private draft pages made before that was ruled out still exist. They duplicate the earlier tracker and bible and should be removed or replaced when syncing.
+- 3D art (cloud, 2026-11-25): Ep 1 and Ep 2 sets built as stills-verified Remotion compositions, 55-prop library, cast redesigned (anglo Professor Gloom, long beard, blue eyes). Source in remotion/ (README, PROPS.md, previews/). Nothing fully rendered. Rendering happens on Andrew's PC only when he says (about 2 h each, free, on his GTX 1060).
+- Ep 1 audio: Kevin MacLeod music, SFX, word-synced cues, mix and the fast Joe voice are done (branch pc/ep01-voice). Look pass in progress, finishing open, render waits for Andrew's go. See the banger checklist in EPISODE_TRACKER.md.
+- Open decisions: posting cadence, claiming @GloomFiles on YouTube, TikTok and Instagram, approving batch 2 (episodes 10 to 17).
+- Notion: not used. The connected Notion is a different workspace, so Andrew decided shorts stay out of it. The markdown files here (and the repo) are the source of truth.
