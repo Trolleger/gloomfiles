@@ -214,6 +214,8 @@ def main():
     ap.add_argument("--config", required=True); ap.add_argument("--voice", required=True)
     ap.add_argument("--out", required=True); ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--no-loudnorm", action="store_true")
+    ap.add_argument("--cues", default=None, help="cue file from build_cues.py (absolute video times); default <config>_cues.json if it exists")
+    ap.add_argument("--music-gap", type=float, default=15.5, help="dB the ducked music sits under the voice RMS during speech")
     ap.add_argument("--music-file", default=None, help="use this track (mp3/wav) as the music bed instead of the synthesized score")
     a = ap.parse_args()
     cfg = json.load(open(a.config)); os.makedirs(a.out, exist_ok=True)
@@ -264,8 +266,14 @@ def main():
 
     # ---------- sfx ----------
     sL = np.zeros(N); sR = np.zeros(N); cues = []
-    for ev in cfg["sfx"]:
-        t = lead + starts[ev["s"]] + ev["o"]; y = sfx_sound(ev["t"], rng) * rng.uniform(0.85, 1.0)
+    cue_path = a.cues or os.path.splitext(a.config)[0] + "_cues.json"
+    if os.path.exists(cue_path):  # word-anchored cues (build_cues.py): absolute times on the video timeline
+        events = [(c["t"], c["type"], c.get("visual", "")) for c in json.load(open(cue_path))["cues"]]
+    else:                         # legacy: section-relative offsets in the config
+        cue_path = None
+        events = [(lead + starts[ev["s"]] + ev["o"], ev["t"], f"section {ev['s'] + 1}") for ev in cfg["sfx"]]
+    for t, kind, label in events:
+        ev = {"t": kind, "s": label}; y = sfx_sound(kind, rng) * rng.uniform(0.85, 1.0)
         o = int(t * SR)
         if o >= N: continue
         y = y[:N - o]; pan = rng.uniform(-0.25, 0.25)
@@ -283,7 +291,15 @@ def main():
         vref = 20 * np.log10(vrms + 1e-12)
     else:
         vol = voice; speak = np.zeros(N); vref = -22.0
-    mus_gain = 10 ** ((vref - 19 - dbfs(np.stack([musL, musR]))) / 20)   # music sits 19 dB under voice RMS
+    musS = np.stack([musL, musR], 1)
+    if have_voice and np.max(np.abs(voice)) > 0:
+        # set the music level from what is actually under the speech: ducked music RMS = voice RMS - music_gap dB
+        # (both measured over the speaking samples only, so a loud intro/outro elsewhere in the track cannot skew it)
+        sp = speak > 0.5
+        v_sp = np.sqrt(np.mean(vol[sp] ** 2)); m_sp = np.sqrt(np.mean(musS[sp] ** 2)) * 0.60
+        mus_gain = 10 ** ((20 * np.log10(v_sp + 1e-12) - a.music_gap - 20 * np.log10(m_sp + 1e-12)) / 20)
+    else:
+        mus_gain = 10 ** ((vref - 19 - dbfs(np.stack([musL, musR]))) / 20)
     music = np.stack([musL, musR], 1) * mus_gain
     duck_m = 1 - 0.40 * speak[:, None]           # about -4.4 dB while speaking
     # sfx level: loudest effect peaks about 6 dB under the voice peak
@@ -293,11 +309,14 @@ def main():
     mix = np.stack([vol, vol], 1) + music * duck_m + sfx * duck_s
     write_wav(os.path.join(a.out, "music.wav"), music / (np.max(np.abs(music)) + 1e-9) * 0.9)
     write_wav(os.path.join(a.out, "sfx.wav"), sfx)
+    # stems at true mix scale (for level checks): voice alone, and everything under it (ducked music + ducked sfx)
+    write_wav(os.path.join(a.out, "voice_mix.wav"), np.stack([vol, vol], 1))
+    write_wav(os.path.join(a.out, "bed_mix.wav"), music * duck_m + sfx * duck_s)
     raw = np.clip(mix, -1, 1)
     write_wav(os.path.join(a.out, "mix_raw.wav"), raw)
 
     # ---------- loudness (ffmpeg, two-pass loudnorm) ----------
-    report = {"duration_s": round(total, 2), "voice": have_voice, "music_rel_voice_db": -19, "music_file": a.music_file, "raw_peak": float(np.max(np.abs(raw)))}
+    report = {"duration_s": round(total, 2), "voice": have_voice, "music_gap_db_target": a.music_gap if have_voice else None, "music_gain_db": round(float(20 * np.log10(mus_gain + 1e-12)), 2), "cue_file": cue_path, "music_file": a.music_file, "raw_peak": float(np.max(np.abs(raw)))}
     final = os.path.join(a.out, "mix.wav")
     if not a.no_loudnorm:
         try:
@@ -316,7 +335,7 @@ def main():
     with open(os.path.join(a.out, "cues.md"), "w") as f:
         f.write("# Sound cues (seconds on the video timeline)\n\n")
         for t, k, s in sorted(cues):
-            f.write(f"- {t:7.2f} s  {k:9s} (section {s + 1})\n")
+            f.write(f"- {t:7.2f} s  {k:9s} {s}\n")
     json.dump(report, open(os.path.join(a.out, "report.json"), "w"), indent=1)
     print(json.dumps(report, indent=1))
 
