@@ -19,8 +19,8 @@ import takeFast from "../../../build/ep01/ep01_words_fast.json";
 import { rnd } from "./props/util";
 
 export const FPS = 30;
-// Voice take: real Piper (Joe) timings from build/ep01/*.json. ONE-LINE SWITCH: "default" (107.9 s) or "fast" (97.5 s).
-export const TAKE = "default" as "default" | "fast";
+// Voice take: real Piper (Joe) timings from build/ep01/*.json. ONE-LINE SWITCH: "fast" (97.5 s, chosen) or "default" (natural, 107.9 s).
+export const TAKE = "fast" as "default" | "fast"; // Andrew picked the fast take for ep01
 const TK = TAKE === "fast" ? takeFast : takeDefault;
 export const VOICE_FILE = TAKE === "fast" ? "audio/ep01/ep01_voice_fast.wav" : "audio/ep01/ep01_voice.wav";
 const LEAD = 2.6, TAIL = 1.5; // LEAD = opening disclaimer seconds before the voice starts; TAIL after the last word
