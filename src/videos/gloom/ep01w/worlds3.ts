@@ -35,11 +35,12 @@ export const W3: Record<string, (R: R) => void> = {
   // S1: "he can attack strangers with his mind. Eight tries, three hits." eight targets, three cracked and glowing, a purple mind-beam from a glowing head
   targets8(R) {
     floor(R, 300, 300, lam("#2a2250"), -80); floor(R, 12, 300, rugTex("#3a2a6a", "#6a4aaa"), -60).position.y = 0.01;
-    for (let i = 0; i < 8; i++) { const t = target(i === 1 || i === 4 || i === 6, 1.3); t.children.forEach((ch) => { if ((ch as any).material instanceof THREE.MeshBasicMaterial && ch.position.y > 2) ch.userData.rv = i === 1 ? 0.45 : i === 4 ? 0.62 : 0.78; }); place(t, (i % 2 ? 1 : -1) * 1.8, 0, -6 - i * 5.5); R.add(t); if (i === 1 || i === 4 || i === 6) glowAt(R, (i % 2 ? 1 : -1) * 1.8, 2.8, -5.4 - i * 5.5, 6, "#ff4a3a"); }
+    for (let i = 0; i < 8; i++) { const t = target(i === 1 || i === 4 || i === 6, 1.3); t.children.forEach((ch) => { if ((ch as any).material instanceof THREE.MeshBasicMaterial && ch.position.y > 2) ch.userData.rv = i === 1 ? 0.45 : i === 4 ? 0.62 : 0.78; }); place(t, (i % 2 ? 1 : -1) * 1.3, 0, -6 - i * 5.5); R.add(t); if (i === 1 || i === 4 || i === 6) glowAt(R, (i % 2 ? 1 : -1) * 1.3, 2.8, -5.4 - i * 5.5, 6, "#ff4a3a"); }
     const head = new THREE.Group(); head.add(sphere(0.9, lam("#d8c8e8"), 0, 0, 0)); for (const sx of [-1, 1]) head.add(sphere(0.12, glow("#d8a8ff", 3), sx * 0.3, 0.1, 0.8)); head.add(sphere(1.15, new THREE.MeshBasicMaterial({ color: new THREE.Color(0.7, 0.3, 1.4), transparent: true, opacity: 0.35 }), 0, 0, 0)); place(head, -5.5, 3.2, -4); noink(head.children[2]); R.add(head); glowAt(R, -5.5, 3.2, -4, 12, "#a86aff");
-    for (const i of [1, 4, 6]) beam(R, new THREE.Vector3(-5.2, 3.2, -3.5), new THREE.Vector3((i % 2 ? 1 : -1) * 1.8, 2.5, -6 - i * 5.5), "#b87aff", 0.06);
+    for (const i of [1, 4, 6]) beam(R, new THREE.Vector3(-5.2, 3.2, -3.5), new THREE.Vector3((i % 2 ? 1 : -1) * 1.3, 2.5, -6 - i * 5.5), "#b87aff", 0.06);
     for (let i = 0; i < 30; i++) glowAt(R, (rnd(i) - 0.5) * 20, 0.5 + rnd(i + 4) * 6, -3 - rnd(i + 8) * 40, 0.5, "#d8b8ff");
-    outdoor(R, { lights: true }); R.add(P.stars(300, 6, 400, 0.08, 2.4)); R.add(P.at(P.moon(16, [70, 80, -230]))); glowAt(R, 0, 14, -90, 90, "#4a3a9a");
+    R.add(P.at(P.fence(30, 1.1), -6, 0, -12)); R.add(P.at(P.fence(30, 1.1), 6, 0, -12)); for (let i = 0; i < 14; i++) { const ar = new THREE.Group(); ar.add(cyl(0.025, 0.025, 1.1, lam('#8a6a44'), 0, 0.5, 0, 6)); ar.add(box(0.2, 0.2, 0.02, lam('#e8453c'), 0, 1.0, 0)); place(ar, (rnd(i) - 0.5) * 6, 0, -3 - rnd(i + 4) * 30); ar.rotation.z = (rnd(i + 2) - 0.5) * 0.5; R.add(ar); }
+    outdoor(R, { lights: true, rocks: 22 }); R.add(P.stars(300, 6, 400, 0.08, 2.4)); R.add(P.at(P.moon(16, [70, 80, -230]))); glowAt(R, 0, 14, -90, 90, "#4a3a9a");
   },
   // S2: "Then he went silent." empty chair, dead monitor, cobweb, cold mug, moonlight
   emptychair(R) {
@@ -51,8 +52,8 @@ export const W3: Record<string, (R: R) => void> = {
     R.add(P.at(P.mug("#c24a5a"), -0.9, 0.95, -4.8));
     for (let i = 0; i < 9; i++) { const a = i / 8 * Math.PI / 2, st = box(0.01, 1.6, 0.01, new THREE.MeshBasicMaterial({ color: "#e8e8f8" }), -6.9 + Math.sin(a) * 0.1, 6.6 - Math.cos(a) * 0.2, -6.7); st.rotation.z = a - 0.8; R.add(st); }
     for (let i = 0; i < 40; i++) glowAt(R, (rnd(i) - 0.5) * 10, 0.4 + rnd(i + 3) * 5, -6 + rnd(i + 8) * 5, 0.12, "#c8d0ff");
-    win(R, 4.4, 4.0, -6.7, 2.6, 3.4, "#34406a"); const bm = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 7), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.55, 0.65, 1.2), transparent: true, opacity: 0.22, side: THREE.DoubleSide })); bm.position.set(2.8, 2.2, -4.2); bm.rotation.z = 0.5; noink(bm); R.add(bm); glowAt(R, 4.4, 3.6, -6.2, 9, "#7a8aff");
-    R.add(P.at(P.bookshelf(3, 4, 18), -5, 0, -6.6)); R.add(P.at(P.crate(0.8, "#6a5240"), 5.2, 0, -3));
+    win(R, 4.4, 4.0, -6.7, 2.6, 3.4, "#34406a"); glowAt(R, 4.4, 3.6, -6.2, 9, "#7a8aff");
+    R.add(P.at(P.bookshelf(3, 4, 18), -5, 0, -6.6)); R.add(P.at(P.crate(0.8, "#6a5240"), 5.2, 0, -3)); const lp = P.lampDesk("#ffd9a0"); lp.position.set(-1.1, 0.95, -5); lp.scale.setScalar(1.6); R.add(lp); glowAt(R, -1.1, 2.0, -4.8, 6, "#ffc27a"); for (const [px, py, c] of [[-2.8, 4.6, "#d85a6a"], [-1.6, 3.9, "#3aa0a0"], [-0.4, 4.7, "#e8c24a"]] as [number, number, string][]) R.add(place(plane(0.9, 1.2, new THREE.MeshBasicMaterial({ map: canvasTex(64, 90, (g, ww, hh) => { g.fillStyle = c; g.fillRect(0, 0, ww, hh); g.fillStyle = "#14102a"; g.beginPath(); g.arc(32, 36, 15, 0, 7); g.fill(); g.fillRect(14, 54, 36, 30); }) })), px, py, -6.78));
   },
   // S3: "/x/, 4chan's paranormal board." a giant pinboard of paranormal pictures with red string, floating in the sky
   board(R) {
@@ -87,15 +88,15 @@ export const W3: Record<string, (R: R) => void> = {
   },
   // S5: "The title borrows from Death Note, where a name in a notebook kills." a thread title card, a black notebook, a pen writing, a candle going out
   notebookdesk(R) {
-    floor(R, 400, 400, lam("#1a1030"), -60);
+    floor(R, 24, 24, planksTex("#3a2418", "", [4, 4]), -6); R.add(box(24, 11, 0.4, plaster("#3a2a5a", 5, 2), 0, 5.5, -12)); wain(R, 24, -12, "#1f1a3a", "#8a7aa8"); R.add(box(0.4, 11, 24, plaster("#34244a", 4, 2), -12, 5.5, -6)); R.add(box(0.4, 11, 24, plaster("#34244a", 4, 2), 12, 5.5, -6)); win(R, -4.5, 6.2, -11.7, 3.2, 4.4, "#4a5ab8"); R.add(P.at(P.bookshelf(4, 6, 36), 5.5, 0, -11.5)); glowAt(R, -4.5, 6.2, -11, 12, "#7a8aff");
     const tb = new THREE.Group(); tb.add(box(7, 0.3, 4, lam("#3a2418"), 0, 1.0, 0)); for (const [x, z] of [[-3.2, -1.7], [3.2, -1.7], [-3.2, 1.7], [3.2, 1.7]]) tb.add(box(0.3, 1.0, 0.3, lam("#2a1810"), x, 0.5, z)); place(tb, 0, 0, -6); R.add(tb);
     const nb = new THREE.Group(); nb.add(box(3.0, 0.1, 2.0, lam("#0a0612"), 0, 0, 0)); for (const sx of [-1, 1]) { nb.add(box(1.4, 0.05, 1.8, lam("#efe8ff"), sx * 0.75, 0.08, 0)); for (let i = 0; i < 10; i++) nb.add(box(0.7 + rnd(i + sx) * 0.4, 0.01, 0.035, lam("#2a1a4a"), sx * 0.75 - 0.1, 0.11, -0.78 + i * 0.16)); } nb.add(box(0.06, 0.16, 2.0, lam("#c8243e"), 0, 0.05, 0)); const nm = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.3), new THREE.MeshBasicMaterial({ map: canvasTex(256, 80, (g) => { g.clearRect(0, 0, 256, 80); g.strokeStyle = "#c8243e"; g.lineWidth = 7; g.lineCap = "round"; g.beginPath(); g.moveTo(10, 50); g.bezierCurveTo(40, 6, 70, 74, 100, 30); g.bezierCurveTo(130, 6, 150, 70, 190, 34); g.bezierCurveTo(210, 20, 230, 50, 246, 40); g.stroke(); }), transparent: true, color: new THREE.Color(2, 2, 2) })); nm.rotation.x = -Math.PI / 2; nm.position.set(0.75, 0.13, 0.2); noink(nm); nb.add(nm); place(nb, 0, 1.22, -6); nb.rotation.y = 0.25; nb.scale.setScalar(1.2); R.add(nb);
-    const pen = new THREE.Group(); pen.add(cyl(0.04, 0.04, 1.4, lam("#c0b0ff"), 0, 0, 0, 8)); pen.add(cyl(0.0, 0.04, 0.2, lam("#e8e0ff"), 0, -0.8, 0, 8)); pen.rotation.z = 0.6; place(pen, 0.95, 1.75, -5.9); R.add(pen);
-    const title = paperCard((g, w, h) => { g.fillStyle = "#14102a"; g.fillRect(8, 10, w - 16, 34); g.fillStyle = "#c8c0e0"; for (let k = 0; k < 4; k++) g.fillRect(14, 62 + k * 16, 70 + rnd(k * 3) * 40, 8); g.fillStyle = "#e8243e"; g.fillRect(14, 140, 40, 10); }, 2.0, 2.6, -0.1); title.position.set(-2.4, 2.1, -5.2); title.rotation.y = 0.4; R.add(title); glowAt(R, -2.4, 2.1, -4.8, 4, "#ffe8c0");
+    const pen = new THREE.Group(); pen.add(cyl(0.04, 0.04, 1.4, lam("#c0b0ff"), 0, 0, 0, 8)); pen.add(cyl(0.0, 0.04, 0.2, lam("#e8e0ff"), 0, -0.8, 0, 8)); pen.rotation.z = 0.6; place(pen, 0.9, 1.72, -5.95); R.add(pen);
+    const title = paperCard((g, w, h) => { g.fillStyle = "#14102a"; g.fillRect(8, 10, w - 16, 44); g.fillStyle = "#ffffff"; g.font = "bold 22px Anton"; g.textAlign = "center"; g.fillText("DEATH NOTE", w / 2, 42); g.fillStyle = "#8a8aa8"; for (let k = 0; k < 4; k++) g.fillRect(14, 72 + k * 16, 70 + rnd(k * 3) * 40, 8); g.fillStyle = "#e8243e"; g.fillRect(14, 148, 40, 10); }, 2.0, 2.6, -0.1); title.position.set(-2.4, 2.1, -5.2); title.rotation.y = 0.4; R.add(title); glowAt(R, -2.4, 2.1, -4.8, 4, "#ffe8c0");
     const candle = new THREE.Group(); candle.add(cyl(0.18, 0.2, 0.9, lam("#efe6cf"), 0, 0.45, 0, 12)); const fl = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.4, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(3, 1.6, 0.3) })); fl.position.y = 1.1; noink(fl); candle.add(fl); fl.userData.rvOff = 0.62; candle.userData.flame = fl; place(candle, 1.5, 1.15, -4.9); candle.scale.setScalar(1.2); R.add(candle); glowAt(R, 1.5, 2.6, -4.5, 8, "#ff9a4a");
-    glowAt(R, 0, 4, -6, 18, "#6a3aca"); const lec = new THREE.Group(); lec.add(box(1.3, 2.6, 1.3, stoneTex("#8a8aa8", "", [1, 2]) as any, 0, 1.3, 0)); place(lec, 5.2, 0, -7); R.add(lec); for (let i = 0; i < 5; i++) R.add(box(1.0 + rnd(i) * 0.3, 0.22, 0.8, lam(["#5a2a5a", "#2a3a6a", "#6a3a2a", "#2a5a4a", "#7a6a2a"][i]), 5.2, 2.7 + i * 0.22, -7)); outdoor(R, { z: -110, cloud: "#7a4ac8", rocks: 10 });
+    glowAt(R, 0, 4, -6, 18, "#6a3aca"); const lec = new THREE.Group(); lec.add(box(1.3, 2.6, 1.3, stoneTex("#8a8aa8", "", [1, 2]) as any, 0, 1.3, 0)); place(lec, 5.2, 0, -7); R.add(lec); for (let i = 0; i < 5; i++) R.add(box(1.0 + rnd(i) * 0.3, 0.22, 0.8, lam(["#5a2a5a", "#2a3a6a", "#6a3a2a", "#2a5a4a", "#7a6a2a"][i]), 5.2, 2.7 + i * 0.22, -7)); 
     for (let i = 0; i < 16; i++) { const pg = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.65), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.3, 1.25, 1.5), side: THREE.DoubleSide })); pg.position.set((rnd(i) - 0.5) * 9, 2.4 + rnd(i + 3) * 4.5, -6 + (rnd(i + 5) - 0.5) * 4); pg.rotation.set(rnd(i) * 3, rnd(i + 2) * 3, rnd(i + 4) * 3); noink(pg); R.add(pg); }
-    R.add(P.stars(300, 9, 400, -0.2, 2.4)); R.add(P.at(P.moon(14, [-60, 60, -160])));
+    
   },
   // S6: "He'd been silent a week. His last thread was archived." a calendar with seven days crossed off and a folder stamped into an archive box
   archive(R) {
@@ -113,7 +114,7 @@ export const W3: Record<string, (R: R) => void> = {
   // S7: "real life, no results, boredom, the feds": four small scenes in a row
   guesses(R) {
     floor(R, 80, 40, lam("#2a2a5a"), -6);
-    const stage = new THREE.Group(); stage.add(box(15, 0.6, 7, lam("#4a3a6a"), 0, 0.3, 0)); stage.add(box(15, 0.6, 7, lam("#3a5a8a"), 0, 5.3, 0)); stage.add(box(0.4, 5.6, 6, lam("#2a2a4a"), -7.4, 2.8, 0)); stage.add(box(0.4, 5.6, 6, lam("#2a2a4a"), 7.4, 2.8, 0)); place(stage, 0, 0, -6); R.add(stage);
+    const stage = new THREE.Group(); stage.add(box(7, 0.6, 7, lam("#4a3a6a"), -3.6, 0.3, 0)); stage.add(box(7, 0.6, 7, lam("#3a5a8a"), 3.6, 0.3, 0)); stage.add(box(7, 0.6, 7, lam("#3a5a8a"), -3.6, 5.3, 0)); stage.add(box(7, 0.6, 7, lam("#4a3a6a"), 3.6, 5.3, 0)); place(stage, 0, 0, -6); R.add(stage);
     const X = [-3.6, 3.6, -3.6, 3.6], Y = [5.6, 5.6, 0.6, 0.6];
     // 1 real life: a house and a person with a briefcase on a road
     { const g = new THREE.Group(); g.add(box(2.8, 2.2, 2.4, lam("#e8c86a"), 0, 1.4, 0)); const roof = new THREE.Mesh(new THREE.ConeGeometry(2.4, 1.2, 4), lam("#b04a3a")); roof.position.y = 3.1; roof.rotation.y = Math.PI / 4; g.add(roof); g.add(box(0.6, 1.2, 0.1, lam("#6a3a24"), 0, 0.9, 1.25)); g.add(box(3.2, 0.1, 5, lam("#5a5a6a"), 1.4, 0.65, 0)); const pr = new THREE.Group(); pr.add(box(0.4, 0.9, 0.25, lam("#2f6aa8"), 0, 0.6, 0)); pr.add(sphere(0.2, lam("#f0d0b0"), 0, 1.25, 0)); pr.add(box(0.35, 0.28, 0.12, lam("#6a3a24"), 0.3, 0.5, 0)); place(pr, 2.2, 0.7, 1.6); g.add(pr); place(g, X[0], Y[0], -6); R.add(g); glowAt(R, X[0], Y[0] + 2.4, -4, 7, "#ffd58a"); }
@@ -140,12 +141,12 @@ export const W3: Record<string, (R: R) => void> = {
   // S9: "a book ... influencing people from a distance": the paperback on a plinth with threads across a map to tiny far-away figures
   bookmap(R) {
     floor(R, 200, 200, lam("#14102a"), -30);
-    const map = P.worldMap(36, "#1a2a5a", "#3f8f6a"); map.rotation.x = -Math.PI / 2; map.position.set(0, 0.04, -14); R.add(map);
+    const map = P.worldMap(36, "#d8c08a", "#8a6a3a"); map.rotation.x = -Math.PI / 2; map.position.set(0, 0.04, -14); R.add(map);
     const pl = new THREE.Group(); pl.add(box(1.8, 1.4, 1.8, lam("#3a2a4a"), 0, 0.7, 0)); pl.add(box(2.0, 0.12, 2.0, lam("#5a4a6a"), 0, 1.46, 0)); place(pl, 0, 0, -3.4); R.add(pl);
     const bk = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.4, 0.2), [lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), new THREE.MeshBasicMaterial({ map: textTex(256, 360, "#5a2a5a", "#e8d49a", ["THE", "FORBIDDEN", "PARA-", "PSYCHOLOGY"], "Anton", 48, "#e8d49a"), color: new THREE.Color(1.3, 1.3, 1.3) }), lam("#2b2540")]); bk.position.set(0, 2.3, -3.4); bk.rotation.x = -0.1; R.add(bk); glowAt(R, 0, 2.4, -3.0, 8, "#ffd58a");
     const sp = new THREE.SpotLight("#ffd8a0", 70, 12, 0.45, 0.6); sp.position.set(0, 7, -2); sp.target.position.set(0, 1.5, -3.4); R.add(sp, sp.target);
     const spots: [number, number][] = [[-12, -10], [-6, -20], [9, -9], [14, -18], [2, -24], [-16, -17]];
-    spots.forEach(([x, z], i) => { const f = new THREE.Group(); f.add(box(0.5, 0.9, 0.3, lam(["#e8c24a", "#3aa0a0", "#d85a6a", "#7a8ad8", "#58b868", "#c8a070"][i]), 0, 0.55, 0)); f.add(sphere(0.25, lam("#f0d0b0"), 0, 1.2, 0)); f.scale.setScalar(1.4); place(f, x, 0.08, z); R.add(f); beam(R, new THREE.Vector3(0, 2.3, -3.4), new THREE.Vector3(x, 1.2, z), "#b87aff", 0.03, 2); glowAt(R, x, 1.2, z, 3, "#a86aff"); });
+    spots.forEach(([x, z], i) => { const f = new THREE.Group(); f.add(box(0.5, 0.9, 0.3, lam(["#e8c24a", "#3aa0a0", "#d85a6a", "#7a8ad8", "#58b868", "#c8a070"][i]), 0, 0.55, 0)); f.add(sphere(0.25, lam("#f0d0b0"), 0, 1.2, 0)); f.scale.setScalar(2.4); place(f, x, 0.08, z); R.add(f); beam(R, new THREE.Vector3(0, 2.3, -3.4), new THREE.Vector3(x, 1.2, z), "#b87aff", 0.03, 2); glowAt(R, x, 1.2, z, 3, "#a86aff"); });
     outdoor(R, { z: -120, rocks: 0, tufts: 0 }); R.add(P.stars(300, 14, 400, 0.05, 2.4));
   },
 };

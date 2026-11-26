@@ -22,19 +22,19 @@ const NIGHT = { az: 125, el: 42 }, FRONT = { az: 165, el: 52 };
 
 export const SHOTS3: Shot3[] = [
   { id: "S01", line: "an anonymous poster says he can attack strangers with his mind. Eight tries, three hits.", world: "targets8", light: "night", sun: NIGHT, caption: "THREE HITS", cInf: 4,
-    keys: [k(0, [3.4, 1.7, 3.0], [-1, 2.2, -22], 54), k(1, [1.4, 2.0, -3.0], [-0.5, 2.4, -26], 44, { du: 0.7 })], cast: [g(4.8, 0.7, 0.55, { point: 120, beam: 0 })] },
+    keys: [k(0, [1.6, 1.8, 3.0], [0, 2.2, -22], 54), k(1, [0.8, 2.0, -3.0], [0, 2.4, -26], 44, { du: 0.7 })], cast: [g(4.4, 0.8, 0.72, { point: 120, beam: 0 })] },
   { id: "S02", line: "Then he went silent.", world: "emptychair", light: "golden", sun: FRONT, caption: "SILENT", cInf: 6,
     keys: [k(0, [3.2, 1.8, 0.6], [0, 1.3, -4.6], 50), k(1, [1.6, 1.6, -1.2], [0, 1.2, -4.6], 42, { du: 0.8, roll: -0.04 })], cast: [g(3.5, 0.6, 0.66, { point: 40, beam: 1.0 })] },
   { id: "S03", line: "It happened on /x/, 4chan's paranormal board.", world: "board", light: "night", sun: NIGHT, caption: "/X/", cInf: 4,
     keys: [k(0, [-2, 2.2, 5], [0, 5.5, -11], 56), k(1, [0, 3.4, -1], [0, 6, -11], 48, { du: 0.8 })], cast: [g(6, -0.7, 0.8, { point: 60, beam: 1.4 })] },
   { id: "S04", line: "Eight posts, two hours forty-three.", world: "posts8", light: "night", sun: NIGHT, caption: "2 H 43", cInf: 3,
-    keys: [k(0, [1.5, 1.8, 5], [0, 9, -14], 58, { roll: 0.04 }), k(1, [0.8, 2.4, -2], [0, 12, -20], 50, { du: 0.8 })], cast: [g(4.6, 0.9, 0.75, { point: 80, beam: 1.4 })] },
+    keys: [k(0, [1.5, 1.8, 5], [0, 6.5, -14], 58, { roll: 0.04 }), k(1, [0.8, 2.4, -2], [0, 12, -20], 50, { du: 0.8 })], cast: [g(4.6, 0.9, 0.75, { point: 80, beam: 1.4 })] },
   { id: "S05", line: "The title borrows from Death Note, where a name in a notebook kills.", world: "notebookdesk", light: "night", sun: NIGHT, caption: "KILLS", cInf: 6,
     keys: [k(0, [-1.2, 3.6, 0.6], [0, 1.6, -5.6], 52), k(1, [-0.6, 2.8, -1.6], [0, 1.5, -5.6], 44, { du: 0.8, roll: 0.05 })], cast: [g(4.4, -0.7, 0.62, { point: 30, beam: 0.9 })] },
   { id: "S06", line: "He'd been silent a week. His last thread was archived.", world: "archive", light: "golden", sun: FRONT, caption: "A WEEK", cInf: 6,
-    keys: [k(0, [1.6, 2.0, 2.6], [-1.2, 3.0, -6], 52), k(1, [-0.2, 2.0, -0.8], [-1.6, 2.4, -5], 44, { du: 0.8, roll: -0.04 })], cast: [g(3.8, 1.1, 0.66, { point: 50, beam: 1.0 })] },
+    keys: [k(0, [1.6, 2.0, 2.6], [-1.2, 2.4, -6], 52), k(1, [-0.2, 2.0, -0.8], [-1.6, 2.4, -5], 44, { du: 0.8, roll: -0.04 })], cast: [g(3.8, 1.1, 0.66, { point: 50, beam: 1.0 })] },
   { id: "S07", line: "Replies guess: real life, no results, boredom, the feds.", world: "guesses", light: "night", sun: NIGHT, caption: "THE FEDS", cInf: 5,
-    keys: [k(0, [0, 3.2, 13], [0, 3.2, -6], 50), k(0.28, [-3.6, 6.0, 1.2], [-3.6, 5.6, -6], 44, { du: 0.14 }), k(0.5, [3.6, 6.0, 1.2], [3.6, 5.6, -6], 44, { du: 0.12 }), k(0.74, [-3.6, 1.0, 1.2], [-3.6, 0.9, -6], 44, { du: 0.12 }), k(1, [3.6, 1.0, 1.2], [3.6, 0.9, -6], 42, { du: 0.12 })], cast: [{ x: -13.4, z: -3.6, y: 0.6, s: 0.5, point: 60 }] },
+    keys: [k(0, [0, 3.4, 17], [0, 3.4, -6], 52), k(0.28, [-3.6, 6.0, 1.2], [-3.6, 5.6, -6], 44, { du: 0.14 }), k(0.5, [3.6, 6.0, 1.2], [3.6, 5.6, -6], 44, { du: 0.12 }), k(0.74, [-3.6, 1.0, 1.2], [-3.6, 0.9, -6], 44, { du: 0.12 }), k(1, [3.6, 1.0, 1.2], [3.6, 0.9, -6], 42, { du: 0.12 })], cast: [{ x: -13.4, z: -3.6, y: 0.6, s: 0.5, point: 60 }] },
   { id: "S08", line: "One gives the number: three of eight,", world: "eightboxes", light: "night", sun: NIGHT, caption: "3 OF 8", cInf: 5,
     keys: [k(0, [0, 4.4, 10], [0, 4.4, -9], 56), k(1, [0, 4.2, 5.5], [0, 4.4, -9], 46, { du: 0.8 })], cast: [] },
   { id: "S09", line: "like hitting a one-metre target at a thousand metres in a storm.", world: "range", light: "night", sun: NIGHT, caption: "1 IN 1000", cInf: 0,
@@ -61,14 +61,25 @@ export class Stage3 implements Stage3D {
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
   }
-  keys() { return keysFor(this.s, this.D); }
+  kc?: Key[];
+  keys() { return (this.kc ??= this.framed(keysFor(this.s, this.D))); }
+  /** keep Gloom's fixed mark in frame at every key: never closer than 2.6 m ahead, never wider than 0.22 of the distance off the view axis */
+  framed(ks: Key[]): Key[] {
+    const m = this.cast.find((q) => !q.c.sil && q.c.rel); if (!m) return ks;
+    return ks.map((k) => {
+      const f = new THREE.Vector3(k.look[0] - k.pos[0], 0, k.look[2] - k.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x), pos = new THREE.Vector3(...k.pos), look = new THREE.Vector3(...k.look);
+      let rel = new THREE.Vector3(m.x - pos.x, 0, m.z - pos.z), df = rel.dot(f);
+      if (df < 2.6) { pos.addScaledVector(f, df - 2.6); look.addScaledVector(f, df - 2.6); rel = new THREE.Vector3(m.x - pos.x, 0, m.z - pos.z); df = 2.6; }
+      const lat = rel.dot(r), lim = 0.22 * df;
+      if (Math.abs(lat) > lim) { const sh = lat - Math.sign(lat) * lim; pos.addScaledVector(r, sh); look.addScaledVector(r, sh); }
+      return { ...k, pos: [pos.x, pos.y, pos.z], look: [look.x, look.y, look.z] };
+    });
+  }
   update(f: number, cam: THREE.PerspectiveCamera, scene: THREE.Scene) {
     const c = camPath(this.keys(), f, 0.0009);
     this.rig.frame(cam, scene, c, this.s.light, { az: this.s.sun?.az, el: this.s.sun?.el, focusR: 14 });
     const lt = this.rig.light2D(cam);
-    const fw = new THREE.Vector3(c.look[0] - c.pos[0], 0, c.look[2] - c.pos[2]).normalize(), rt = new THREE.Vector3(-fw.z, 0, fw.x);
-    this.cast.forEach(({ c: cs, x: x0, z: z0 }, i) => {
-      const x = cs.rel ? c.pos[0] + fw.x * cs.rel[0] + rt.x * cs.rel[1] : x0, z = cs.rel ? c.pos[2] + fw.z * cs.rel[0] + rt.z * cs.rel[1] : z0;
+    this.cast.forEach(({ c: cs, x, z }, i) => {
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
       if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {
