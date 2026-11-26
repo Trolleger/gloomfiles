@@ -173,6 +173,11 @@ export const W: Record<string, (R: R) => void> = {
     const rg = new THREE.Group(); rg.add(box(3, 0.1, 1.2, lam("#6a5a4a"), 0, 0.9, 0)); for (const x of [-1.3, 1.3]) rg.add(box(0.1, 0.9, 1, lam("#4a3a2a"), x, 0.45, 0)); place(rg, 1.4, 0, -2.4); R.add(rg);
     for (let i = 0; i < 6; i++) { const f = new THREE.Group(); f.add(cyl(0.04, 0.04, 3, lam("#c8c8d8"), 0, 1.5, 0, 6)); f.add(box(1.2, 0.5, 0.02, lam(["#e8453c", "#f2c84a"][i % 2]), 0.6, 2.7, 0)); place(f, 5 - (i % 2) * 10, 0, -30 - i * 90); f.rotation.y = -0.4; R.add(f); }
     for (let i = 0; i < 5; i++) { const c = new THREE.Mesh(new THREE.SphereGeometry(60, 12, 8), lam(["#2a2a5a", "#1e2050", "#34346a"][i % 3])); c.scale.set(2.2, 0.6, 1); c.position.set(-300 + i * 160, 160 + rnd(i) * 60, -700 - rnd(i + 4) * 300); noink(c); R.add(c); }
+    for (let i = 0; i < 14; i++) { const sb = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 8), lam(["#b8a070", "#a89060"][i % 2])); sb.scale.set(1.5, 0.7, 0.9); sb.position.set(-2.6 + (i % 7) * 0.85, 0.3 + Math.floor(i / 7) * 0.5, -0.4); R.add(sb); }
+    for (let i = 0; i < 24; i++) { const x = (i % 2 ? 7 : -7) + rnd(i) * 2; R.add(P.at(P.tree(i % 3 ? "cone" : "dead", 5 + rnd(i + 3) * 4, "#1f5a4a", "#2a2030"), x, 0, -12 - i * 14)); }
+    for (let i = 0; i < 10; i++) { const pd = plane(3 + rnd(i) * 3, 1.4, new THREE.MeshBasicMaterial({ color: "#6a8ad8", transparent: true, opacity: 0.55 })); pd.rotation.x = -Math.PI / 2; pd.position.set(-2 + rnd(i + 4) * 4, 0.03, -3 - i * 5); R.add(pd); }
+    R.add(place(sign(textTex(512, 256, "#e8e0c8", "#1a1830", ["1000 m"], "Anton", 140, "#b02a3e"), 2.4, 1.2, 1.0), 3.4, 2.2, -8));
+    R.add(box(0.12, 2.2, 0.12, lam("#3a2a24"), 3.4, 1.1, -8.05));
     rain(R, 1800, [30, 22, 140], 0, 6);
     const bolt = new THREE.Mesh(new THREE.PlaneGeometry(14, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.6, 2.6, 3.4), transparent: true, opacity: 0.9, fog: false })); bolt.position.set(-60, 90, -900); bolt.rotation.z = 0.12; noink(bolt); R.add(bolt);
     glowAt(R, -60, 40, -890, 220, "#a8b8ff");
@@ -244,6 +249,8 @@ export const W: Record<string, (R: R) => void> = {
     const d = P.desk(2.6, 1.2, "#3a2a40"); d.position.set(0, 0, -6); R.add(d);
     const mg = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.0), new THREE.MeshBasicMaterial({ map: textTex(512, 320, "#0c1228", "#7dffd0", ["COMMENTS", "", "(0)"], "Anton", 70, "#7dffd0"), color: new THREE.Color(1.6, 1.6, 1.6) })); mg.position.set(0, 2.2, -6.4); R.add(mg); glowAt(R, 0, 2.2, -6, 13, "#58ffc0");
     const ch = P.chair("#4a3a5a"); ch.position.set(0, 0, -4.6); ch.rotation.y = Math.PI; R.add(ch);
+    R.add(P.at(P.fence(14, 1.2), -7, 0, -9)); R.add(P.at(P.lamppost(4.6), -3, 0, -7)); glowAt(R, -3, 4.6, -7, 6, "#ffcf8a"); R.add(P.at(P.lamppost(4.6), 4, 0, -9)); glowAt(R, 4, 4.6, -9, 6, "#ffcf8a");
+    for (let i = 0; i < 16; i++) glowAt(R, (rnd(i + 20) - 0.5) * 10, 0.6 + rnd(i) * 3, -3 - rnd(i + 5) * 8, 0.5, "#e8ffa8");
     for (let i = 0; i < 9; i++) R.add(P.at(P.tree(i % 3 ? "dead" : "cone", 4 + rnd(i) * 3, "#1c2a4a", "#2a2040"), -20 + i * 5, 0, -16 - rnd(i + 2) * 14));
     for (let i = 0; i < 12; i++) glowAt(R, (rnd(i) - 0.5) * 40, 1 + rnd(i + 2), -8 - rnd(i + 5) * 20, 14 + rnd(i) * 8, "#3a4a8a");
     R.add(P.stars(400, 11, 400, 0.08, 2.4)); R.add(P.at(P.moon(9, [60, 80, -200])));

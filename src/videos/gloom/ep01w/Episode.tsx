@@ -83,7 +83,7 @@ class PieceStage implements Stage3D {
     const lt = this.rig.light2D(cam), abs = f + this.off;
     // the guide walks with the camera: placed relative to the CURRENT camera (stays in frame through glides and creeps)
     const fw = new THREE.Vector3(c.look[0] - c.pos[0], 0, c.look[2] - c.pos[2]).normalize(), rt = new THREE.Vector3(-fw.z, 0, fw.x);
-    const live = this.cast.map((cs, i) => { const rel = this.b.cast[i].rel; return rel ? { ...cs, x: c.pos[0] + fw.x * rel[0] * this.dk + rt.x * rel[1], z: c.pos[2] + fw.z * rel[0] * this.dk + rt.z * rel[1] } : cs; });
+    const live = this.cast.map((cs, i) => { const rel = this.b.cast[i].rel; return rel ? { ...cs, x: c.pos[0] + fw.x * rel[0] * this.dk + rt.x * rel[1] * this.dk, z: c.pos[2] + fw.z * rel[0] * this.dk + rt.z * rel[1] * this.dk } : cs; });
     live.forEach((cs, i) => {
       const s = (cs.s ?? 0.9), d = cam.position.distanceTo(new THREE.Vector3(cs.x, 1, cs.z)) / s, [w, h, kk] = this.rig.tier(d), gk = gloomKey(abs, cs);
       this.rig.card(cam, { key: "g" + JSON.stringify([gk, cs.bend, !!cs.beam]) + lt, draw: (p) => drawGloom(p, { expr: cs.expr ?? "neutral", point: gk.point, bend: cs.bend ?? 8, talk: gk.talk, blink: gk.blink, light: lt, flash: !!cs.beam }), w, h, k: kk, x: cs.x, y: cs.y ?? 0, z: cs.z, scale: s });
