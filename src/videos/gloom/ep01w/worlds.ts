@@ -248,4 +248,15 @@ export const W: Record<string, (R: R) => void> = {
     for (let i = 0; i < 12; i++) glowAt(R, (rnd(i) - 0.5) * 40, 1 + rnd(i + 2), -8 - rnd(i + 5) * 20, 14 + rnd(i) * 8, "#3a4a8a");
     R.add(P.stars(400, 11, 400, 0.08, 2.4)); R.add(P.at(P.moon(9, [60, 80, -200])));
   },
+  // B07b: "three successes out of eight": eight jars on a long shelf, three glowing
+  tally(R) {
+    floor(R, 16, 16, planksTex("#6a4a30", "", [3, 3]), -2);
+    R.add(box(16, 9, 0.4, plaster("#2a6a8a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#7a2f8a", "#f4ead2");
+    const sh = new THREE.Group(); sh.add(box(9, 0.2, 1.0, lam("#6a4630"), 0, 0, 0)); for (const x of [-4, 0, 4]) sh.add(box(0.2, 1.6, 0.8, lam("#5a3a24"), x, -0.9, 0)); place(sh, 0, 2.6, -6.4); R.add(sh);
+    for (let i = 0; i < 8; i++) { const on = i === 1 || i === 4 || i === 6, x = -3.5 + i, g = new THREE.Group(); g.add(cyl(0.34, 0.34, 0.9, new THREE.MeshLambertMaterial({ color: on ? "#7affc8" : "#8aa0c8", transparent: true, opacity: on ? 0.95 : 0.55 }), 0, 0.45, 0, 14)); if (on) { g.add(sphere(0.22, glow("#7affc8", 3.2), 0, 0.5, 0)); } g.add(cyl(0.25, 0.25, 0.1, lam("#3a2a24"), 0, 0.95, 0, 14)); place(g, x, 2.7, -6.4); R.add(g); if (on) glowAt(R, x, 3.2, -6.0, 3, "#58ffc0"); }
+    for (let i = 0; i < 8; i++) R.add(place(sign(textTex(128, 128, "#f4ead2", on8(i) ? "#18a060" : "#b02a3e", [on8(i) ? "O" : "X"], "Anton", 100), 0.5, 0.5, 1.0), -3.5 + i, 1.9, -6.8));
+    hero(R, 0, 4, -6.9); plant(R, -6.2, -6.2, 1.4); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    R.add(P.at(P.chair("#c85a3a"), 2.4, 0, -3));
+  },
 };
+const on8 = (i: number) => i === 1 || i === 4 || i === 6;
