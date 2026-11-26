@@ -1,0 +1,36 @@
+# Sound cues (seconds on the video timeline)
+
+-    1.52 s  tick      window dark
+-    2.54 s  slap      kick
+-    2.97 s  slap      cut S02
+-    5.14 s  slap      cut S03
+-    6.47 s  slap      kick
+-    7.48 s  slap      cut S04
+-   10.57 s  pin       candle out
+-   11.01 s  slap      kick
+-   11.79 s  slap      cut S05
+-   18.49 s  slap      cut S06
+-   18.69 s  tick      tag
+-   19.21 s  tick      tag
+-   19.73 s  tick      tag
+-   20.08 s  tick      kick
+-   20.26 s  tick      tag
+-   20.78 s  tick      tag
+-   21.30 s  tick      tag
+-   25.01 s  slap      cut S07
+-   25.67 s  tick      check 0.25
+-   26.22 s  slap      kick
+-   26.26 s  tick      check 0.50
+-   26.85 s  tick      check 0.75
+-   27.37 s  slap      cut S08
+-   30.16 s  slap      kick
+-   30.76 s  slap      cut S09
+-   32.94 s  slap      cut S10
+-   36.82 s  slap      cut S11
+-   38.99 s  pin       comment arrives
+-   40.08 s  slap      cut S12
+-   45.27 s  slap      cut S13
+-   48.82 s  slap      kick
+-   49.53 s  slap      cut S14
+-   52.68 s  slap      kick
+-   59.30 s  powerdown silence

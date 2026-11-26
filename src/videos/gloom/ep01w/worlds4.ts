@@ -33,7 +33,7 @@ const roomShell = (R: R, o: { w?: number; d?: number; h?: number; wall: string; 
 import { W2 } from "./worlds2";
 export const W4: Record<string, (R: R) => void> = {
   // line 13: the 1942 lab, a visibly frightened volunteer in a chair, a pinned doll, a racing heart monitor
-  lab(R) { W2.lab(R); const v = person("#8a8ad8", 1.7, { arms: true }); place(v, 1.0, 0.45, -4.0); v.rotation.y = 0.15; R.add(v); for (let i = 0; i < 4; i++) { const sw = sphere(0.1, MB("#a8e8ff", 1.4), 0.55 + i * 0.3, 3.4 - (i % 2) * 0.3, -3.9); noink(sw); R.add(sw); } },
+  lab(R) { W2.lab(R); /*fig*/ for (let i = 0; i < 4; i++) { const sw = sphere(0.1, MB("#a8e8ff", 1.4), 0.55 + i * 0.3, 3.4 - (i % 2) * 0.3, -3.9); noink(sw); R.add(sw); } },
   // line 1: "A man online says he can curse strangers to death": an anon at a glowing PC, a purple hate-beam out of the window to a night town, one lit window going dark
   deskNight(R) {
     // a rooftop desk high above a night town: the anon at his PC, a purple hate-beam shooting down to a far window that goes dark
@@ -45,7 +45,7 @@ export const W4: Record<string, (R: R) => void> = {
     const wd = box(4, 4.8, 0.2, MB("#ffd58a", 1.7), 2.4, 3.4, -39.6); T.add(wd); glowAt(T, 2.4, 3.4, -38.8, 16, "#ffcf8a"); const dk = box(4, 4.8, 0.2, MB("#10102a"), 2.4, 3.4, -39.5); dk.userData.rv = 0.5; T.add(dk); for (let q = 0; q < 14; q++) { const wx = -22 + q * 3.4 + rnd(q) * 1.5; if (Math.abs(wx - 2.4) > 3) T.add(box(1.4, 1.8, 0.2, MB(rnd(q + 5) > 0.5 ? "#ffd58a" : "#2a2a5a", 1.2), wx, 2.6 + rnd(q + 2) * 4, -39.6)); }
     const roof = new THREE.Group(); roof.add(box(9, 0.8, 7, lam("#5a4a6a"), 0, -0.4, 0)); for (let x = -4.2; x <= 4.2; x += 1.4) roof.add(box(0.15, 1.0, 0.15, lam("#2a2a3a"), x, 0.5, 3.3)); roof.add(box(8.6, 0.12, 0.15, lam("#2a2a3a"), 0, 1.0, 3.3)); place(roof, 0, 0, -4); R.add(roof);
     add(R, at(kit("furniture", "desk", 1.0), 0, 0, -5.6), at(kit("furniture", "computerScreen", 0.9), 0, 1.0, -5.7), at(kit("furniture", "computerKeyboard", 0.08), 0, 1.0, -5.2), at(kit("furniture", "chairDesk", 1.4), 0.2, 0, -4.4, 2.9), at(kit("furniture", "lampRoundTable", 0.9), 1.0, 1.0, -5.8), at(kit("furniture", "pottedPlant", 1.2), -3.4, 0, -5.4));
-    const an = person("#3a3a6a", 1.5, { face: false }); place(an, 0.1, 0, -4.1); an.rotation.y = Math.PI; R.add(an); glowAt(R, 0, 1.8, -5.2, 6, "#6aa8ff");
+    /*fig*/
     beamLine(R, new THREE.Vector3(0.1, 2.9, -4.1), new THREE.Vector3(2.4, 0.4, -39.5), "#a040ff", 0.9, 1.6, true); for (let q = 0; q < 6; q++) glowAt(R, 0.1 + (2.3) * q / 6, 2.9 - 2.5 * q / 6, -4.1 - 35.4 * q / 6, 5, "#c880ff"); glowAt(R, 0.1, 2.9, -4.1, 12, "#b87aff");
     nightSky(R); cloudsAt(R, 55, "#4a3a9a");
   },
@@ -57,7 +57,7 @@ export const W4: Record<string, (R: R) => void> = {
     const rk = (x: number, y: number, z: number, s: number) => R.add(at(kit("nature", "rock_largeD", 2.4 * s), x, y, z, rnd(x) * 6));
     rk(-4, -3, -8, 1.2); rk(5, -4.5, -10, 1.6); rk(1, -6, -6, 0.9); rk(-7, -8, -14, 2);
     add(R, at(kit("furniture", "desk", 1.0), 0, 0.2, -6), at(kit("furniture", "computerScreen", 0.9), 0, 1.2, -6.1), at(kit("furniture", "chairDesk", 1.4), 0.3, 0.2, -4.7, 2.9), at(kit("furniture", "lampRoundTable", 0.9), 1.0, 1.2, -6.2));
-    const an = person("#3a3a6a", 1.05); place(an, 0.2, 0.7, -4.8); an.rotation.y = Math.PI; R.add(an);
+    /*fig*/
     glowAt(R, 0, 2.3, -5.5, 6, "#6aa8ff");
     // thinking bubbles popping, then a bigger beam to a far toy town
     for (let i = 0; i < 6; i++) { const b = new THREE.Mesh(new THREE.CircleGeometry(0.45 + (i % 3) * 0.12, 20), new THREE.MeshBasicMaterial({ color: "#f4f1ff", transparent: true, opacity: 0.9 })); b.position.set(-1.2 + (i % 3) * 1.3, 3.3 + Math.floor(i / 3) * 1.1 + (i % 2) * 0.4, -5.4); b.userData.rvOff = 0.18 + i * 0.1; noink(b); R.add(b); const tx = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({ map: canvasTex(64, 64, (c) => { c.clearRect(0, 0, 64, 64); c.strokeStyle = "#241726"; c.lineWidth = 5; c.lineCap = "round"; c.beginPath(); if (i % 3 === 0) { c.moveTo(8, 40); c.bezierCurveTo(10, 8, 54, 8, 56, 40); c.moveTo(20, 50); c.lineTo(44, 50); } else if (i % 3 === 1) { c.moveTo(10, 46); c.lineTo(22, 16); c.lineTo(34, 46); c.lineTo(46, 16); c.lineTo(56, 40); } else { c.arc(32, 28, 16, 0, 7); c.moveTo(32, 46); c.lineTo(32, 56); } c.stroke(); }), transparent: true })); tx.position.set(b.position.x, b.position.y, -5.38); tx.userData.rvOff = b.userData.rvOff; R.add(tx); }
@@ -94,12 +94,12 @@ export const W4: Record<string, (R: R) => void> = {
     townHouses(R, -14, 9, 4, 60); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
     for (const x of [-22, -8, 8, 22]) { R.add(at(kit("graveyard", "lightpost-single", 4.4), x, 0, -9)); glowAt(R, x, 4.4, -9, 5, "#ffcf8a"); }
     // (a) a cold: a sneezing person with a green puff and a tissue
-    const p1 = person("#58b868", 1.5); place(p1, -3.6, 0, -6); R.add(p1); for (let i = 0; i < 10; i++) R.add(sphere(0.28 + rnd(i) * 0.22, new THREE.MeshBasicMaterial({ color: i % 2 ? "#c8ffb0" : "#8ae88a", transparent: true, opacity: 0.75 }), -2.7 + i * 0.3, 2.3 + (rnd(i) - 0.5) * 0.8, -5.5));
+    /*fig*/ for (let i = 0; i < 10; i++) R.add(sphere(0.28 + rnd(i) * 0.22, new THREE.MeshBasicMaterial({ color: i % 2 ? "#c8ffb0" : "#8ae88a", transparent: true, opacity: 0.75 }), -2.7 + i * 0.3, 2.3 + (rnd(i) - 0.5) * 0.8, -5.5));
     for (let i = 0; i < 4; i++) R.add(box(1.6 - i * 0.3, 0.06, 0.06, MB("#ffffff"), 4.0 + i * 0.5, 0.8 + i * 0.35, -8.2));
     R.add(at(kit("graveyard", "bench", 1.1, 1.5), -1.8, 0, -4.4)); R.add(at(kit("nature", "fence_planks", 1.2, 1.2), -6, 0, -4.6)); R.add(at(kit("nature", "sign", 1.6), 0.6, 0, -4.8)); for (const x of [-5.2, 6.4]) R.add(at(kit("nature", "plant_bushLarge", 1.4), x, 0, -5));
     // (b) missed bus: a bus pulling away, a runner
     const bus = new THREE.Group(); bus.add(box(6.5, 2.2, 2.2, lam("#f2c030"), 0, 1.7, 0)); bus.add(box(6.0, 0.8, 2.26, MB("#bfe8ff"), 0, 2.2, 0)); for (let q = 0; q < 5; q++) bus.add(box(0.06, 0.8, 2.3, lam("#f2c030"), -2.4 + q * 1.2, 2.2, 0)); for (const x of [-2.1, 2.1]) { const wh = cyl(0.62, 0.62, 2.4, lam("#1a1a22"), x, 0.62, 0, 16); wh.rotation.x = Math.PI / 2; bus.add(wh); bus.add(cyl(0.3, 0.3, 2.5, lam("#c8c8d8"), x, 0.62, 0, 10)).rotation.x = Math.PI / 2; } bus.add(box(0.3, 0.5, 1.2, MB("#ff3a2a", 1.4), 3.3, 0.9, 0)); bus.scale.setScalar(0.8); place(bus, 1.8, 0, -4.6); bus.rotation.y = 0.0; R.add(bus);
-    const run = person("#e8c24a", 1.4, { arms: true }); place(run, -1.0, 0, -5.4); run.rotation.y = -0.8; R.add(run); R.add(box(0.15, 3.2, 0.15, lam("#7a7a8a"), -0.2, 1.6, -6.1)); R.add(box(1.6, 0.9, 0.08, lam("#e8c24a"), -0.2, 3.0, -6.05));
+    /*fig*/ R.add(box(0.15, 3.2, 0.15, lam("#7a7a8a"), -0.2, 1.6, -6.1)); R.add(box(1.6, 0.9, 0.08, lam("#e8c24a"), -0.2, 3.0, -6.05));
     // (c) very rarely death, as a nod: a gravestone and a candle going out
     R.add(at(kit("graveyard", "gravestone-cross", 3.4), 4.2, 0, -6)); const cn = at(kit("graveyard", "candle", 1.1), 3.0, 0, -4.8); R.add(cn); const fl = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.34, 8), MB("#ff9a3a", 1.8)); fl.position.set(3.0, 1.35, -4.8); fl.userData.rvOff = 0.7; noink(fl); R.add(fl); glowAt(R, 3.2, 1.1, -4.8, 3.4, "#ff9a4a");
     nightSky(R); cloudsAt(R, 55, "#4a3a9a");
@@ -109,7 +109,7 @@ export const W4: Record<string, (R: R) => void> = {
     roomShell(R, { w: 12, d: 10, h: 8, wall: "#3a9a98", trim: "#1f5a68", floorTex: checkTex("#c0d0d0", "#8ab0b8"), z: -6 });
     add(R, at(kit("furniture", "toilet", 2.4), -2.4, 0, -5.2), at(kit("furniture", "bathroomSink", 2.4), 2.5, 0, -5.4), at(kit("furniture", "bathroomMirror", 2.4), 2.5, 4.1, -5.6), at(kit("furniture", "trashcan", 1.4), -4.4, 0, -4.4));
     const ph = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.8), new THREE.MeshBasicMaterial({ map: canvasTex(128, 160, (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); g.fillStyle = "#9ab8d8"; g.fillRect(8, 8, W - 16, H - 36); g.fillStyle = "#5a4a3a"; g.beginPath(); g.arc(64, 62, 26, 0, 7); g.fill(); g.fillRect(34, 88, 60, 40); g.fillStyle = "#14102a"; g.fillRect(48, 56, 8, 8); g.fillRect(72, 56, 8, 8); g.strokeStyle = "#c8243e"; g.lineWidth = 8; g.beginPath(); g.moveTo(8, 8); g.lineTo(W - 8, H - 36); g.stroke(); }) })); ph.rotation.x = -Math.PI / 2; ph.position.set(0, 0.06, -2.6); R.add(ph);
-    const an = person("#3a3a6a", 1.15); place(an, 0, 0, -3.9); an.rotation.y = 0; R.add(an);
+    /*fig*/
     R.add(box(9, 4.2, 0.2, MB("#3aa8a0"), 0, 2.1, -5.85)); R.add(box(9, 0.14, 0.3, MB("#f4ead2"), 0, 4.25, -5.8));
     for (let i = 0; i < 16; i++) { const t = i / 15, dr = sphere(0.09, MB("#ffe04a", 1.7), 0.02, 1.05 - 0.9 * t * t - 0.05 * t, -3.7 + 0.9 * t); noink(dr); R.add(dr); }
     for (let i = 0; i < 8; i++) R.add(sphere(0.2 + rnd(i) * 0.14, lam(i % 2 ? "#e8453c" : "#c8243e"), -0.9 + i * 0.27, 2.9 + Math.sin(i * 1.3) * 0.18, -3.7 + (i % 3) * 0.1));
@@ -144,7 +144,7 @@ export const W4: Record<string, (R: R) => void> = {
     for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(12, 6), lamTex(rep(ctex("atticroof2", 256, 256, (g, r) => { g.fillStyle = "#7a4a3a"; g.fillRect(0, 0, 256, 256); for (let i = 0; i < 16; i++) { g.fillStyle = r() > 0.5 ? "#6a3a30" : "#8a5a44"; g.fillRect(0, i * 16, 256, 14); } }), 3, 2))); p.position.set(s * 3.4, 5.2, -2); p.rotation.set(0, s * Math.PI / 2, s * -0.75); R.add(p); }
     for (let i = -3; i <= 3; i++) R.add(box(0.25, 0.25, 10, lam("#3a2418"), i * 1.5, 6.2 - Math.abs(i) * 0.8, -2));
     add(R, at(kit("furniture", "bedSingle", 0.8), -3.2, 0, -4.4), at(kit("furniture", "rugRound", 0.05, 4), 0, 0.03, -2.8), at(kit("furniture", "cardboardBoxClosed", 0.9), 3.2, 0, -4.8), at(kit("furniture", "laptop", 0.35), 3.2, 0.9, -4.8), at(kit("furniture", "lampSquareFloor", 2.2), 4.6, 0, -5.2), at(kit("furniture", "pillow", 0.25), -3.5, 0.85, -4.9), at(kit("furniture", "bookcaseOpen", 3.0), -5.2, 0, -5.6));
-    const an = person("#d85a8a", 1.4); place(an, 2.0, 0, -3.8); an.rotation.y = 0; an.position.set(1.8, 0, -5.8); an.scale.setScalar(1.7); R.add(an);
+    /*fig*/
     { const lp = new THREE.Group(); lp.add(box(2.4, 0.12, 1.6, lam("#3a3a4a"), 0, 0, 0)); const sc = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.6), new THREE.MeshBasicMaterial({ map: canvasTex(256, 170, (g, W, H) => { g.fillStyle = "#e8f0ff"; g.fillRect(0, 0, W, H); g.fillStyle = "#2a3a6a"; g.fillRect(0, 0, W, 22); g.fillStyle = "#14102a"; g.font = "bold 24px 'Special Elite','Courier New',monospace"; g.font = "bold 21px 'Special Elite','Courier New',monospace"; g.fillText("I didn't think", 14, 104); g.fillText("there were others", 14, 130); g.fillText("like me.", 14, 156); g.fillStyle = "#4a6aaa"; g.fillRect(100, 140, 3, 18); }), color: new THREE.Color(0.7, 0.7, 0.78) })); sc.position.set(0, 0.95, -0.8); sc.rotation.x = -0.12; lp.add(sc); lp.renderOrder = 5; lp.add(box(2.5, 1.7, 0.08, lam("#2a2a3a"), 0, 0.95, -0.86)); place(lp, 1.8, 1.0, -4.4); R.add(lp); glowAt(R, 1.8, 1.9, -3.8, 5, "#e8f0ff"); }
     const rw = new THREE.Mesh(new THREE.CircleGeometry(1.3, 24), MB("#8aa8ff", 1.4)); rw.position.set(0, 3.8, -5.75); R.add(rw);
     for (let i = 0; i < 40; i++) { const hx = -3 + rnd(i) * 6, hy = 3.0 + rnd(i + 4) * 1.6; if (Math.hypot(hx, hy - 3.8) < 1.15) R.add(box(0.18, 0.2, 0.02, MB("#ffd58a", 1.4), hx, hy, -5.7)); }
@@ -181,7 +181,7 @@ export const W4: Record<string, (R: R) => void> = {
     R.add(at(kit("graveyard", "crypt-small", 4.5), 8, 0, -20, -0.5)); R.add(at(kit("graveyard", "iron-fence", 1.4, 1.5), -7, 0, -9)); R.add(at(kit("graveyard", "iron-fence", 1.4, 1.5), 7, 0, -9));
     for (const x of [-3.8, 3.8]) { R.add(at(kit("graveyard", "lantern-candle", 1.0, 1.4), x, 0, -6)); glowAt(R, x, 1.2, -6, 5, "#ffb04a"); }
     const gh = at(kit("graveyard", "character-ghost", 3.2), 0, 0.8, -14); gh.userData.rv = 0.0; R.add(gh); glowAt(R, 0, 2.6, -13, 12, "#a8b8ff");
-    const fz = person("#e8c24a", 1.6, { arms: true }); place(fz, 0.6, 0, -4.6); fz.rotation.y = 0; R.add(fz);
+    /*fig*/
     for (let i = 0; i < 6; i++) { const ic = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.5, 5), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.7, 1.1, 1.6), transparent: true, opacity: 0.8 })); ic.position.set(0.6 + (rnd(i) - 0.5) * 0.9, 0.3 + rnd(i + 2) * 1.4, -4.3); noink(ic); R.add(ic); }
     nightSky(R, [70, 70, -190], 12); cloudsAt(R, 55, "#3a3a8a");
   },

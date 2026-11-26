@@ -5,7 +5,7 @@ import { Rig, camPath, Key, SU } from "../core";
 import { Stage3D, ShotView } from "../Shot";
 import { drawGloom, GLOOM } from "../cast";
 import { drawSilhouette } from "../props/figures";
-import { flashHand } from "../toon";
+import { flashHand, bodyFront, Outfit } from "../toon";
 import { fxBeam } from "../fxdraw";
 import { Light } from "../lights";
 import { TONE } from "../shade";
@@ -13,9 +13,18 @@ import { W } from "./worlds";
 import { W2 } from "./worlds2";
 import { W3 } from "./worlds3";
 
+export const OUTFITS: Record<string, Outfit> = {
+  anon: { jacket: "#4a4a8a", pants: "#2a2a40", boots: "#241726", hat: "hair", hair: "#2a1a1a", skin: "#fbf7ee", build: "adult" },
+  anonPink: { jacket: "#d85a8a", pants: "#3a2a48", boots: "#241726", hat: "hair", hair: "#6a3a1a", skin: "#fbf7ee", build: "adult" },
+  green: { jacket: "#58b868", pants: "#3a3a52", boots: "#241726", hat: "cap", cap: "#e8c24a", skin: "#fbf7ee", build: "adult" },
+  runner: { jacket: "#e8c24a", pants: "#3a5a8a", boots: "#f4f1ea", hat: "hair", hair: "#4a2a1a", skin: "#fbf7ee", build: "adult" },
+  frozen: { jacket: "#e8c24a", pants: "#3a5a8a", boots: "#241726", hat: "cap", cap: "#d85a6a", skin: "#fbf7ee", build: "adult" },
+  volunteer: { jacket: "#a8a8e8", pants: "#4a4a6a", boots: "#241726", hat: "hair", hair: "#3a2a1a", skin: "#fbf7ee", build: "adult" },
+};
 export const ALLW: Record<string, (R: THREE.Group) => void> = { ...W, ...W2, ...W3 };
 export type K3 = { u: number; pos: [number, number, number]; look: [number, number, number]; fov: number; roll?: number; du?: number };
-export type Cast3 = { rel?: [number, number]; x?: number; z?: number; y?: number; s: number; point?: number; bend?: number; beam?: number; sil?: { arm?: [number, number]; col?: string }; expr?: string };
+export type FigSpec = { outfit: string; expr?: string; wave?: number; mirror?: boolean };
+export type Cast3 = { fig?: FigSpec; rel?: [number, number]; x?: number; z?: number; y?: number; s: number; point?: number; bend?: number; beam?: number; sil?: { arm?: [number, number]; col?: string }; expr?: string };
 export type Shot3 = { dim?: number; id: string; line: string; world: string; light: Light; sun?: { az: number; el: number }; caption: string; cInf: number; keys: K3[]; cast: Cast3[] };
 const k = (u: number, pos: [number, number, number], look: [number, number, number], fov: number, o: Partial<K3> = {}): K3 => ({ u, pos, look, fov, ...o });
 const g = (d: number, lat: number, s: number, o: Partial<Cast3> = {}): Cast3 => ({ rel: [d, lat], s, ...o });
@@ -62,7 +71,7 @@ export class Stage3 implements Stage3D {
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
   }
-  kc?: Key[];
+  talk?: (lf: number) => number; kc?: Key[];
   keys() { return (this.kc ??= this.framed(keysFor(this.s, this.D))); }
   /** keep Gloom's fixed mark in frame at every key: never closer than 2.6 m ahead, never wider than 0.22 of the distance off the view axis */
   framed(ks: Key[]): Key[] {
@@ -83,17 +92,18 @@ export class Stage3 implements Stage3D {
     const lt = this.rig.light2D(cam);
     this.cast.forEach(({ c: cs, x, z }, i) => {
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
-      if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
+      if (cs.fig) { const f = cs.fig, key = "fig" + f.outfit + f.expr + f.wave + lt; this.rig.card(cam, { key, draw: (p) => { p.g.translate(150, 0); bodyFront(p, OUTFITS[f.outfit], { mode: "stand", expr: (f.expr as any) ?? "neutral", wave: f.wave, light: lt, seed: 4 }); }, w, h, k: kk, x, y, z, scale: cs.s, mirror: f.mirror }); }
+      else if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {
-        this.rig.card(cam, { key: "g" + JSON.stringify([cs.point, cs.bend, !!cs.beam]) + lt, draw: (p) => drawGloom(p, { expr: (cs.expr as any) ?? "neutral", point: cs.point ?? 40, bend: cs.bend ?? 8, light: lt, flash: !!cs.beam }), w, h, k: kk, x, y, z, scale: cs.s });
-        if (cs.beam) { const fh = flashHand(GLOOM, 3, cs.point ?? 40, cs.bend ?? 8), Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), su = SU * cs.s, L = cs.beam;
+        const tk = Math.round((this.talk?.(f) ?? 0) * 6) / 6, bl = (f % 97) < 4 ? 1 : 0, sway = Math.round((cs.point ?? 40) + 4 * Math.sin(f / 20)); this.rig.card(cam, { key: "g" + JSON.stringify([sway, cs.bend, !!cs.beam, cs.expr, tk, bl]) + lt, draw: (p) => drawGloom(p, { expr: (cs.expr as any) ?? "neutral", point: sway, bend: cs.bend ?? 8, talk: tk, blink: bl, light: lt, flash: !!cs.beam }), w, h, k: kk, x, y, z, scale: cs.s });
+        if (cs.beam) { const fh = flashHand(GLOOM, 3, sway, cs.bend ?? 8), Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), su = SU * cs.s, L = cs.beam;
           const hx = x + Rv.x * (fh.x - 300) * su, hz = z + Rv.z * (fh.x - 300) * su, hy = (975 - fh.y) * su + y, ang = Math.atan2(-fh.dy, fh.dx);
           this.rig.fxCard(cam, { key: "beam", cw: 512, ch: 256, draw: (p) => fxBeam(p, 512, 256), x: hx + Rv.x * Math.cos(ang) * L / 2, y: hy + Math.sin(ang) * L / 2, z: hz + Rv.z * Math.cos(ang) * L / 2, w: L, h: L * 0.42, soft: true, rot: ang }); }
       }
     });
     this.extra?.(f, this.rig, cam);
     this.rig.finish();
-    const c0 = this.cast.find((q) => !q.c.sil);
+    const fg = this.cast.find((q) => q.c.fig), c0 = fg ?? this.cast.find((q) => !q.c.sil && !q.c.fig && q.c.s >= 0.95);
     return { focus: c0 ? new THREE.Vector3(c0.x, (c0.c.y ?? 0) + 1.4 * c0.c.s, c0.z) : new THREE.Vector3(...c.look), cInf: this.s.cInf, light: this.s.light };
   }
 }

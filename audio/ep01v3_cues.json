@@ -1,0 +1,177 @@
+{
+ "source": "build/ep01v3/ep01v3_words_fast.json",
+ "fps": 30,
+ "lead": 0.1,
+ "cues": [
+  {
+   "t": 1.52,
+   "type": "tick",
+   "visual": "window dark"
+  },
+  {
+   "t": 2.54,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 2.97,
+   "type": "slap",
+   "visual": "cut S02"
+  },
+  {
+   "t": 5.137,
+   "type": "slap",
+   "visual": "cut S03"
+  },
+  {
+   "t": 6.467,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 7.477,
+   "type": "slap",
+   "visual": "cut S04"
+  },
+  {
+   "t": 10.567,
+   "type": "pin",
+   "visual": "candle out"
+  },
+  {
+   "t": 11.007,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 11.792,
+   "type": "slap",
+   "visual": "cut S05"
+  },
+  {
+   "t": 18.492,
+   "type": "slap",
+   "visual": "cut S06"
+  },
+  {
+   "t": 18.692,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 19.213,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 19.735,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 20.082,
+   "type": "tick",
+   "visual": "kick"
+  },
+  {
+   "t": 20.256,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 20.777,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 21.298,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 25.007,
+   "type": "slap",
+   "visual": "cut S07"
+  },
+  {
+   "t": 25.667,
+   "type": "tick",
+   "visual": "check 0.25"
+  },
+  {
+   "t": 26.217,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 26.257,
+   "type": "tick",
+   "visual": "check 0.50"
+  },
+  {
+   "t": 26.847,
+   "type": "tick",
+   "visual": "check 0.75"
+  },
+  {
+   "t": 27.367,
+   "type": "slap",
+   "visual": "cut S08"
+  },
+  {
+   "t": 30.157,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 30.756,
+   "type": "slap",
+   "visual": "cut S09"
+  },
+  {
+   "t": 32.94,
+   "type": "slap",
+   "visual": "cut S10"
+  },
+  {
+   "t": 36.82,
+   "type": "slap",
+   "visual": "cut S11"
+  },
+  {
+   "t": 38.99,
+   "type": "pin",
+   "visual": "comment arrives"
+  },
+  {
+   "t": 40.082,
+   "type": "slap",
+   "visual": "cut S12"
+  },
+  {
+   "t": 45.274,
+   "type": "slap",
+   "visual": "cut S13"
+  },
+  {
+   "t": 48.824,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 49.534,
+   "type": "slap",
+   "visual": "cut S14"
+  },
+  {
+   "t": 52.684,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 59.295,
+   "type": "powerdown",
+   "visual": "silence"
+  }
+ ]
+}
