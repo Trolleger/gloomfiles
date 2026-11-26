@@ -109,11 +109,11 @@ export const W4: Record<string, (R: R) => void> = {
     roomShell(R, { w: 12, d: 10, h: 8, wall: "#3a9a98", trim: "#1f5a68", floorTex: checkTex("#c0d0d0", "#8ab0b8"), z: -6 });
     add(R, at(kit("furniture", "toilet", 2.4), -2.4, 0, -5.2), at(kit("furniture", "bathroomSink", 2.4), 2.5, 0, -5.4), at(kit("furniture", "bathroomMirror", 2.4), 2.5, 4.1, -5.6), at(kit("furniture", "trashcan", 1.4), -4.4, 0, -4.4));
     const ph = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.8), new THREE.MeshBasicMaterial({ map: canvasTex(128, 160, (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); g.fillStyle = "#9ab8d8"; g.fillRect(8, 8, W - 16, H - 36); g.fillStyle = "#5a4a3a"; g.beginPath(); g.arc(64, 62, 26, 0, 7); g.fill(); g.fillRect(34, 88, 60, 40); g.fillStyle = "#14102a"; g.fillRect(48, 56, 8, 8); g.fillRect(72, 56, 8, 8); g.strokeStyle = "#c8243e"; g.lineWidth = 8; g.beginPath(); g.moveTo(8, 8); g.lineTo(W - 8, H - 36); g.stroke(); }) })); ph.rotation.x = -Math.PI / 2; ph.position.set(0, 0.06, -2.6); R.add(ph);
-    const an = person("#3a3a6a", 1.6); place(an, 0, 0, -3.9); an.rotation.y = 0; R.add(an);
+    const an = person("#3a3a6a", 1.15); place(an, 0, 0, -3.9); an.rotation.y = 0; R.add(an);
     R.add(box(9, 4.2, 0.2, MB("#3aa8a0"), 0, 2.1, -5.85)); R.add(box(9, 0.14, 0.3, MB("#f4ead2"), 0, 4.25, -5.8));
     for (let i = 0; i < 16; i++) { const t = i / 15, dr = sphere(0.09, MB("#ffe04a", 1.7), 0.02, 1.05 - 0.9 * t * t - 0.05 * t, -3.7 + 0.9 * t); noink(dr); R.add(dr); }
-    for (let i = 0; i < 8; i++) R.add(sphere(0.28 + rnd(i) * 0.2, lam(i % 2 ? "#e8453c" : "#c8243e"), -1.3 + i * 0.38, 3.9 + Math.sin(i * 1.3) * 0.25, -3.6 + (i % 3) * 0.15));
-    { const ey = (x: number) => { R.add(sphere(0.2, MB("#ffffff"), x, 3.95, -3.0)); R.add(sphere(0.09, MB("#14102a"), x, 3.93, -2.82)); }; ey(-0.25); ey(0.5); const br = (x: number, r: number) => { const q = box(0.7, 0.12, 0.1, lam("#14102a"), x, 4.25, -2.85); q.rotation.z = r; R.add(q); }; br(-0.25, -0.5); br(0.5, 0.5); }
+    for (let i = 0; i < 8; i++) R.add(sphere(0.2 + rnd(i) * 0.14, lam(i % 2 ? "#e8453c" : "#c8243e"), -0.9 + i * 0.27, 2.9 + Math.sin(i * 1.3) * 0.18, -3.7 + (i % 3) * 0.1));
+    { const ey = (x: number) => { R.add(sphere(0.2, MB("#ffffff"), x, 3.0, -3.3)); R.add(sphere(0.09, MB("#14102a"), x, 2.98, -3.12)); }; ey(-0.2); ey(0.35); const br = (x: number, r: number) => { const q = box(0.7, 0.12, 0.1, lam("#14102a"), x, 3.3, -3.15); q.rotation.z = r; R.add(q); }; br(-0.25, -0.5); br(0.5, 0.5); }
     R.add(box(3.2, 2.6, 0.12, MB("#cfe8f0", 1.1), 2.5, 4.0, -5.75)); R.add(box(3.5, 2.9, 0.1, lam("#f4ead2"), 2.5, 4.0, -5.8)); R.add(box(1.4, 1.2, 0.1, lam("#f4ead2"), -3.6, 2.4, -5.7)); R.add(box(1.2, 0.2, 0.2, lam("#c8c8d8"), -3.6, 3.1, -5.6)); for (const q of [-0.4, 0.4]) R.add(box(0.5, 1.0, 0.08, lam("#e8453c"), -3.6 + q, 2.5, -5.55));
     glowAt(R, 0, 2.4, -3.4, 16, "#ff3a2a"); R.add(P.at(P.lampDesk("#ff9a7a"), 4.2, 3.0, -5.6));
   },

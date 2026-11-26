@@ -33,7 +33,7 @@ export const SHOTS4: Shot3[] = [
   { id: "S10", line: "That's when an anon wrote, \"I didn't think there were others like me.\"", world: "attic2", light: "golden", sun: FRONT, caption: "OTHERS LIKE ME", cInf: 5,
     keys: [k(0, [-2.4, 2.2, 1.6], [2.2, 1.2, -4.4], 50), k(1, [-0.4, 2.0, -0.4], [2.6, 1.2, -4.4], 42, { du: 0.8, roll: 0.04 })], cast: [g(3.8, -1.0, 0.62, { point: 130 })] },
   { id: "S11", line: "His blog takes anonymous comments, so someone left one.", world: "commentBox", light: "night", sun: NIGHT, caption: "LEFT ONE", cInf: 5,
-    keys: [k(0, [0, 3.4, 7], [0, 5.2, -8], 54), k(1, [0, 3.2, 2], [0, 4.8, -8], 44, { du: 0.8 })], cast: [g(4.6, 1.3, 0.7, { point: 60, beam: 1.0 })] },
+    keys: [k(0, [0, 6, 19], [0, 7.5, -8], 56), k(1, [0, 4.4, 8], [0, 6.5, -8], 48, { du: 0.8 })], cast: [g(4.6, 1.3, 0.7, { point: 60, beam: 1.0 })] },
   { id: "S12", line: "Luckily, nobody can prove he hurt anyone. Unluckily, nobody can prove he didn't.", world: "courtroom", light: "day", sun: FRONT, caption: "NO PROOF", cInf: 6,
     keys: [k(0, [0, 3.6, 8.5], [0, 4.4, -8], 62), k(1, [0, 3.3, 2.6], [0, 4.4, -8], 52, { du: 0.8 })], cast: [g(4.2, 1.4, 0.66, { point: 40, beam: 1.0 })] },
   { id: "S13", line: "You see, belief is powerful. Ever been so scared you froze?", world: "graveyardPath", light: "night", sun: NIGHT, caption: "SO SCARED", cInf: 5,
@@ -44,7 +44,7 @@ export const SHOTS4: Shot3[] = [
     keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(1, [3.6, 3.2, 7], [0, 1.2, -8], 58, { du: 0.9 })], cast: [g(3.6, -1.0, 0.66, { point: 40 })] },
 ];
 
-const PULL: Record<string, number> = { S01: 1.5, S03: 1.25, S05: 1.25, S09: 1.45, S10: 1.8, S11: 1.35, S12: 1.0, S14: 1.2 };
+const PULL: Record<string, number> = { S01: 1.5, S03: 1.25, S05: 1.8, S09: 1.45, S10: 1.8, S11: 1.35, S12: 1.0, S14: 1.2 };
 for (const s of SHOTS4) { const f = PULL[s.id]; if (!f) continue; s.keys = s.keys.map((q) => ({ ...q, pos: [q.look[0] + (q.pos[0] - q.look[0]) * f, q.pos[1] + (q.pos[1] - q.look[1]) * (f - 1) * 0.5, q.look[2] + (q.pos[2] - q.look[2]) * f] as [number, number, number] })); }
 
 export const Shot4Still: React.FC<{ shot?: number; u?: number }> = ({ shot = 0, u = 0.15 }) => {
