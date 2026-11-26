@@ -9,6 +9,7 @@ Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The 
 | SCRIPT_v6_info_heavy.md | Episode 1 (pilot) approved script. Earlier versions v2 to v5 are superseded. |
 | SCRIPTS_batch1.md | Approved scripts for episodes 2 to 9 |
 | SHOT_PLANS.md | Scene-by-scene plans for episodes 1 to 9, for the Remotion build |
+| EP02-09_60s_SCRIPTS_AND_SHOTS.md | Eps 2 to 9 trimmed to about 60 s (fast Joe pace), cut facts listed, plus per-beat surreal world shot lists, colour and Kevin MacLeod music per ep. Awaiting Andrew's OK per episode. Supersedes the eps 2-9 tables in SHOT_PLANS.md once approved. |
 | UPLOAD_KIT.md | Titles, captions, hashtags for YouTube, TikTok, Instagram Reels, episodes 1 to 9 |
 | BRANDING.md | Handle ideas, bios for all three platforms, profile picture concept |
 | PITCHES.md | Batch 1 pitches (all scripted) |
@@ -20,6 +21,7 @@ Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The 
 | cast-concept-v1.png | Cast concept image |
 
 ## Status at a glance
+- Eps 2 to 9: 60 s trims and world shot lists written 2026-11-26 (EP02-09_60s_SCRIPTS_AND_SHOTS.md), awaiting Andrew's OK per episode.
 - Scripts approved: episodes 1 to 9. Scripts written, awaiting approval: episodes 10 to 17.
 - 3D art (cloud, 2026-11-25): Ep 1 and Ep 2 sets built as stills-verified Remotion compositions, 55-prop library, cast redesigned (anglo Professor Gloom, long beard, blue eyes). Source in remotion/ (README, PROPS.md, previews/). Nothing fully rendered. Rendering happens on Andrew's PC only when he says (about 2 h each, free, on his GTX 1060).
 - Ep 1 audio: Kevin MacLeod music, SFX, word-synced cues, mix and the fast Joe voice are done (branch pc/ep01-voice). Look pass in progress, finishing open, render waits for Andrew's go. See the banger checklist in EPISODE_TRACKER.md.
