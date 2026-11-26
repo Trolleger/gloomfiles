@@ -19,9 +19,9 @@ export const SHOTS4: Shot3[] = [
   { id: "S03", line: "He posted in a Death Note thread,", world: "deathNote", light: "night", sun: NIGHT, caption: "DEATH NOTE", cInf: 5,
     keys: [k(0, [-1.2, 3.8, 0.6], [0, 1.6, -5.4], 50), k(1, [-0.6, 3.2, -1.6], [0, 1.7, -5.4], 42, { du: 0.8, roll: -0.04 })], cast: [g(3.6, 1.1, 0.66, { point: 40, beam: 0.9 })] },
   { id: "S04", line: "and his blog logs colds, missed buses and, very rarely, death.", world: "logStreet", light: "night", sun: NIGHT, caption: "VERY RARELY", cInf: 4,
-    keys: [k(0, [-8, 2.4, 8], [-5, 1.4, -6], 62), k(0.4, [2, 2.4, 8], [3, 1.4, -6], 62, { du: 0.2 }), k(1, [9, 2.4, 8], [10, 1.2, -6], 56, { du: 0.2 })], cast: [{ x: 12.6, z: -3.2, y: 0, s: 0.7, point: 40 }] },
+    keys: [k(0, [0.5, 2.6, 9], [0.5, 1.4, -6], 62), k(0.34, [-4.2, 2.4, 3], [-4.0, 1.6, -6], 50, { du: 0.12 }), k(0.62, [1.0, 2.4, 3], [1.4, 1.6, -6], 50, { du: 0.12 }), k(1, [5.8, 2.4, 3], [5.9, 1.4, -6], 46, { du: 0.12 })], cast: [{ x: 8.0, z: -3.6, y: 0, s: 0.7, point: 40 }] },
   { id: "S05", line: "He says he prints their photo, pisses on it, says their name, and wishes the worst, with no thinking, just anger.", world: "bathroom", light: "golden", sun: FRONT, caption: "JUST ANGER", cInf: 5,
-    keys: [k(0, [0, 2.4, 1.2], [0, 0.9, -4], 52), k(1, [0, 3.2, -0.6], [0, 0.5, -3.2], 42, { du: 0.8 })], cast: [g(3.4, -1.6, 0.62, { point: 30, beam: 1.0 })] },
+    keys: [k(0, [0, 2.6, 1.2], [0, 1.0, -4], 60), k(1, [0, 3.4, -0.6], [0, 0.6, -3.4], 46, { du: 0.8 })], cast: [g(3.4, -1.6, 0.62, { point: 30, beam: 1.0 })] },
   { id: "S06", line: "Then he ran it like a lab: forty targets, each matched with a control, coded in advance so nobody could say he edited it.", world: "labForty", light: "day", sun: FRONT, caption: "FORTY TARGETS", cInf: 5,
     keys: [k(0, [0, 4.4, 6], [0, 1.4, -12], 56), k(1, [-2, 2.8, -1], [-3, 1.2, -9], 44, { du: 0.8 })], cast: [g(5.2, 1.2, 0.8, { point: 60, beam: 1.2 })] },
   { id: "S07", line: "One reply says three hits out of eight,", world: "eightboxes", light: "night", sun: NIGHT, caption: "3 OF 8", cInf: 5,
@@ -44,7 +44,7 @@ export const SHOTS4: Shot3[] = [
     keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(1, [3.6, 3.2, 7], [0, 1.2, -8], 58, { du: 0.9 })], cast: [g(3.6, -1.0, 0.66, { point: 40 })] },
 ];
 
-const PULL: Record<string, number> = { S01: 1.5, S03: 1.25, S04: 1.0, S05: 1.5, S09: 1.45, S10: 1.8, S11: 1.35, S12: 1.45, S14: 1.2 };
+const PULL: Record<string, number> = { S01: 1.5, S03: 1.25, S05: 2.1, S09: 1.45, S10: 1.8, S11: 1.35, S12: 1.45, S14: 1.2 };
 for (const s of SHOTS4) { const f = PULL[s.id]; if (!f) continue; s.keys = s.keys.map((q) => ({ ...q, pos: [q.look[0] + (q.pos[0] - q.look[0]) * f, q.pos[1] + (q.pos[1] - q.look[1]) * (f - 1) * 0.5, q.look[2] + (q.pos[2] - q.look[2]) * f] as [number, number, number] })); }
 
 export const Shot4Still: React.FC<{ shot?: number; u?: number }> = ({ shot = 0, u = 0.15 }) => {
