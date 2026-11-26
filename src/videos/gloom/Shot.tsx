@@ -33,7 +33,7 @@ const Inner: React.FC<{ make: () => Stage3D; frame: number }> = ({ make, frame }
     tone: new ToneMappingEffect({ mode: ToneMappingMode.NEUTRAL }),
     grade: new GradeEffect(GRADES.night, GRADE_STRENGTH.night),
   }), [camera, scene]);
-  useEffect(() => () => fx.ink.dispose(), [fx]);
+  useEffect(() => () => { (fx.ink as any).dispose?.(); }, [fx]);
   const post = useMemo(() => (
     <EffectComposer multisampling={4}>
       <primitive object={fx.ink} dispose={null} />
