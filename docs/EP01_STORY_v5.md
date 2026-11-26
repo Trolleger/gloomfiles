@@ -1,5 +1,7 @@
 # EP01 "Anon Went Quiet": v5, told as one continuous story (for Andrew's OK)
 
+> Superseded by EP01_STORY_v6.md (mromidev script formula).
+
 Written 2026-11-26. Replaces v4 (Andrew: v4 was still one-liners). Same facts, Death Note and safeguards as v4; the source digest (every detail, used vs cut) is unchanged in EP01_STORY_v4.md. Nothing is built or rendered.
 
 ## What changed from v4
