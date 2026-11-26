@@ -51,6 +51,14 @@ const checkTex = (a: string, b: string) => lamTex(rep(ctex("chk" + a + b, 128, 1
 const lampPool = (R: R, x: number, y: number, z: number, c = "#ffd58a", s = 9) => { glowAt(R, x, y, z, s, c); const sp = new THREE.SpotLight(c, 30, 14, 0.7, 0.7); sp.position.set(x, y, z); sp.target.position.set(x, 0, z - 0.5); R.add(sp, sp.target); };
 const clutter = (R: R, x0: number, x1: number, z: number, seed: number) => { for (let i = 0; i < 6; i++) { const x = x0 + rnd(i + seed) * (x1 - x0); R.add(box(0.5 + rnd(i) * 0.4, 0.5 + rnd(i + 2) * 0.5, 0.5, lam(["#e8a838", "#3aa0a0", "#d85a6a", "#7a8ad8"][i % 4]), x, 0.3, z + rnd(i + 5))); } };
 
+const hero = (R: R, cx: number, seed: number, z = -6.9) => {
+  frame(R, cx - 0.2, 4.0, z + 0.1, 1.5, 1.9, "#f4ead2", seed); frame(R, cx + 1.9, 3.5, z + 0.1, 0.9, 1.2, "#f4ead2", seed + 5); frame(R, cx - 2.2, 3.3, z + 0.1, 1.0, 1.3, "#f4ead2", seed + 9);
+  R.add(box(2.6, 0.12, 0.5, lam("#6a4630"), cx + 0.2, 2.1, z + 0.3));
+  for (let i = 0; i < 5; i++) R.add(box(0.28, 0.4 + rnd(i + seed) * 0.35, 0.3, lam(["#e8a838", "#3aa0a0", "#d85a6a", "#7a8ad8", "#58b868"][i]), cx - 0.8 + i * 0.4, 2.35 + rnd(i + seed) * 0.15, z + 0.3));
+  const st = new THREE.Group(); st.add(box(1.0, 0.1, 0.8, lam("#6a4630"), 0, 0.9, 0)); for (const sx of [-1, 1]) st.add(box(0.1, 0.9, 0.1, lam("#5a3a24"), sx * 0.4, 0.45, 0)); place(st, cx + 2.4, 0, z + 0.9); R.add(st); R.add(cyl(0.1, 0.12, 0.5, lam("#d8d8f0"), cx + 2.4, 1.15, z + 0.9, 10)); R.add(sphere(0.18, glow("#ffd58a", 3), cx + 2.4, 1.55, z + 0.9));
+  plant(R, cx - 2.3, z + 0.8, 1.6); R.add(P.at(P.chair("#c85a3a"), cx + 1.0, 0, z + 2.6));
+};
+
 // ---------- the 13 worlds ----------
 export const W: Record<string, (R: R) => void> = {
   // B1: "/x/ is 4chan's paranormal board" -> the archive vault with the glowing door
@@ -69,7 +77,8 @@ export const W: Record<string, (R: R) => void> = {
   // B2: January 2005, photography. A bright studio, tripod, prints on a line, sunny mountain outside.
   studio05(R) {
     floor(R, 18, 22, planksTex("#c89868", "#4a2e28", [4, 5]), -4);
-    R.add(box(18, 8, 0.4, lam("#e8d4b8"), 0, 4, -12)); R.add(box(0.4, 8, 22, lam("#dcc6a8"), -9, 4, -4));
+    R.add(box(18, 8, 0.4, plaster("#e8a838", 5, 2), 0, 4, -12)); wain(R, 18, -12, "#2a8f9a"); R.add(box(0.4, 8, 22, lam("#dcc6a8"), -9, 4, -4));
+    hero(R, 3.8, 3, -11.5); plant(R, -4.5, -10, 1.6); curtains(R, 0, 3.6, -11.5, 4.4, "#d8627a");
     win(R, 0, 3.6, -11.7, 6.5, 4, "#9fd0ff"); glowAt(R, 0, 3.2, -10, 14, "#fff0c0");
     const hills = new THREE.Mesh(new THREE.ConeGeometry(6, 3, 5), lam("#6a9a6a")); hills.position.set(1.5, 2.0, -13); R.add(hills);
     const tri = new THREE.Group(); for (const a of [0, 2.1, 4.2]) { const l = cyl(0.05, 0.04, 2.6, lam("#2a2030"), Math.sin(a) * 0.5, 1.2, Math.cos(a) * 0.5, 6); l.rotation.set(Math.cos(a) * 0.2, 0, -Math.sin(a) * 0.2); tri.add(l); } tri.add(box(0.7, 0.5, 0.5, lam("#2a2a3a"), 0, 2.7, 0)); tri.add(cyl(0.2, 0.2, 0.4, lam("#555a7a"), 0, 2.7, 0.4)); (tri.children[4] as THREE.Object3D).rotation.x = Math.PI / 2; tri.add(sphere(0.12, glow("#ffffff", 2), 0, 2.7, 0.62)); place(tri, 2.2, 0, -1.5); tri.scale.setScalar(1.3); R.add(tri);
@@ -82,7 +91,8 @@ export const W: Record<string, (R: R) => void> = {
   // B3: February 2007, the board turns to the unexplained. Same studio, dusk, ghosts in the prints.
   studio07(R) {
     floor(R, 18, 22, planksTex("#7a5a6a", "#241428", [4, 5]), -4);
-    R.add(box(18, 8, 0.4, lam("#6a4a6a"), 0, 4, -12)); R.add(box(0.4, 8, 22, lam("#5a3a5a"), -9, 4, -4));
+    R.add(box(18, 8, 0.4, plaster("#7a2f8a", 5, 2), 0, 4, -12)); wain(R, 18, -12, "#2a6a8a"); R.add(box(0.4, 8, 22, lam("#5a3a5a"), -9, 4, -4));
+    hero(R, 3.8, 8, -11.5); plant(R, -4.5, -10, 1.6); curtains(R, 0, 3.6, -11.5, 4.4, "#7a3aa0");
     win(R, 0, 3.6, -11.7, 6.5, 4, "#ff9a6a"); glowAt(R, 0, 3.2, -10, 14, "#ff8a5a");
     const tri = new THREE.Group(); for (const a of [0, 2.1, 4.2]) { const l = cyl(0.05, 0.04, 2.6, lam("#2a2030"), Math.sin(a) * 0.5, 1.2, Math.cos(a) * 0.5, 6); l.rotation.set(Math.cos(a) * 0.2, 0, -Math.sin(a) * 0.2); tri.add(l); } tri.add(box(0.7, 0.5, 0.5, lam("#2a2a3a"), 0, 2.7, 0)); tri.add(sphere(0.14, glow("#ffffff", 3), 0, 2.7, 0.55)); place(tri, 2.2, 0, -1.5); tri.scale.setScalar(1.3); R.add(tri);
     R.add(box(9, 0.04, 0.04, lam("#2a2030"), -3, 6.2, -9));
@@ -107,9 +117,10 @@ export const W: Record<string, (R: R) => void> = {
   // B5: the title borrows from Death Note: a dark study with a black notebook and a pen (generic, nothing copied)
   notebook(R) {
     floor(R, 14, 14, planksTex("#3a2a38", "#0e0814", [3, 3]), -2);
-    R.add(box(16, 9, 0.4, plaster("#b8561e", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#7a3a8a", "#f4ead2");
+    R.add(box(16, 9, 0.4, plaster("#7a2f8a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#7a3a8a", "#f4ead2");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#7a3a8a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, 0, 1);
     const d = P.desk(4.4, 1.8, "#3a2418"); d.position.set(0, 0, -3.5); R.add(d);
     const nb = new THREE.Group(); const open = P.openBook(textTex(256, 340, "#14101c", "#e8e0ff", ["", "", ""]), 0.55, 0.78); nb.add(open); nb.add(sign(textTex(256, 340, "#0a0612", "#d8d0ff", ["NOTE", "BOOK"], "Anton", 54), 0.5, 0.7, 1.0) as any); (nb.children[1] as THREE.Object3D).rotation.x = -Math.PI / 2; (nb.children[1] as THREE.Object3D).position.set(-0.3, 0.07, 0); nb.position.set(0, 0.96, -3.5); nb.scale.setScalar(1.5); R.add(nb);
     const pen = P.pen("#c0b0ff"); pen.position.set(0.6, 0.98, -3.2); pen.rotation.y = 0.5; R.add(pen);
@@ -125,6 +136,7 @@ export const W: Record<string, (R: R) => void> = {
     R.add(box(16, 9, 0.4, plaster("#2f9a8e", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2f7a86", "#f4ead2");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2f7a86"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, -1, 3);
     const d = P.desk(3.2, 1.3, "#4a3224"); d.position.set(-0.2, 0, -5.4); R.add(d);
     const m = P.monitor("#6aa8ff"); m.position.set(0, 0.95, -5.5); m.scale.setScalar(1.6); R.add(m); glowAt(R, 0, 1.6, -5.0, 9, "#6aa8ff");
     const ch = P.chair("#5a3a48"); ch.position.set(0.8, 0, -4.3); ch.rotation.y = 0.9; R.add(ch);
@@ -138,18 +150,19 @@ export const W: Record<string, (R: R) => void> = {
   // B7: post 2: an anon's bedroom (A), thought bubbles: real life, no results, boredom, the feds
   bedroomA(R) {
     floor(R, 14, 14, rugTex("#34406a", "#7a5a9a") as any, -2); floor(R, 18, 18, planksTex("#4a3a58", "#0e0814", [4, 4], 6), -2, -0.01);
-    R.add(box(16, 9, 0.4, plaster("#c8901a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2a8f9a", "#f4ead2");
+    R.add(box(16, 9, 0.4, plaster("#d8b050", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2a8f9a", "#f4ead2");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2a8f9a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, 1, 15);
     bed(R, -4.6, -4.8, "#4a5a9a"); deskPc(R, 1.6, -5.2, "#6aa8ff"); glowAt(R, 1.6, 1.7, -5.0, 8, "#6aa8ff");
     poster(R, -2.2, 3.6, -6.75, "#6a2a5a"); poster(R, 5.0, 4.0, -6.75, "#2a5a6a"); R.add(place(sign(textTex(256, 256, "#2a2040", "#ff8a5a", ["BORED"], "Anton", 60), 0.8, 0.8, 1.2), -2.2, 5.2, -6.75));
     win(R, 4.6, 3.4, -6.76, 2.6, 3.0, "#2a3070");
     // the feds outside the window: two men in black with hats
     for (const dx of [-0.4, 0.4]) { const mb = new THREE.Group(); mb.add(box(0.5, 1.2, 0.3, lam("#0a0814"), 0, 0.6, 0)); mb.add(sphere(0.22, lam("#d8c0a8"), 0, 1.45, 0)); mb.add(cyl(0.3, 0.3, 0.05, lam("#0a0814"), 0, 1.65, 0)); mb.add(cyl(0.2, 0.2, 0.2, lam("#0a0814"), 0, 1.75, 0)); place(mb, 4.6 + dx, 2.4, -7.2); R.add(mb); }
-    bubble(R, -1.4, 6.2, -3.0, (g) => { g.fillStyle = "#e8a050"; g.fillRect(60, 110, 136, 80); g.fillStyle = "#b03a4a"; g.beginPath(); g.moveTo(50, 112); g.lineTo(128, 52); g.lineTo(206, 112); g.fill(); g.fillStyle = "#2a1a30"; g.fillRect(112, 140, 32, 50); });
-    bubble(R, 0.9, 5.6, -3.2, (g) => { g.fillStyle = "#e8c04a"; g.beginPath(); g.moveTo(80, 60); g.lineTo(176, 60); g.lineTo(168, 130); g.lineTo(88, 130); g.fill(); g.fillRect(118, 130, 20, 36); g.fillRect(90, 166, 76, 14); g.strokeStyle = "#b02a3e"; g.lineWidth = 14; g.beginPath(); g.moveTo(60, 50); g.lineTo(196, 190); g.moveTo(196, 50); g.lineTo(60, 190); g.stroke(); });
-    bubble(R, -2.8, 4.7, -3.4, (g) => { g.strokeStyle = "#2a1e30"; g.lineWidth = 10; g.beginPath(); g.arc(128, 118, 56, 0, 7); g.stroke(); g.beginPath(); g.moveTo(128, 118); g.lineTo(128, 84); g.moveTo(128, 118); g.lineTo(152, 128); g.stroke(); g.fillStyle = "#2a1e30"; g.font = "50px Anton"; g.fillText("z z", 160, 70); });
-    bubble(R, 2.6, 4.5, -3.4, (g) => { g.fillStyle = "#14102a"; g.fillRect(70, 130, 116, 70); g.beginPath(); g.arc(128, 100, 34, 0, 7); g.fill(); g.fillStyle = "#e8e0ff"; g.fillRect(124, 134, 8, 50); });
+    bubble(R, -0.4, 4.3, -3.0, (g) => { g.fillStyle = "#e8a050"; g.fillRect(60, 110, 136, 80); g.fillStyle = "#b03a4a"; g.beginPath(); g.moveTo(50, 112); g.lineTo(128, 52); g.lineTo(206, 112); g.fill(); g.fillStyle = "#2a1a30"; g.fillRect(112, 140, 32, 50); });
+    bubble(R, 2.0, 3.7, -3.2, (g) => { g.fillStyle = "#e8c04a"; g.beginPath(); g.moveTo(80, 60); g.lineTo(176, 60); g.lineTo(168, 130); g.lineTo(88, 130); g.fill(); g.fillRect(118, 130, 20, 36); g.fillRect(90, 166, 76, 14); g.strokeStyle = "#b02a3e"; g.lineWidth = 14; g.beginPath(); g.moveTo(60, 50); g.lineTo(196, 190); g.moveTo(196, 50); g.lineTo(60, 190); g.stroke(); });
+    bubble(R, -1.8, 3.3, -3.4, (g) => { g.strokeStyle = "#2a1e30"; g.lineWidth = 10; g.beginPath(); g.arc(128, 118, 56, 0, 7); g.stroke(); g.beginPath(); g.moveTo(128, 118); g.lineTo(128, 84); g.moveTo(128, 118); g.lineTo(152, 128); g.stroke(); g.fillStyle = "#2a1e30"; g.font = "50px Anton"; g.fillText("z z", 160, 70); });
+    bubble(R, 1.0, 2.9, -3.4, (g) => { g.fillStyle = "#14102a"; g.fillRect(70, 130, 116, 70); g.beginPath(); g.arc(128, 100, 34, 0, 7); g.fill(); g.fillStyle = "#e8e0ff"; g.fillRect(124, 134, 8, 50); });
   },
   // B8: post 3: three hits out of eight experiments; "like hitting a one-metre target at a thousand metres in a storm"
   range(R) {
@@ -167,9 +180,10 @@ export const W: Record<string, (R: R) => void> = {
   // B9: post 4: the paperback on a plinth in an occult bookshop, 112 pages
   bookshop(R) {
     floor(R, 16, 16, planksTex("#6a4a30", "#1a0e14", [3, 3], 7), -2);
-    R.add(box(16, 9, 0.4, plaster("#a8304a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#6a2a5a", "#f4d89a");
+    R.add(box(16, 9, 0.4, plaster("#8a2a48", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#6a2a5a", "#f4d89a");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#6a2a5a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, 1.4, 9);
     P.bookshelf; for (const x of [-5.4, -2.0, 5.4]) R.add(P.at(P.bookshelf(3.2, 5.2, 30), x, 0, -7));
     const pl = new THREE.Group(); pl.add(box(1.6, 1.0, 1.6, lam("#3a2a4a"), 0, 0.5, 0)); pl.add(box(1.8, 0.1, 1.8, lam("#5a4a6a"), 0, 1.05, 0)); place(pl, 1.4, 0, -4); R.add(pl);
     const bk = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.3, 0.18), [lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), lam("#2b2540"), new THREE.MeshBasicMaterial({ map: textTex(256, 360, "#5a2a5a", "#e8d49a", ["THE", "FORBIDDEN", "PARA-", "PSYCHOLOGY"], "Anton", 48, "#e8d49a"), color: new THREE.Color(1.3, 1.3, 1.3) }), lam("#2b2540")]); bk.position.set(1.4, 1.75, -4); bk.rotation.set(-0.15, -0.2, 0); R.add(bk);
@@ -181,9 +195,10 @@ export const W: Record<string, (R: R) => void> = {
   // B10: 1930, Psychic Self-Defence, her breakdown after a psychic attack: a 1930s occult study with candles and mist
   study30(R) {
     floor(R, 16, 16, rugTex("#5a2a3a", "#c8a86a") as any, -2); floor(R, 18, 18, planksTex("#3a2a24", "#0a0610", [4, 4], 9), -2, -0.01);
-    R.add(box(16, 9, 0.4, plaster("#78204a", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#4a2a58", "#e8c88a");
+    R.add(box(16, 9, 0.4, plaster("#2a7a62", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#4a2a58", "#e8c88a");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#4a2a58"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, -0.6, 19);
     const d = P.desk(3.6, 1.5, "#3a2218"); d.position.set(-0.6, 0, -4.8); R.add(d);
     const bk = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.14, 1.0), [lam("#2a3a6a"), lam("#2a3a6a"), new THREE.MeshBasicMaterial({ map: textTex(256, 360, "#3a4a7a", "#e8d49a", ["PSYCHIC", "SELF-", "DEFENCE", "1930"], "Anton", 54, "#e8d49a"), color: new THREE.Color(1.25, 1.25, 1.25) }), lam("#2a3a6a"), lam("#2a3a6a"), lam("#2a3a6a")]); bk.position.set(-0.4, 1.0, -4.8); bk.rotation.y = 0.2; R.add(bk);
     for (const [x, z] of [[-1.7, -5.0], [0.9, -4.5], [-3.6, -6.4], [3.0, -6.2]]) { const c = cyl(0.06, 0.07, 0.45, lam("#efe6cf"), x, 1.2, z, 10); R.add(c); R.add(sphere(0.07, glow("#ffd27a", 3.5), x, 1.5, z)); glowAt(R, x, 1.55, z, 3.2, "#ffb04a"); }
@@ -199,6 +214,7 @@ export const W: Record<string, (R: R) => void> = {
     R.add(box(16, 9, 0.4, plaster("#3aa888", 4, 2), 0, 4.5, -7.2)); wain(R, 16, -7.2, "#2a7a8a", "#f4f0e0");
     for (const [fx, fy, fw, fh] of [[-5.2, 4.2, 1.1, 1.4], [-3.4, 4.6, 0.9, 1.1], [5.6, 4.4, 1.2, 1.5]] as number[][]) frame(R, fx, fy, -7.0, fw, fh, "#f4ead2", Math.round(fx * 7));
     plant(R, -6.2, -6.2, 1.4); plant(R, 6.3, -3.2, 1.1); curtains(R, 3.4, 3.8, -6.95, 3.6, "#2a7a8a"); clutter(R, -5, 5, -6.5, 3); lampPool(R, 0, 5.8, -4, "#ffd58a", 10);
+    hero(R, 0.4, 6);
     const bn = new THREE.Group(); bn.add(box(6, 0.12, 1.8, lam("#2a2830"), 0, 1.0, 0)); bn.add(box(5.8, 1.0, 1.7, lam("#4a4a58"), 0, 0.5, 0)); place(bn, 0, 0, -4.8); R.add(bn);
     const doll = new THREE.Group(); doll.add(box(0.5, 0.6, 0.2, lam("#c8a070"), 0, 0.5, 0)); doll.add(sphere(0.2, lam("#c8a070"), 0, 1.0, 0)); for (const s of [-1, 1]) { doll.add(box(0.14, 0.5, 0.14, lam("#c8a070"), s * 0.34, 0.5, 0)); doll.add(box(0.16, 0.5, 0.14, lam("#c8a070"), s * 0.12, 0.0, 0)); } for (let i = 0; i < 4; i++) { const pin = cyl(0.015, 0.015, 0.5, lam("#d8d8e8"), -0.1 + i * 0.07, 0.55, 0.12, 6); pin.rotation.z = 0.5 - i * 0.3; doll.add(pin); doll.add(sphere(0.035, lam("#e8453c"), -0.1 + i * 0.07 - Math.sin(0.5 - i * 0.3) * 0.25, 0.55 + Math.cos(0.5 - i * 0.3) * 0.25, 0.12)); } place(doll, -1.6, 1.06, -4.8); doll.scale.setScalar(1.3); R.add(doll);
     const mon = new THREE.Group(); mon.add(box(1.8, 1.3, 0.6, lam("#2a2a38"), 0, 0.65, 0)); mon.add(plane(1.5, 1.0, new THREE.MeshBasicMaterial({ map: canvasTex(256, 160, (g, w, h) => { g.fillStyle = "#04140e"; g.fillRect(0, 0, w, h); g.strokeStyle = "#5affb4"; g.lineWidth = 6; g.beginPath(); g.moveTo(0, 90); for (let x = 0; x < w; x += 64) { g.lineTo(x + 20, 90); g.lineTo(x + 28, 30); g.lineTo(x + 36, 130); g.lineTo(x + 44, 90); g.lineTo(x + 64, 90); } g.stroke(); g.fillStyle = "#5affb4"; g.font = "30px Anton"; g.fillText("72 ♥", 10, 28); }), color: new THREE.Color(1.5, 1.5, 1.5) }), 0, 0.7, 0.32)); place(mon, 1.2, 1.06, -4.8); R.add(mon); glowAt(R, 1.2, 1.7, -4.4, 7, "#5affb4");
