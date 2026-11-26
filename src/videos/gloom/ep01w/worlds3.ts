@@ -86,6 +86,7 @@ export const W3: Record<string, (R: R) => void> = {
     for (let s = 0; s < 24; s++) { const t0 = s / 24, t1 = (s + 1) / 24, p0 = new THREE.Vector3().lerpVectors(poleA, poleB, t0), p1 = new THREE.Vector3().lerpVectors(poleA, poleB, t1); p0.y -= Math.sin(Math.PI * t0) * 0.7; p1.y -= Math.sin(Math.PI * t1) * 0.7; beam(R, p0, p1, "#d8c8a8", 0.03, 0.7); }
     const stamps = ["+0", "+33", "+1H", "+1H27", "+2H15", "+2H18", "+2H43", "+2H43"];
     for (let i = 0; i < 8; i++) { const t = (i + 0.7) / 9.4, x = poleA.x + (poleB.x - poleA.x) * t, y = poleA.y - Math.sin(Math.PI * t) * 0.7 - 1.1; const c = paperCard((g, w, h) => { g.fillStyle = "#e8243e"; g.font = "bold 40px Anton"; g.textAlign = "center"; g.fillText(stamps[i], w / 2, 52); g.fillStyle = "#5a5a7a"; for (let k = 0; k < 5; k++) g.fillRect(14, 70 + k * 16, 60 + rnd(i * 5 + k) * 52, 8); }, 1.5, 1.9, (rnd(i) - 0.5) * 0.1); c.position.set(x, y, -9.9); c.userData.rv = 0.04 + i * 0.1; const pn = box(0.1, 0.35, 0.05, lam("#8a6a44"), x, y + 1.0, -9.88); pn.userData.rv = c.userData.rv; R.add(c, pn); glowAt(R, x, y, -9.5, 3, "#fff0c8"); }
+    for (let i = 0; i < 7; i++) R.add(P.at(P.crate(0.7 + rnd(i) * 0.4, ["#8a6a44", "#6a5240", "#a8844a"][i % 3]), -7 + i * 2.3, 0, -7 - rnd(i + 3) * 2)); { const bn = new THREE.Group(); bn.add(box(2.4, 0.15, 0.7, lam("#6a4630"), 0, 0.5, 0)); bn.add(box(2.4, 0.7, 0.12, lam("#6a4630"), 0, 0.9, -0.3)); for (const sx of [-1, 1]) bn.add(box(0.12, 0.5, 0.6, lam("#3a2a24"), sx * 1.0, 0.25, 0)); place(bn, 3.6, 0, -4.4); R.add(bn); }
     for (const [x, z] of [[-12, -8], [12, -8], [-4, -3], [5, -2]]) { R.add(P.at(P.lamppost(4.8), x, 0, z)); glowAt(R, x, 4.8, z, 5, "#ffcf8a"); }
     R.add(P.stars(300, 7, 400, 0.08, 2.4)); R.add(P.at(P.moon(10, [-90, 70, -160])));
   },
@@ -128,6 +129,17 @@ export const W3: Record<string, (R: R) => void> = {
     { const g = new THREE.Group(); g.add(P.at(P.couch("#7a4a68"), 0, 0, 0)); const pr = new THREE.Group(); pr.add(box(0.5, 0.7, 0.3, lam("#3aa0a0"), 0, 0.6, 0)); pr.add(sphere(0.26, lam("#f0d0b0"), 0, 1.15, 0)); pr.add(sphere(0.12, lam("#3a1a2a"), 0, 1.08, 0.24)); place(pr, 0, 0.6, 0.1); g.add(pr); const ck = clock(g, "6:00", 0, 4, -1.2, 1.2); void ck; g.scale.setScalar(1.9); place(g, X[2], Y[2] + 1.2, -6); R.add(g); glowAt(R, X[2], Y[2] + 2.4, -4.6, 6, "#ffe8a8"); }
     // 4 the feds: two men in black with hats and shades beside a black car
     { const g = new THREE.Group(); const car = new THREE.Group(); car.add(box(3.4, 0.8, 1.5, lam("#0a0814"), 0, 0.8, 0)); car.add(box(1.8, 0.7, 1.4, lam("#14102a"), -0.2, 1.5, 0)); for (const x of [-1.1, 1.1]) car.add(cyl(0.35, 0.35, 1.7, lam("#1a1a22"), x, 0.45, 0, 14)).rotation.x = 0; (car.children[2] as THREE.Object3D).rotation.x = Math.PI / 2; (car.children[3] as THREE.Object3D).rotation.x = Math.PI / 2; g.add(car); for (const dx of [-0.9, 0.9]) { const mb = new THREE.Group(); mb.add(box(0.5, 1.2, 0.3, lam("#0a0814"), 0, 0.6, 0)); mb.add(sphere(0.22, lam("#d8c0a8"), 0, 1.45, 0)); mb.add(cyl(0.3, 0.3, 0.05, lam("#0a0814"), 0, 1.65, 0)); mb.add(cyl(0.2, 0.2, 0.2, lam("#0a0814"), 0, 1.75, 0)); mb.add(box(0.34, 0.07, 0.05, lam("#000000"), 0, 1.48, 0.2)); place(mb, dx, 0, 1.6); g.add(mb); } g.scale.setScalar(1.7); place(g, X[3], Y[3] + 1.2, -6); R.add(g); }
+    const MB = (c: string) => new THREE.MeshBasicMaterial({ color: c });
+    R.add(box(34, 44, 0.4, MB("#5a3a88"), 0, 9, -10.4)); R.add(box(15.6, 19.8, 0.3, MB("#f4ead2"), 0, 9.9, -10.1));
+    for (let q = 0; q < 4; q++) {
+      const px = X[q], py = Y[q], bg = ["#f8dc98", "#9cc8f8", "#f4a8c8", "#a8b8e0"][q], fl = ["#c8a060", "#6a8ac8", "#b86a8a", "#6a7a98"][q];
+      R.add(box(6.6, 8.4, 0.3, MB(bg), px, py + 4.2, -9.6));                       // cubby back wall
+      R.add(box(6.6, 0.5, 5.5, MB(fl), px, py + 0.25, -6.9));                      // floor
+      R.add(box(0.3, 8.4, 5.5, MB("#f4ead2"), px - 3.2, py + 4.2, -6.9)); R.add(box(0.3, 8.4, 5.5, MB("#f4ead2"), px + 3.2, py + 4.2, -6.9)); // side walls
+      R.add(box(6.9, 0.3, 5.7, MB("#f4ead2"), px, py + 8.55, -6.9));               // ceiling
+      for (let k = 0; k < 4; k++) R.add(box(0.5 + rnd(k + q) * 0.4, 0.5 + rnd(k + q + 3) * 0.6, 0.5, lam(["#e8453c", "#3aa0a0", "#ffe04a", "#7a5ac8"][(k + q) % 4]), px - 2.4 + k * 1.6, py + 0.8, -4.6));
+      glowAt(R, px, py + 5, -5.5, 8, "#fff0c8");
+    }
     R.add(P.stars(300, 5, 400, -0.1, 2.4));
   },
   // S8a: "three of eight": eight big boxes with check marks, three checked
