@@ -7,6 +7,8 @@ import { drawGloom, GLOOM } from "../cast";
 import { drawSilhouette } from "../props/figures";
 import { flashHand, bodyFront, Outfit } from "../toon";
 import { fxBeam } from "../fxdraw";
+import { fxContact } from "../toon";
+import { kit, at as kat } from "./kit";
 import { Light } from "../lights";
 import { TONE } from "../shade";
 import { W } from "./worlds";
@@ -25,7 +27,7 @@ export const ALLW: Record<string, (R: THREE.Group) => void> = { ...W, ...W2, ...
 export type K3 = { u: number; pos: [number, number, number]; look: [number, number, number]; fov: number; roll?: number; du?: number };
 export type FigSpec = { outfit: string; expr?: string; wave?: number; mirror?: boolean };
 export type Cast3 = { fig?: FigSpec; rel?: [number, number]; x?: number; z?: number; y?: number; s: number; point?: number; bend?: number; beam?: number; sil?: { arm?: [number, number]; col?: string }; expr?: string };
-export type Shot3 = { dim?: number; id: string; line: string; world: string; light: Light; sun?: { az: number; el: number }; caption: string; cInf: number; keys: K3[]; cast: Cast3[] };
+export type Shot3 = { scatter?: "out" | "in"; dim?: number; id: string; line: string; world: string; light: Light; sun?: { az: number; el: number }; caption: string; cInf: number; keys: K3[]; cast: Cast3[] };
 const k = (u: number, pos: [number, number, number], look: [number, number, number], fov: number, o: Partial<K3> = {}): K3 => ({ u, pos, look, fov, ...o });
 const g = (d: number, lat: number, s: number, o: Partial<Cast3> = {}): Cast3 => ({ rel: [d, lat], s, ...o });
 const NIGHT = { az: 125, el: 42 }, FRONT = { az: 165, el: 52 };
@@ -69,6 +71,13 @@ export class Stage3 implements Stage3D {
   constructor(public s: Shot3, public D: number, public extra?: (f: number, rig: Rig, cam: THREE.PerspectiveCamera) => void) {
     const grp = new THREE.Group(); ALLW[s.world](grp); this.root.add(grp);
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
+    if (s.scatter) {
+      const out = s.scatter === "out", names: [string, string, number][] = out
+        ? [["nature", "plant_bushLarge", 1.1], ["nature", "rock_smallE", 0.7], ["nature", "mushroom_tan", 0.5], ["nature", "fence_planks", 1.0], ["nature", "log", 0.5], ["nature", "plant_bushTriangle", 1.3], ["nature", "stump_oldTall", 0.9]]
+        : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "plantSmall1", 0.7], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
+      for (let q = 0; q < 8; q++) { const side = q % 2 ? 1 : -1, d = 1.6 + (q >> 1) * 1.3, lat = side * (0.9 + (q >> 1) * 0.55 + (q % 3) * 0.15), [pk, nm, hh] = names[q % names.length];
+        const o = kat(kit(pk as any, nm, hh), c0.pos[0] + f.x * d + r.x * lat, 0, c0.pos[2] + f.z * d + r.z * lat, q * 1.7); this.root.add(o); }
+    }
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
   }
   talk?: (lf: number) => number; kc?: Key[];
@@ -92,6 +101,7 @@ export class Stage3 implements Stage3D {
     const lt = this.rig.light2D(cam);
     this.cast.forEach(({ c: cs, x, z }, i) => {
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
+      this.rig.fxCard(cam, { key: "contact" + (cs.fig ? "f" : "g"), cw: 128, ch: 128, draw: (p) => fxContact(p, "#2a2048"), x, y: y + 0.03, z, w: 1.5 * cs.s, h: 0.8 * cs.s, flat: true, soft: true });
       if (cs.fig) { const f = cs.fig, key = "fig" + f.outfit + f.expr + f.wave + lt; this.rig.card(cam, { key, draw: (p) => { p.g.translate(150, 0); bodyFront(p, OUTFITS[f.outfit], { mode: "stand", expr: (f.expr as any) ?? "neutral", wave: f.wave, light: lt, seed: 4 }); }, w, h, k: kk, x, y, z, scale: cs.s, mirror: f.mirror }); }
       else if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {
