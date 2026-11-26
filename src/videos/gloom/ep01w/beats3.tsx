@@ -30,7 +30,7 @@ export const SHOTS3: Shot3[] = [
   { id: "S04", line: "Eight posts, two hours forty-three.", world: "posts8", light: "night", sun: NIGHT, caption: "2 H 43", cInf: 3,
     keys: [k(0, [1.5, 1.8, 5], [0, 6.5, -14], 58, { roll: 0.04 }), k(1, [0.8, 2.4, -2], [0, 12, -20], 50, { du: 0.8 })], cast: [g(5.2, 0.8, 0.6, { point: 80, beam: 1.4 })] },
   { id: "S05", line: "The title borrows from Death Note, where a name in a notebook kills.", world: "notebookdesk", light: "night", sun: NIGHT, caption: "KILLS", cInf: 6,
-    keys: [k(0, [-1.5, 3.6, 1.2], [-0.7, 1.6, -5.6], 54), k(1, [-0.9, 2.8, -1.4], [-0.5, 1.5, -5.6], 44, { du: 0.8, roll: 0.05 })], cast: [g(4.4, -0.7, 0.62, { point: 30, beam: 0.9 })] },
+    keys: [k(0, [-0.4, 3.7, 2.4], [-0.3, 1.6, -5.4], 58), k(1, [-0.3, 2.9, -1.0], [-0.3, 1.5, -5.4], 46, { du: 0.8, roll: 0.05 })], cast: [g(4.4, -0.7, 0.62, { point: 30, beam: 0.9 })] },
   { id: "S06", line: "He'd been silent a week. His last thread was archived.", world: "archive", light: "golden", sun: FRONT, caption: "A WEEK", cInf: 6,
     keys: [k(0, [1.6, 2.0, 2.6], [-1.2, 2.4, -6], 52), k(1, [-0.2, 2.0, -0.8], [-1.6, 2.4, -5], 44, { du: 0.8, roll: -0.04 })], cast: [g(4.2, 0.9, 0.6, { point: 50, beam: 1.0 })] },
   { id: "S07", line: "Replies guess: real life, no results, boredom, the feds.", world: "guesses", light: "night", sun: NIGHT, caption: "THE FEDS", cInf: 5,
