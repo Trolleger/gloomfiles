@@ -1,5 +1,7 @@
 # EP01 "Anon Went Quiet": v6, on the mromidev skill's script formula (for Andrew's OK)
 
+> Superseded by EP01_STORY_v7.md (written line by line on the original formula).
+
 Written 2026-11-26. Replaces v5. Same facts, Death Note and safeguards; the source digest is in EP01_STORY_v4.md. Nothing is built or rendered.
 
 ## The formula (from the mromidev skill's SKILL.md and STYLE_BIBLE) and where each part is

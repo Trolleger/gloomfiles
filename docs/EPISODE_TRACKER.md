@@ -4,7 +4,7 @@ Script status: idea / scripted / approved / rendered / posted. Tone: information
 
 | # | Title | Source link | Script status | Tone | Upload date | Views | Notes |
 |---|-------|-------------|---------------|------|-------------|-------|-------|
-| 1 | Anon Went Quiet (pilot) | 4chan /x/ thread 43262110 (never show on screen) | approved | informational | | | Script v6. 3D thread-room set built (Ep01 comp), stills checked; runs ~83 s at placeholder pace, check length. Awaiting render on Andrew's PC (only when he says, about 2 h). Shot plan and upload kit written. Music, SFX and fast Joe voice done (branch pc/ep01-voice). |
+| 1 | Anon Went Quiet (pilot) | 4chan /x/ thread 43262110 (never show on screen) | approved | informational | | | Story v7 (EP01_STORY_v7.md, original formula) awaiting OK; older note: script v6. 3D thread-room set built (Ep01 comp), stills checked; runs ~83 s at placeholder pace, check length. Awaiting render on Andrew's PC (only when he says, about 2 h). Shot plan and upload kit written. Music, SFX and fast Joe voice done (branch pc/ep01-voice). |
 | 2 | The Wow! Signal | Wikipedia "Wow! signal" | approved | funny | | | Approved 2026-11-25. Shot plan and upload kit written. 3D sets built (Ep02 comp), stills checked. v2 script from source digest + shot list awaiting OK (EP02-09_v2_SCRIPTS_AND_SHOTS.md). |
 | 3 | Numbers Stations | Wikipedia "Number station" | approved | informational | | | Don't state who runs a station as fact. v2 script from source digest + shot list awaiting OK (EP02-09_v2_SCRIPTS_AND_SHOTS.md). |
 | 4 | Cicada 3301 | Wikipedia "Cicada 3301" | approved | informational | | | No links or board names on screen. v2 script from source digest + shot list awaiting OK (EP02-09_v2_SCRIPTS_AND_SHOTS.md). |
