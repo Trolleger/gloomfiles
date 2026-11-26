@@ -1,5 +1,7 @@
 # EP01 "Anon Went Quiet": v4, built from the source digest (for Andrew's OK)
 
+> Superseded by EP01_STORY_v5.md (continuous story). The source digest below still applies.
+
 Written 2026-11-26 to the gloom-files-script skill ("mine the source fully") and the gloom-files-visuals skill. Replaces v3. Nothing is built or rendered.
 
 ## How I got the source, and one honest gap
