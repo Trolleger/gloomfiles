@@ -69,7 +69,7 @@ export const keysFor = (s: Shot3, D: number): Key[] => s.keys.map((q, i) => ({ f
 export class Stage3 implements Stage3D {
   rig = new Rig(); root = this.rig.root; cast: { x: number; z: number; c: Cast3 }[];
   constructor(public s: Shot3, public D: number, public extra?: (f: number, rig: Rig, cam: THREE.PerspectiveCamera) => void) {
-    const grp = new THREE.Group(); ALLW[s.world](grp); this.root.add(grp);
+    const grp = new THREE.Group(); ALLW[s.world](grp); this.root.add(grp); if (s.light !== "night") grp.traverse((o) => { if (o.userData.night) o.visible = false; });
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
     if (s.scatter) {
       const out = s.scatter === "out", names: [string, string, number][] = out

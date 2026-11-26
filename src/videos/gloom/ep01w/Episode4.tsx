@@ -21,33 +21,31 @@ const B = [0, WT(0, /^and$/, 0, -0.08), SEC[1].start - 0.1, WT(1, /^and$/, 0, -0
 const SH0 = SHOTS4.map((s, i) => ({ s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }));
 const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: [q.look[0] + (q.pos[0] - q.look[0]) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (q.pos[2] - q.look[2]) * 0.6] as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
 const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
-SH0.forEach((q) => { if (q.b - q.a > 150) { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
+SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
 const KICKS: [number, number][] = [[WT(0, /^death/, 0, 0), 1.2], [WT(1, /^Death/, 0, 0), 1], [WT(1, /^death/, 0, 0), 1.3], [WT(3, /^forty/, 0, 0), 0.9], [WT(4, /^three/, 0, 0), 1.2], [WT(4, /^storm/, 0, 0), 1.5], [WT(7, /^didn/, 0, 0.3), 0.8], [WT(8, /^froze/, 0, 0), 1.4], [WT(8, /^fear/, 0, 0), 1.3], [WT(9, /^silence/, 0, 0), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
 const talkAt = (f: number) => mouthFromWords(f, FPS, WORDS);
 
+// Captions are built straight from the word timings (never hand-anchored), so they always match the audio.
 type Cap = { from: number; to: number; words: [string, string?][] };
 const Y = "#ffe44d", R = "#ff4a4a", M = "#7dffc8";
-const w0 = (i: number, re: RegExp, off = 0, n = 0) => WT(i, re, n, off);
-const CAPS: Cap[] = [
-  { from: 0.1, to: w0(0, /^strangers/, 0.3), words: [["CURSE "], ["STRANGERS", R]] }, { from: w0(0, /^strangers/, 0.3), to: w0(0, /^and$/, -0.05), words: [["TO DEATH", R]] },
-  { from: w0(0, /^and$/, -0.05), to: w0(0, /^he$/, -0.05, 1), words: [["ONLY WORKS WHEN"]] }, { from: w0(0, /^he$/, -0.05, 1), to: SEC[0].end + 0.3, words: [["HE STOPS "], ["TRYING", Y]] },
-  { from: SEC[1].start, to: w0(1, /^Death/, 0.6), words: [["A "], ["DEATH NOTE", Y], [" THREAD"]] }, { from: w0(1, /^Death/, 0.6), to: w0(1, /^blog/, -0.05), words: [["HIS BLOG"]] },
-  { from: w0(1, /^blog/, -0.05), to: w0(1, /^missed/, -0.05), words: [["COLDS"]] }, { from: w0(1, /^missed/, -0.05), to: w0(1, /^very/, -0.1), words: [["MISSED BUSES"]] }, { from: w0(1, /^very/, -0.1), to: SEC[1].end + 0.3, words: [["VERY RARELY "], ["DEATH", R]] },
-  { from: SEC[2].start, to: w0(2, /^says/, 0), words: [["PRINTS THEIR PHOTO"]] }, { from: w0(2, /^says/, 0), to: w0(2, /^and$/, -0.05, 0), words: [["SAYS THEIR NAME"]] }, { from: w0(2, /^and$/, -0.05, 0), to: w0(2, /^with/, -0.05), words: [["WISHES THE "], ["WORST", R]] }, { from: w0(2, /^with/, -0.05), to: SEC[2].end + 0.3, words: [["JUST "], ["ANGER", R]] },
-  { from: SEC[3].start, to: w0(3, /^each/, -0.05), words: [["FORTY ", Y], ["TARGETS"]] }, { from: w0(3, /^each/, -0.05), to: w0(3, /^coded/, -0.05), words: [["EACH HAS A "], ["CONTROL", M]] }, { from: w0(3, /^coded/, -0.05), to: SEC[3].end + 0.3, words: [["CODED IN ADVANCE"]] },
-  { from: SEC[4].start, to: w0(4, /^like$/, -0.1), words: [["3 OF 8", Y]] }, { from: w0(4, /^like$/, -0.1), to: w0(4, /^thousand/, -0.05), words: [["ONE METRE TARGET"]] }, { from: w0(4, /^thousand/, -0.05), to: w0(4, /^storm/, -0.3), words: [["1000 METRES", Y]] }, { from: w0(4, /^storm/, -0.3), to: SEC[4].end + 0.3, words: [["IN A "], ["STORM", R]] },
-  { from: SEC[5].start, to: SEC[5].end + 0.3, words: [["SILENT ", R], ["FOR A WEEK", Y]] },
-  { from: SEC[6].start, to: w0(6, /^\W*I\W*$/, -0.05), words: [["AN ANON WROTE"]] }, { from: w0(6, /^\W*I\W*$/, -0.05), to: w0(6, /^His$/, -0.1), words: [["OTHERS ", Y], ["LIKE ME"]] }, { from: w0(6, /^His$/, -0.1), to: w0(6, /^someone/, -0.05), words: [["ANONYMOUS COMMENTS"]] }, { from: w0(6, /^someone/, -0.05), to: SEC[6].end + 0.3, words: [["SOMEONE ", Y], ["LEFT ONE"]] },
-  { from: SEC[7].start, to: w0(7, /^Unluckily/, -0.05), words: [["LUCKILY", M], [", NO PROOF"]] }, { from: w0(7, /^Unluckily/, -0.05), to: SEC[7].end + 0.3, words: [["UNLUCKILY", R], [", NO PROOF"]] },
-  { from: SEC[8].start, to: w0(8, /^Ever/, -0.05), words: [["BELIEF IS ", Y], ["POWERFUL"]] }, { from: w0(8, /^Ever/, -0.05), to: w0(8, /^In$/, -0.1), words: [["SO SCARED YOU "], ["FROZE", R]] }, { from: w0(8, /^In$/, -0.1), to: w0(8, /^argued/, -0.05), words: [["1942", Y]] }, { from: w0(8, /^argued/, -0.05), to: SEC[8].end + 0.3, words: [["FEAR ", R], ["ALONE"]] },
-  { from: SEC[9].start, to: w0(9, /^stopped/, 0.9), words: [["ONLY WORKED WHEN"]] }, { from: w0(9, /^stopped/, 0.9), to: w0(9, /^Now/, -0.05), words: [["HE STOPPED "], ["TRYING", Y]] }, { from: w0(9, /^Now/, -0.05), to: TOTAL_S - 3.0, words: [["WHICH KIND OF "], ["SILENCE", M]] },
-];
+const KEY: Record<string, string> = { death: R, anger: R, worst: R, froze: R, fear: R, storm: R, unluckily: R, silent: R, kill: R, trying: Y, three: Y, forty: Y, eight: Y, "1942": Y, week: Y, thousand: Y, metres: Y, metre: Y, note: Y, luckily: M, control: M, silence: M, anonymous: M, others: Y };
+const buildCaps = (): Cap[] => {
+  const chunks: TW[][] = []; let cur: TW[] = [];
+  WS.forEach((w, k) => { cur.push(w); const len = cur.map((x) => x.word).join(" ").length, endP = /[.,:;?!]$/.test(w.word), nxt = WS[k + 1]; if (endP || cur.length >= 3 || len > 16 || !nxt || nxt.section !== w.section) { chunks.push(cur); cur = []; } });
+  return chunks.map((c, k) => {
+    const next = chunks[k + 1], from = Math.max(0, c[0].start - 0.04), lastEnd = c[c.length - 1].end;
+    const to = next && next[0].section === c[0].section ? Math.max(lastEnd + 0.05, next[0].start - 0.02) : lastEnd + 0.25;
+    const words: [string, string?][] = c.map((x, q) => { const clean = x.word.replace(/[^A-Za-z0-9']/g, ""), col = KEY[clean.toLowerCase()]; return [clean.toUpperCase() + (q < c.length - 1 ? " " : ""), col] as [string, string?]; });
+    return { from, to, words };
+  });
+};
+const CAPS = buildCaps();
 const CapView: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, c = CAPS.find((q) => t >= q.from && t < q.to); if (!c) return null;
-  const text = c.words.map((w) => w[0]).join(""), size = Math.max(84, Math.min(172, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
-  return (<div style={{ position: "absolute", left: 80, width: 920, top: 1290, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.8 + 0.2 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
+  const text = c.words.map((w) => w[0]).join(""), size = Math.max(96, Math.min(180, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
+  return (<div style={{ position: "absolute", left: 80, width: 920, top: 1290, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
     {c.words.map((w, i) => <span key={i} style={{ color: w[1] ?? "#fff" }}>{w[0]}</span>)}</div>);
 };
 const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
