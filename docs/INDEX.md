@@ -11,6 +11,8 @@ Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The 
 | skills/ | Copies of Andrew's two source-of-truth skills: gloom-files-script and gloom-files-visuals |
 | SCRIPTS_batch1.md | Approved scripts for episodes 2 to 9 |
 | SHOT_PLANS.md | Scene-by-scene plans for episodes 1 to 9, for the Remotion build |
+| EP02-09_v2_SCRIPTS_AND_SHOTS.md | Eps 2 to 9 v2: scripts rebuilt from full source digests (digests/), new vs cut details listed, shot lists with line, what's shown and why. Awaiting Andrew's OK per episode. |
+| digests/ | Source digests per episode: every detail from the source, in order |
 | EP02-09_60s_SCRIPTS_AND_SHOTS.md | Eps 2 to 9 trimmed to about 60 s (fast Joe pace), cut facts listed, plus per-beat surreal world shot lists, colour and Kevin MacLeod music per ep. Awaiting Andrew's OK per episode. Supersedes the eps 2-9 tables in SHOT_PLANS.md once approved. |
 | UPLOAD_KIT.md | Titles, captions, hashtags for YouTube, TikTok, Instagram Reels, episodes 1 to 9 |
 | BRANDING.md | Handle ideas, bios for all three platforms, profile picture concept |

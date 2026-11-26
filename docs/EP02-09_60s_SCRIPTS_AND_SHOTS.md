@@ -1,5 +1,7 @@
 # Eps 2-9: 60-second scripts + per-beat world shot lists (for Andrew's approval)
 
+> Superseded by EP02-09_v2_SCRIPTS_AND_SHOTS.md (rebuilt from full source digests).
+
 Written 2026-11-26, cloud only. Nothing here is built or rendered. Approve, edit or reject per episode.
 
 ## How these were made (and the rules they follow)
