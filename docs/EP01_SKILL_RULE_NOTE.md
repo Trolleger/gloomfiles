@@ -1,0 +1,1 @@
+Rule to add to the skill copy: every shot must literally depict what the voice-over line says at that moment, and the verifier must score line-vs-picture relevance per shot (a shot with relevance under 7 fails).
