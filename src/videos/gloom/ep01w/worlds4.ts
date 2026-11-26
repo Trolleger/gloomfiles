@@ -90,7 +90,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 2b: "his blog logs colds, missed buses and, very rarely, death": a street with three vignettes (cold, bus leaving, gravestone with a candle going out)
   logStreet(R) {
-    floor(R, 300, 300, stoneTex("#b8b8e0", "", [30, 30]), -60); R.add(at(box(8, 0.05, 160, lam("#5a5a78"), 0, 0.03, -40), 0, 0, 0));
+    floor(R, 300, 300, stoneTex("#cdb894", "", [30, 30]), -60); R.add(at(box(8, 0.05, 160, lam("#7a6a5a"), 0, 0.03, -40), 0, 0, 0));
     townHouses(R, -14, 9, 4, 60); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
     for (const x of [-22, -8, 8, 22]) { R.add(at(kit("graveyard", "lightpost-single", 4.4), x, 0, -9)); glowAt(R, x, 4.4, -9, 5, "#ffcf8a"); }
     // (a) a cold: a sneezing person with a green puff and a tissue
@@ -106,7 +106,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 3: "prints their photo, pisses on it, says their name, wishes the worst, with no thinking, just anger": a bathroom, a printed photo on the tiles, a cartoon yellow stream, red hatred cloud
   bathroom(R) {
-    roomShell(R, { w: 12, d: 10, h: 8, wall: "#3a9a98", trim: "#1f5a68", floorTex: checkTex("#c0d0d0", "#8ab0b8"), z: -6 });
+    roomShell(R, { w: 12, d: 10, h: 8, wall: "#3a9a98", trim: "#1f5a68", floorTex: checkTex("#f0e8d4", "#9cc4c0"), z: -6 });
     add(R, at(kit("furniture", "toilet", 2.4), -2.4, 0, -5.2), at(kit("furniture", "bathroomSink", 2.4), 2.5, 0, -5.4), at(kit("furniture", "bathroomMirror", 2.4), 2.5, 4.1, -5.6), at(kit("furniture", "trashcan", 1.4), -4.4, 0, -4.4));
     const ph = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 2.6), new THREE.MeshBasicMaterial({ map: canvasTex(128, 166, (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); g.fillStyle = "#9ab8d8"; g.fillRect(8, 8, W - 16, H - 40); g.fillStyle = "#f4d8b8"; g.beginPath(); g.ellipse(64, 66, 28, 32, 0, 0, 7); g.fill(); g.fillStyle = "#5a3a2a"; g.fillRect(36, 36, 56, 14); g.fillStyle = "#14102a"; g.fillRect(50, 62, 8, 8); g.fillRect(72, 62, 8, 8); g.fillStyle = "#c8243e"; g.fillRect(54, 84, 20, 5); g.fillStyle = "#e8d49a"; g.font = "bold 18px Anton"; g.fillText("PRINTED", 30, H - 12); }) })); ph.position.set(0.6, 3.6, -5.55); R.add(ph); R.add(box(2.2, 2.8, 0.06, lam("#f4ead2"), 0.6, 3.6, -5.62));
     for (const sx of [-0.8, 0.8]) R.add(sphere(0.07, lam("#e8243e"), 0.6 + sx, 4.8, -5.5));
