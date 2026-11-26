@@ -177,6 +177,9 @@ export const W: Record<string, (R: R) => void> = {
     for (let i = 0; i < 10; i++) { const pd = plane(3 + rnd(i) * 3, 1.4, new THREE.MeshBasicMaterial({ color: "#6a8ad8", transparent: true, opacity: 0.55 })); pd.rotation.x = -Math.PI / 2; pd.position.set(-2 + rnd(i + 4) * 4, 0.03, -3 - i * 5); R.add(pd); }
     R.add(place(sign(textTex(512, 256, "#e8e0c8", "#1a1830", ["1000 m"], "Anton", 140, "#b02a3e"), 2.4, 1.2, 1.0), 3.4, 2.2, -8));
     R.add(box(0.12, 2.2, 0.12, lam("#3a2a24"), 3.4, 1.1, -8.05));
+    const bc = P.glowSprite("#ff3a2a", 90); bc.position.set(0, 14, -990); R.add(bc);
+    R.add(place(sign(textTex(512, 256, "#e8e0c8", "#1a1830", ["1000 m"], "Anton", 150, "#b02a3e"), 60, 30, 1.0), -45, 28, -985));
+    const rf = new THREE.Group(); rf.add(box(0.1, 0.12, 2.4, lam("#2a2a32"), 0, 0.1, 0)); rf.add(box(0.14, 0.2, 0.9, lam("#5a3a24"), 0, 0.05, 1.5)); rf.add(cyl(0.07, 0.07, 0.6, lam("#1a1a22"), 0, 0.28, 0.3, 10)); (rf.children[2] as THREE.Object3D).rotation.x = Math.PI / 2; place(rf, 0.6, 0.98, -2.2); R.add(rf);
     rain(R, 1800, [30, 22, 140], 0, 6);
     const bolt = new THREE.Mesh(new THREE.PlaneGeometry(14, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.6, 2.6, 3.4), transparent: true, opacity: 0.9, fog: false })); bolt.position.set(-60, 90, -900); bolt.rotation.z = 0.12; noink(bolt); R.add(bolt);
     glowAt(R, -60, 40, -890, 220, "#a8b8ff");
