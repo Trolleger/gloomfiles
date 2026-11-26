@@ -40,7 +40,7 @@ export const SHOTS3: Shot3[] = [
   { id: "S09", line: "like hitting a one-metre target at a thousand metres in a storm.", world: "range", light: "night", sun: NIGHT, caption: "1 IN 1000", cInf: 0,
     keys: [k(0, [-1.2, 1.5, 2.2], [0, 1.6, -200], 46), k(1, [-0.8, 1.7, 1.2], [0, 3.0, -700], 32, { du: 0.7, roll: 0.05 })], cast: [g(3.4, -0.6, 0.8, { point: 82, beam: 1.4 })] },
   { id: "S10", line: "Another cites a book, The Forbidden Parapsychology, sold as techniques for influencing people from a distance.", world: "bookmap", light: "night", sun: NIGHT, caption: "FROM A DISTANCE", cInf: 6,
-    keys: [k(0, [-1.8, 2.6, 1.2], [0, 2.2, -3.4], 46), k(1, [0, 7, 3], [0, 0, -14], 54, { du: 0.7 })], cast: [g(3.4, -0.7, 0.66, { point: 40, beam: 0.9 })] },
+    keys: [k(0, [0, 9, 5], [0, 0, -12], 52), k(1, [0, 3.6, 1.4], [0, 1.8, -3.4], 44, { du: 0.7 })], cast: [g(3.4, -0.7, 0.66, { point: 40, beam: 0.9 })] },
   { id: "S11", line: "The idea is old. Dion Fortune wrote Psychic Self-Defence in 1930,", world: "study", light: "golden", sun: FRONT, caption: "1930", cInf: 6,
     keys: [k(0, [2.2, 1.8, 1.4], [0.6, 1.7, -4.4], 46), k(1, [1.4, 1.9, -0.6], [0.8, 1.7, -4.2], 40, { du: 0.8, roll: 0.04 })], cast: [g(3.6, -0.7, 0.62, { point: 130, beam: 1.0 }), { x: 2.0, z: -3.6, y: 0, s: 0.9, sil: { arm: [-80, -80], col: "#1a1030" } }] },
   { id: "S12", line: "and in 1942 Walter Cannon argued belief in a curse could kill through fear alone.", world: "lab", light: "day", sun: FRONT, caption: "FEAR ALONE", cInf: 6,
@@ -66,7 +66,9 @@ export class Stage3 implements Stage3D {
     const c = camPath(this.keys(), f, 0.0009);
     this.rig.frame(cam, scene, c, this.s.light, { az: this.s.sun?.az, el: this.s.sun?.el, focusR: 14 });
     const lt = this.rig.light2D(cam);
-    this.cast.forEach(({ c: cs, x, z }, i) => {
+    const fw = new THREE.Vector3(c.look[0] - c.pos[0], 0, c.look[2] - c.pos[2]).normalize(), rt = new THREE.Vector3(-fw.z, 0, fw.x);
+    this.cast.forEach(({ c: cs, x: x0, z: z0 }, i) => {
+      const x = cs.rel ? c.pos[0] + fw.x * cs.rel[0] + rt.x * cs.rel[1] : x0, z = cs.rel ? c.pos[2] + fw.z * cs.rel[0] + rt.z * cs.rel[1] : z0;
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
       if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {
