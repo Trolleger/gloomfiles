@@ -18,7 +18,10 @@ const WT = (i: number, re: RegExp, n = 0, off = 0) => { const h = WS.filter((w) 
 export const TOTAL_S = takeV3.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
 const B = [0, WT(0, /^and$/, 0, -0.08), SEC[1].start - 0.1, WT(1, /^and$/, 0, -0.08), SEC[2].start - 0.1, SEC[3].start - 0.1, SEC[4].start - 0.1, WT(4, /^like$/, 0, -0.1), SEC[5].start - 0.1, SEC[6].start - 0.1, WT(6, /^His$/, 0, -0.1), SEC[7].start - 0.1, SEC[8].start - 0.1, WT(8, /^In$/, 0, -0.1), SEC[9].start - 0.1, TOTAL_S];
-const SH = SHOTS4.map((s, i) => ({ s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS) }));
+const SH0 = SHOTS4.map((s, i) => ({ s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }));
+const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: [q.look[0] + (q.pos[0] - q.look[0]) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (q.pos[2] - q.look[2]) * 0.6] as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
+const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
+SH0.forEach((q) => { if (q.b - q.a > 150) { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
 const KICKS: [number, number][] = [[WT(0, /^death/, 0, 0), 1.2], [WT(1, /^Death/, 0, 0), 1], [WT(1, /^death/, 0, 0), 1.3], [WT(3, /^forty/, 0, 0), 0.9], [WT(4, /^three/, 0, 0), 1.2], [WT(4, /^storm/, 0, 0), 1.5], [WT(7, /^didn/, 0, 0.3), 0.8], [WT(8, /^froze/, 0, 0), 1.4], [WT(8, /^fear/, 0, 0), 1.3], [WT(9, /^silence/, 0, 0), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
@@ -54,10 +57,10 @@ const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
     <div style={{ color: "#ffe44d", fontSize: 40 }}>ANONYMOUS ONLINE CLAIMS. UNVERIFIED.</div><div style={{ color: "#fff", fontSize: 36 }}>NO NAMES. NO LINKS.</div></div>);
 };
 const Layer: React.FC<{ i: number; f: number; alpha: number; ready: boolean }> = ({ i, f, alpha, ready }) => {
-  const { s, a, b } = SH[i], D = b - a;
+  const { s, a, b, sa, sb } = SH[i], D = b - a, SD = sb - sa;
   const make = useMemo(() => () => {
     const st: Stage3 = new Stage3(s, D, (lf, _rig, cam) => {
-      const u = lf / D;
+      const u = (lf + a - sa) / SD;
       st.root.traverse((o) => { if (o.userData.rv !== undefined) o.visible = u >= o.userData.rv; if (o.userData.rvOff !== undefined) o.visible = u < o.userData.rvOff; });
       const k = kickAt(lf + a); if (k) { cam.position.x += k * 0.1; cam.position.y += k * 0.06; cam.updateMatrixWorld(); }
     });
@@ -71,7 +74,7 @@ export const Ep01V8: React.FC = () => {
   if (!ready) return <AbsoluteFill style={{ background: "#0a0c1c" }} />;
   let cur = SH.findIndex((q) => f >= q.a && f < q.b); if (cur < 0) cur = SH.length - 1;
   const n = SH[cur + 1], layers = [{ i: cur, alpha: 1 }];
-  if (n && (cur === 12 || cur === 13 || cur === 8) && f >= n.a - 6) layers.push({ i: cur + 1, alpha: clamp01((f - (n.a - 6)) / 6) }); // 6 f dissolve where time passes
+  if (n && !n.cut && [12, 13, 8].includes(SH0.findIndex((q) => q.sa === SH[cur].sa)) && f >= n.a - 6) layers.push({ i: cur + 1, alpha: clamp01((f - (n.a - 6)) / 6) }); // 6 f dissolve where time passes
   return (
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} ready={ready} />)}
