@@ -168,10 +168,10 @@ export const GRADE_GOLDEN2: GradeParams = {
 };
 // GLOOM FILES night grade: lifted navy shadows (p5 ~.2, no crushed blacks), cool mids, slightly warm highlights, soft vignette
 export const GRADE_NIGHT: GradeParams = {
-  ky: [0.025, 0.12, 0.29, 0.6, 0.85, 0.955, 1],
-  sat: [1.05, 1.22, 1.15],
-  tintS: [0.016, -0.004], tintM: [0.002, 0.002], tintH: [-0.022, 0.024],
-  vig: [0.32, 0.38],
+  ky: [0.02, 0.1, 0.27, 0.58, 0.84, 0.95, 1],
+  sat: [1.0, 1.12, 1.1],
+  tintS: [0.004, -0.012], tintM: [-0.004, 0.012], tintH: [-0.034, 0.046],
+  vig: [0.5, 0.34],
 };
 export const GRADES: Record<"day" | "golden" | "night", GradeParams> = { day: GRADE_DAY2, golden: GRADE_GOLDEN2, night: GRADE_NIGHT };
 /** One strength (0..1, the effect's `amount`) per preset, set against the NEW world (bridge_world, 2026-10-31): full-strength
