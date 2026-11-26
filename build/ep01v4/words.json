@@ -1,0 +1,1197 @@
+{
+ "placeholder": false,
+ "voice": "en_US-joe-medium",
+ "length_scale": 0.78,
+ "fps": 30,
+ "total": 55.376,
+ "voice_len": 53.876,
+ "sections": [
+  {
+   "id": "s1",
+   "start": 0.0,
+   "end": 4.679
+  },
+  {
+   "id": "s2",
+   "start": 4.739,
+   "end": 10.439
+  },
+  {
+   "id": "s3",
+   "start": 10.499,
+   "end": 16.339
+  },
+  {
+   "id": "s4",
+   "start": 16.399,
+   "end": 22.39
+  },
+  {
+   "id": "s5",
+   "start": 22.45,
+   "end": 27.628
+  },
+  {
+   "id": "s6",
+   "start": 27.688,
+   "end": 29.348
+  },
+  {
+   "id": "s7",
+   "start": 29.408,
+   "end": 35.794
+  },
+  {
+   "id": "s8",
+   "start": 35.854,
+   "end": 40.347
+  },
+  {
+   "id": "s9",
+   "start": 40.407,
+   "end": 47.802
+  },
+  {
+   "id": "s10",
+   "start": 47.862,
+   "end": 53.876
+  }
+ ],
+ "words": [
+  {
+   "word": "A",
+   "start": 0.186,
+   "end": 0.221,
+   "section": 0
+  },
+  {
+   "word": "man",
+   "start": 0.255,
+   "end": 0.453,
+   "section": 0
+  },
+  {
+   "word": "online",
+   "start": 0.488,
+   "end": 0.848,
+   "section": 0
+  },
+  {
+   "word": "says",
+   "start": 0.906,
+   "end": 1.068,
+   "section": 0
+  },
+  {
+   "word": "he",
+   "start": 1.115,
+   "end": 1.196,
+   "section": 0
+  },
+  {
+   "word": "can",
+   "start": 1.219,
+   "end": 1.312,
+   "section": 0
+  },
+  {
+   "word": "curse",
+   "start": 1.347,
+   "end": 1.556,
+   "section": 0
+  },
+  {
+   "word": "strangers",
+   "start": 1.579,
+   "end": 1.985,
+   "section": 0
+  },
+  {
+   "word": "to",
+   "start": 2.055,
+   "end": 2.136,
+   "section": 0
+  },
+  {
+   "word": "death,",
+   "start": 2.183,
+   "end": 2.508,
+   "section": 0
+  },
+  {
+   "word": "and",
+   "start": 2.798,
+   "end": 2.868,
+   "section": 0
+  },
+  {
+   "word": "it",
+   "start": 2.902,
+   "end": 2.972,
+   "section": 0
+  },
+  {
+   "word": "only",
+   "start": 2.995,
+   "end": 3.193,
+   "section": 0
+  },
+  {
+   "word": "works",
+   "start": 3.228,
+   "end": 3.483,
+   "section": 0
+  },
+  {
+   "word": "when",
+   "start": 3.518,
+   "end": 3.599,
+   "section": 0
+  },
+  {
+   "word": "he",
+   "start": 3.622,
+   "end": 3.715,
+   "section": 0
+  },
+  {
+   "word": "stops",
+   "start": 3.738,
+   "end": 4.087,
+   "section": 0
+  },
+  {
+   "word": "trying.",
+   "start": 4.156,
+   "end": 4.505,
+   "section": 0
+  },
+  {
+   "word": "He",
+   "start": 4.901,
+   "end": 5.029,
+   "section": 1
+  },
+  {
+   "word": "posted",
+   "start": 5.064,
+   "end": 5.435,
+   "section": 1
+  },
+  {
+   "word": "in",
+   "start": 5.47,
+   "end": 5.54,
+   "section": 1
+  },
+  {
+   "word": "a",
+   "start": 5.586,
+   "end": 5.621,
+   "section": 1
+  },
+  {
+   "word": "Death",
+   "start": 5.656,
+   "end": 5.888,
+   "section": 1
+  },
+  {
+   "word": "Note",
+   "start": 5.923,
+   "end": 6.132,
+   "section": 1
+  },
+  {
+   "word": "thread,",
+   "start": 6.167,
+   "end": 6.527,
+   "section": 1
+  },
+  {
+   "word": "and",
+   "start": 6.782,
+   "end": 6.875,
+   "section": 1
+  },
+  {
+   "word": "his",
+   "start": 6.91,
+   "end": 7.014,
+   "section": 1
+  },
+  {
+   "word": "blog",
+   "start": 7.061,
+   "end": 7.328,
+   "section": 1
+  },
+  {
+   "word": "logs",
+   "start": 7.386,
+   "end": 7.641,
+   "section": 1
+  },
+  {
+   "word": "colds,",
+   "start": 7.688,
+   "end": 8.071,
+   "section": 1
+  },
+  {
+   "word": "missed",
+   "start": 8.315,
+   "end": 8.477,
+   "section": 1
+  },
+  {
+   "word": "buses",
+   "start": 8.512,
+   "end": 8.826,
+   "section": 1
+  },
+  {
+   "word": "and,",
+   "start": 8.86,
+   "end": 9.058,
+   "section": 1
+  },
+  {
+   "word": "very",
+   "start": 9.267,
+   "end": 9.464,
+   "section": 1
+  },
+  {
+   "word": "rarely,",
+   "start": 9.511,
+   "end": 9.836,
+   "section": 1
+  },
+  {
+   "word": "death.",
+   "start": 9.952,
+   "end": 10.288,
+   "section": 1
+  },
+  {
+   "word": "He",
+   "start": 10.673,
+   "end": 10.824,
+   "section": 2
+  },
+  {
+   "word": "says",
+   "start": 10.871,
+   "end": 11.045,
+   "section": 2
+  },
+  {
+   "word": "he",
+   "start": 11.091,
+   "end": 11.173,
+   "section": 2
+  },
+  {
+   "word": "prints",
+   "start": 11.196,
+   "end": 11.44,
+   "section": 2
+  },
+  {
+   "word": "their",
+   "start": 11.486,
+   "end": 11.567,
+   "section": 2
+  },
+  {
+   "word": "photo,",
+   "start": 11.614,
+   "end": 11.916,
+   "section": 2
+  },
+  {
+   "word": "pisses",
+   "start": 12.067,
+   "end": 12.334,
+   "section": 2
+  },
+  {
+   "word": "on",
+   "start": 12.357,
+   "end": 12.473,
+   "section": 2
+  },
+  {
+   "word": "it,",
+   "start": 12.519,
+   "end": 12.636,
+   "section": 2
+  },
+  {
+   "word": "says",
+   "start": 12.845,
+   "end": 13.03,
+   "section": 2
+  },
+  {
+   "word": "their",
+   "start": 13.065,
+   "end": 13.181,
+   "section": 2
+  },
+  {
+   "word": "name,",
+   "start": 13.216,
+   "end": 13.437,
+   "section": 2
+  },
+  {
+   "word": "and",
+   "start": 13.657,
+   "end": 13.762,
+   "section": 2
+  },
+  {
+   "word": "wishes",
+   "start": 13.785,
+   "end": 14.04,
+   "section": 2
+  },
+  {
+   "word": "the",
+   "start": 14.075,
+   "end": 14.133,
+   "section": 2
+  },
+  {
+   "word": "worst,",
+   "start": 14.203,
+   "end": 14.516,
+   "section": 2
+  },
+  {
+   "word": "with",
+   "start": 14.783,
+   "end": 14.9,
+   "section": 2
+  },
+  {
+   "word": "no",
+   "start": 14.934,
+   "end": 15.062,
+   "section": 2
+  },
+  {
+   "word": "thinking,",
+   "start": 15.108,
+   "end": 15.445,
+   "section": 2
+  },
+  {
+   "word": "just",
+   "start": 15.619,
+   "end": 15.828,
+   "section": 2
+  },
+  {
+   "word": "anger.",
+   "start": 15.852,
+   "end": 16.13,
+   "section": 2
+  },
+  {
+   "word": "Then",
+   "start": 16.573,
+   "end": 16.689,
+   "section": 3
+  },
+  {
+   "word": "he",
+   "start": 16.713,
+   "end": 16.829,
+   "section": 3
+  },
+  {
+   "word": "ran",
+   "start": 16.852,
+   "end": 16.991,
+   "section": 3
+  },
+  {
+   "word": "it",
+   "start": 17.038,
+   "end": 17.107,
+   "section": 3
+  },
+  {
+   "word": "like",
+   "start": 17.131,
+   "end": 17.27,
+   "section": 3
+  },
+  {
+   "word": "a",
+   "start": 17.305,
+   "end": 17.34,
+   "section": 3
+  },
+  {
+   "word": "lab:",
+   "start": 17.374,
+   "end": 17.641,
+   "section": 3
+  },
+  {
+   "word": "forty",
+   "start": 17.897,
+   "end": 18.106,
+   "section": 3
+  },
+  {
+   "word": "targets,",
+   "start": 18.129,
+   "end": 18.559,
+   "section": 3
+  },
+  {
+   "word": "each",
+   "start": 18.744,
+   "end": 18.919,
+   "section": 3
+  },
+  {
+   "word": "matched",
+   "start": 18.953,
+   "end": 19.232,
+   "section": 3
+  },
+  {
+   "word": "with",
+   "start": 19.255,
+   "end": 19.36,
+   "section": 3
+  },
+  {
+   "word": "a",
+   "start": 19.383,
+   "end": 19.418,
+   "section": 3
+  },
+  {
+   "word": "control,",
+   "start": 19.441,
+   "end": 19.836,
+   "section": 3
+  },
+  {
+   "word": "coded",
+   "start": 19.952,
+   "end": 20.277,
+   "section": 3
+  },
+  {
+   "word": "in",
+   "start": 20.347,
+   "end": 20.416,
+   "section": 3
+  },
+  {
+   "word": "advance",
+   "start": 20.463,
+   "end": 20.776,
+   "section": 3
+  },
+  {
+   "word": "so",
+   "start": 20.799,
+   "end": 20.915,
+   "section": 3
+  },
+  {
+   "word": "nobody",
+   "start": 20.962,
+   "end": 21.287,
+   "section": 3
+  },
+  {
+   "word": "could",
+   "start": 21.322,
+   "end": 21.438,
+   "section": 3
+  },
+  {
+   "word": "say",
+   "start": 21.484,
+   "end": 21.589,
+   "section": 3
+  },
+  {
+   "word": "he",
+   "start": 21.612,
+   "end": 21.705,
+   "section": 3
+  },
+  {
+   "word": "edited",
+   "start": 21.74,
+   "end": 22.042,
+   "section": 3
+  },
+  {
+   "word": "it.",
+   "start": 22.111,
+   "end": 22.227,
+   "section": 3
+  },
+  {
+   "word": "One",
+   "start": 22.624,
+   "end": 22.775,
+   "section": 4
+  },
+  {
+   "word": "reply",
+   "start": 22.81,
+   "end": 23.135,
+   "section": 4
+  },
+  {
+   "word": "says",
+   "start": 23.193,
+   "end": 23.367,
+   "section": 4
+  },
+  {
+   "word": "three",
+   "start": 23.414,
+   "end": 23.576,
+   "section": 4
+  },
+  {
+   "word": "hits",
+   "start": 23.611,
+   "end": 23.797,
+   "section": 4
+  },
+  {
+   "word": "out",
+   "start": 23.82,
+   "end": 23.942,
+   "section": 4
+  },
+  {
+   "word": "of",
+   "start": 23.942,
+   "end": 24.064,
+   "section": 4
+  },
+  {
+   "word": "eight,",
+   "start": 24.122,
+   "end": 24.389,
+   "section": 4
+  },
+  {
+   "word": "like",
+   "start": 24.598,
+   "end": 24.737,
+   "section": 4
+  },
+  {
+   "word": "hitting",
+   "start": 24.772,
+   "end": 24.981,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 25.004,
+   "end": 25.027,
+   "section": 4
+  },
+  {
+   "word": "one-metre",
+   "start": 25.062,
+   "end": 25.422,
+   "section": 4
+  },
+  {
+   "word": "target",
+   "start": 25.457,
+   "end": 25.77,
+   "section": 4
+  },
+  {
+   "word": "from",
+   "start": 25.805,
+   "end": 25.91,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 25.944,
+   "end": 25.968,
+   "section": 4
+  },
+  {
+   "word": "thousand",
+   "start": 26.026,
+   "end": 26.339,
+   "section": 4
+  },
+  {
+   "word": "metres,",
+   "start": 26.362,
+   "end": 26.699,
+   "section": 4
+  },
+  {
+   "word": "in",
+   "start": 26.873,
+   "end": 26.955,
+   "section": 4
+  },
+  {
+   "word": "a",
+   "start": 26.978,
+   "end": 27.013,
+   "section": 4
+  },
+  {
+   "word": "storm.",
+   "start": 27.047,
+   "end": 27.442,
+   "section": 4
+  },
+  {
+   "word": "Then",
+   "start": 27.862,
+   "end": 27.978,
+   "section": 5
+  },
+  {
+   "word": "he",
+   "start": 28.013,
+   "end": 28.129,
+   "section": 5
+  },
+  {
+   "word": "went",
+   "start": 28.164,
+   "end": 28.292,
+   "section": 5
+  },
+  {
+   "word": "silent",
+   "start": 28.338,
+   "end": 28.64,
+   "section": 5
+  },
+  {
+   "word": "for",
+   "start": 28.686,
+   "end": 28.767,
+   "section": 5
+  },
+  {
+   "word": "a",
+   "start": 28.767,
+   "end": 28.849,
+   "section": 5
+  },
+  {
+   "word": "week.",
+   "start": 28.919,
+   "end": 29.139,
+   "section": 5
+  },
+  {
+   "word": "That's",
+   "start": 29.606,
+   "end": 29.815,
+   "section": 6
+  },
+  {
+   "word": "when",
+   "start": 29.861,
+   "end": 29.977,
+   "section": 6
+  },
+  {
+   "word": "an",
+   "start": 30.023,
+   "end": 30.105,
+   "section": 6
+  },
+  {
+   "word": "anon",
+   "start": 30.163,
+   "end": 30.395,
+   "section": 6
+  },
+  {
+   "word": "wrote,",
+   "start": 30.453,
+   "end": 30.72,
+   "section": 6
+  },
+  {
+   "word": "\"I",
+   "start": 30.917,
+   "end": 30.976,
+   "section": 6
+  },
+  {
+   "word": "didn't",
+   "start": 31.022,
+   "end": 31.254,
+   "section": 6
+  },
+  {
+   "word": "think",
+   "start": 31.301,
+   "end": 31.452,
+   "section": 6
+  },
+  {
+   "word": "there",
+   "start": 31.486,
+   "end": 31.62,
+   "section": 6
+  },
+  {
+   "word": "were",
+   "start": 31.62,
+   "end": 31.753,
+   "section": 6
+  },
+  {
+   "word": "others",
+   "start": 31.811,
+   "end": 32.078,
+   "section": 6
+  },
+  {
+   "word": "like",
+   "start": 32.137,
+   "end": 32.322,
+   "section": 6
+  },
+  {
+   "word": "me.\"",
+   "start": 32.357,
+   "end": 32.52,
+   "section": 6
+  },
+  {
+   "word": "His",
+   "start": 32.88,
+   "end": 33.042,
+   "section": 6
+  },
+  {
+   "word": "blog",
+   "start": 33.077,
+   "end": 33.344,
+   "section": 6
+  },
+  {
+   "word": "takes",
+   "start": 33.367,
+   "end": 33.576,
+   "section": 6
+  },
+  {
+   "word": "anonymous",
+   "start": 33.599,
+   "end": 33.971,
+   "section": 6
+  },
+  {
+   "word": "comments,",
+   "start": 33.994,
+   "end": 34.424,
+   "section": 6
+  },
+  {
+   "word": "so",
+   "start": 34.609,
+   "end": 34.737,
+   "section": 6
+  },
+  {
+   "word": "someone",
+   "start": 34.784,
+   "end": 35.051,
+   "section": 6
+  },
+  {
+   "word": "left",
+   "start": 35.097,
+   "end": 35.306,
+   "section": 6
+  },
+  {
+   "word": "one.",
+   "start": 35.352,
+   "end": 35.585,
+   "section": 6
+  },
+  {
+   "word": "Luckily,",
+   "start": 36.039,
+   "end": 36.411,
+   "section": 7
+  },
+  {
+   "word": "nobody",
+   "start": 36.585,
+   "end": 36.91,
+   "section": 7
+  },
+  {
+   "word": "can",
+   "start": 36.945,
+   "end": 37.026,
+   "section": 7
+  },
+  {
+   "word": "prove",
+   "start": 37.073,
+   "end": 37.293,
+   "section": 7
+  },
+  {
+   "word": "he",
+   "start": 37.317,
+   "end": 37.386,
+   "section": 7
+  },
+  {
+   "word": "hurt",
+   "start": 37.421,
+   "end": 37.584,
+   "section": 7
+  },
+  {
+   "word": "anyone.",
+   "start": 37.618,
+   "end": 38.036,
+   "section": 7
+  },
+  {
+   "word": "Unluckily,",
+   "start": 38.443,
+   "end": 38.919,
+   "section": 7
+  },
+  {
+   "word": "nobody",
+   "start": 39.07,
+   "end": 39.395,
+   "section": 7
+  },
+  {
+   "word": "can",
+   "start": 39.43,
+   "end": 39.522,
+   "section": 7
+  },
+  {
+   "word": "prove",
+   "start": 39.557,
+   "end": 39.766,
+   "section": 7
+  },
+  {
+   "word": "he",
+   "start": 39.789,
+   "end": 39.859,
+   "section": 7
+  },
+  {
+   "word": "didn't.",
+   "start": 39.906,
+   "end": 40.196,
+   "section": 7
+  },
+  {
+   "word": "You",
+   "start": 40.592,
+   "end": 40.709,
+   "section": 8
+  },
+  {
+   "word": "see,",
+   "start": 40.767,
+   "end": 40.987,
+   "section": 8
+  },
+  {
+   "word": "belief",
+   "start": 41.173,
+   "end": 41.44,
+   "section": 8
+  },
+  {
+   "word": "is",
+   "start": 41.475,
+   "end": 41.568,
+   "section": 8
+  },
+  {
+   "word": "powerful.",
+   "start": 41.603,
+   "end": 42.009,
+   "section": 8
+  },
+  {
+   "word": "Ever",
+   "start": 42.415,
+   "end": 42.601,
+   "section": 8
+  },
+  {
+   "word": "been",
+   "start": 42.647,
+   "end": 42.822,
+   "section": 8
+  },
+  {
+   "word": "so",
+   "start": 42.868,
+   "end": 43.007,
+   "section": 8
+  },
+  {
+   "word": "scared",
+   "start": 43.054,
+   "end": 43.309,
+   "section": 8
+  },
+  {
+   "word": "you",
+   "start": 43.332,
+   "end": 43.414,
+   "section": 8
+  },
+  {
+   "word": "froze?",
+   "start": 43.46,
+   "end": 43.808,
+   "section": 8
+  },
+  {
+   "word": "In",
+   "start": 44.238,
+   "end": 44.319,
+   "section": 8
+  },
+  {
+   "word": "1942,",
+   "start": 44.366,
+   "end": 45.213,
+   "section": 8
+  },
+  {
+   "word": "Walter",
+   "start": 45.353,
+   "end": 45.631,
+   "section": 8
+  },
+  {
+   "word": "Cannon",
+   "start": 45.666,
+   "end": 45.91,
+   "section": 8
+  },
+  {
+   "word": "argued",
+   "start": 45.956,
+   "end": 46.247,
+   "section": 8
+  },
+  {
+   "word": "a",
+   "start": 46.27,
+   "end": 46.293,
+   "section": 8
+  },
+  {
+   "word": "curse",
+   "start": 46.316,
+   "end": 46.537,
+   "section": 8
+  },
+  {
+   "word": "can",
+   "start": 46.56,
+   "end": 46.676,
+   "section": 8
+  },
+  {
+   "word": "kill",
+   "start": 46.711,
+   "end": 46.885,
+   "section": 8
+  },
+  {
+   "word": "through",
+   "start": 46.92,
+   "end": 47.048,
+   "section": 8
+  },
+  {
+   "word": "fear",
+   "start": 47.094,
+   "end": 47.245,
+   "section": 8
+  },
+  {
+   "word": "alone.",
+   "start": 47.291,
+   "end": 47.593,
+   "section": 8
+  },
+  {
+   "word": "He",
+   "start": 48.025,
+   "end": 48.187,
+   "section": 9
+  },
+  {
+   "word": "said",
+   "start": 48.245,
+   "end": 48.396,
+   "section": 9
+  },
+  {
+   "word": "it",
+   "start": 48.454,
+   "end": 48.536,
+   "section": 9
+  },
+  {
+   "word": "only",
+   "start": 48.57,
+   "end": 48.768,
+   "section": 9
+  },
+  {
+   "word": "worked",
+   "start": 48.791,
+   "end": 49.058,
+   "section": 9
+  },
+  {
+   "word": "when",
+   "start": 49.093,
+   "end": 49.163,
+   "section": 9
+  },
+  {
+   "word": "he",
+   "start": 49.186,
+   "end": 49.267,
+   "section": 9
+  },
+  {
+   "word": "stopped",
+   "start": 49.29,
+   "end": 49.569,
+   "section": 9
+  },
+  {
+   "word": "trying.",
+   "start": 49.604,
+   "end": 50.01,
+   "section": 9
+  },
+  {
+   "word": "Now",
+   "start": 50.37,
+   "end": 50.509,
+   "section": 9
+  },
+  {
+   "word": "he's",
+   "start": 50.533,
+   "end": 50.66,
+   "section": 9
+  },
+  {
+   "word": "stopped",
+   "start": 50.683,
+   "end": 50.974,
+   "section": 9
+  },
+  {
+   "word": "everything,",
+   "start": 50.997,
+   "end": 51.438,
+   "section": 9
+  },
+  {
+   "word": "and",
+   "start": 51.589,
+   "end": 51.682,
+   "section": 9
+  },
+  {
+   "word": "nobody",
+   "start": 51.717,
+   "end": 52.03,
+   "section": 9
+  },
+  {
+   "word": "can",
+   "start": 52.065,
+   "end": 52.204,
+   "section": 9
+  },
+  {
+   "word": "say",
+   "start": 52.251,
+   "end": 52.402,
+   "section": 9
+  },
+  {
+   "word": "which",
+   "start": 52.425,
+   "end": 52.576,
+   "section": 9
+  },
+  {
+   "word": "kind",
+   "start": 52.611,
+   "end": 52.82,
+   "section": 9
+  },
+  {
+   "word": "of",
+   "start": 52.843,
+   "end": 52.901,
+   "section": 9
+  },
+  {
+   "word": "silence",
+   "start": 52.936,
+   "end": 53.238,
+   "section": 9
+  },
+  {
+   "word": "that",
+   "start": 53.284,
+   "end": 53.389,
+   "section": 9
+  },
+  {
+   "word": "is.",
+   "start": 53.423,
+   "end": 53.632,
+   "section": 9
+  }
+ ],
+ "alignment": "piper-phoneme"
+}

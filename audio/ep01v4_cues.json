@@ -1,0 +1,177 @@
+{
+ "source": "build/ep01v4/words.json",
+ "fps": 30,
+ "lead": 0.1,
+ "cues": [
+  {
+   "t": 1.347,
+   "type": "tick",
+   "visual": "window dark"
+  },
+  {
+   "t": 2.249,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 2.633,
+   "type": "slap",
+   "visual": "cut S02"
+  },
+  {
+   "t": 4.779,
+   "type": "slap",
+   "visual": "cut S03"
+  },
+  {
+   "t": 5.706,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 6.674,
+   "type": "slap",
+   "visual": "cut S04"
+  },
+  {
+   "t": 9.428,
+   "type": "pin",
+   "visual": "candle out"
+  },
+  {
+   "t": 9.929,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 10.569,
+   "type": "slap",
+   "visual": "cut S05"
+  },
+  {
+   "t": 16.441,
+   "type": "slap",
+   "visual": "cut S06"
+  },
+  {
+   "t": 16.613,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 16.868,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 17.379,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 17.823,
+   "type": "tick",
+   "visual": "kick"
+  },
+  {
+   "t": 18.036,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 18.361,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 18.806,
+   "type": "tick",
+   "visual": "tag"
+  },
+  {
+   "t": 22.519,
+   "type": "slap",
+   "visual": "cut S07"
+  },
+  {
+   "t": 22.897,
+   "type": "tick",
+   "visual": "check 0.25"
+  },
+  {
+   "t": 23.445,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 23.473,
+   "type": "tick",
+   "visual": "check 0.50"
+  },
+  {
+   "t": 23.958,
+   "type": "tick",
+   "visual": "check 0.75"
+  },
+  {
+   "t": 24.469,
+   "type": "slap",
+   "visual": "cut S08"
+  },
+  {
+   "t": 27.098,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 27.676,
+   "type": "slap",
+   "visual": "cut S09"
+  },
+  {
+   "t": 29.45,
+   "type": "slap",
+   "visual": "cut S10"
+  },
+  {
+   "t": 32.799,
+   "type": "slap",
+   "visual": "cut S11"
+  },
+  {
+   "t": 34.884,
+   "type": "pin",
+   "visual": "comment arrives"
+  },
+  {
+   "t": 35.919,
+   "type": "slap",
+   "visual": "cut S12"
+  },
+  {
+   "t": 40.458,
+   "type": "slap",
+   "visual": "cut S13"
+  },
+  {
+   "t": 43.507,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 44.099,
+   "type": "slap",
+   "visual": "cut S14"
+  },
+  {
+   "t": 47.107,
+   "type": "slap",
+   "visual": "kick"
+  },
+  {
+   "t": 53.014,
+   "type": "powerdown",
+   "visual": "silence"
+  }
+ ]
+}

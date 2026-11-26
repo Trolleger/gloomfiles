@@ -6,7 +6,7 @@ import { ShotView } from "../Shot";
 import { SHOTS4 } from "./beats4";
 import { Stage3 } from "./beats3";
 import { useKit } from "./kit";
-import takeV3 from "../../../../build/ep01v3/ep01v3_words_fast.json";
+import takeV3 from "../../../../build/ep01v4/words.json";
 import { mouthFromWords } from "../../../lib/anim";
 import { FONT_DISPLAY } from "../../../theme";
 import { clamp01, smooth } from "../core";
@@ -36,7 +36,7 @@ const buildCaps = (): Cap[] => {
   WS.forEach((w, k) => { cur.push(w); const len = cur.map((x) => x.word).join(" ").length, endP = /[.,:;?!]$/.test(w.word), nxt = WS[k + 1]; if (endP || cur.length >= 3 || len > 16 || !nxt || nxt.section !== w.section) { chunks.push(cur); cur = []; } });
   return chunks.map((c, k) => {
     const next = chunks[k + 1], from = Math.max(0, c[0].start - 0.04), lastEnd = c[c.length - 1].end;
-    const to = next && next[0].section === c[0].section ? Math.max(lastEnd + 0.05, next[0].start - 0.02) : lastEnd + 0.25;
+    const to = next && next[0].section === c[0].section ? Math.min(lastEnd + 0.12, next[0].start - 0.02) : lastEnd + 0.15;
     const words: [string, string?][] = c.map((x, q) => { const clean = x.word.replace(/[^A-Za-z0-9']/g, ""), col = KEY[clean.toLowerCase()]; return [clean.toUpperCase() + (q < c.length - 1 ? " " : ""), col] as [string, string?]; });
     return { from, to, words };
   });
@@ -76,7 +76,7 @@ export const Ep01V8: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} ready={ready} />)}
-      <Audio src={staticFile("audio/ep01v3/mix.wav")} />
+      <Audio src={staticFile("audio/ep01v4/mix.wav")} />
       <CapView f={f} />
       <Disclaimer f={f} />
     </AbsoluteFill>

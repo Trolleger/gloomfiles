@@ -1,0 +1,21 @@
+{
+ "duration_s": 55.48,
+ "voice": true,
+ "music_gap_db_target": 15.5,
+ "music_gain_db": -27.74,
+ "cue_file": "audio/ep01v4_cues.json",
+ "music_file": null,
+ "raw_peak": 0.7428508669247254,
+ "loudnorm_pass1": {
+  "input_i": "-20.24",
+  "input_tp": "-2.56",
+  "input_lra": "4.30",
+  "input_thresh": "-30.52",
+  "output_i": "-16.16",
+  "output_tp": "-1.50",
+  "output_lra": "2.60",
+  "output_thresh": "-26.31",
+  "normalization_type": "dynamic",
+  "target_offset": "1.16"
+ }
+}
