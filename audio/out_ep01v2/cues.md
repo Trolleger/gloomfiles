@@ -1,0 +1,42 @@
+# Sound cues (seconds on the video timeline)
+
+-    2.26 s  tick      target hit
+-    3.11 s  tick      target hit
+-    3.92 s  tick      target hit
+-    4.19 s  slap      kick: three
+-    4.57 s  slap      kick: hits
+-    4.95 s  slap      cut to S02
+-    6.44 s  slap      cut to S03
+-   10.09 s  slap      cut to S04
+-   10.24 s  pin       post card 1 pinned
+-   10.45 s  pin       post card 2 pinned
+-   10.66 s  pin       post card 3 pinned
+-   10.88 s  pin       post card 4 pinned
+-   11.09 s  pin       post card 5 pinned
+-   11.30 s  pin       post card 6 pinned
+-   11.51 s  pin       post card 7 pinned
+-   11.72 s  pin       post card 8 pinned
+-   12.21 s  slap      cut to S05
+-   14.51 s  pin       candle out
+-   15.07 s  slap      kick: kills
+-   15.81 s  slap      cut to S06
+-   17.86 s  stamp     ARCHIVED stamp
+-   19.41 s  slap      cut to S07
+-   20.34 s  tick      guess panel
+-   21.63 s  tick      guess panel
+-   22.75 s  tick      guess panel
+-   23.71 s  slap      cut to S08
+-   24.08 s  tick      3 of 8 check
+-   25.87 s  slap      cut to S09
+-   28.22 s  slap      lightning
+-   28.81 s  slap      cut to S10
+-   28.98 s  page      book
+-   34.85 s  slap      cut to S11
+-   39.04 s  slap      cut to S12
+-   42.24 s  slap      kick: fear
+-   43.32 s  pin       late post 1
+-   46.12 s  pin       late post 2
+-   48.62 s  pin       late post 3
+-   50.14 s  keys      left one
+-   50.94 s  slap      cut to S14
+-   55.55 s  powerdown closing

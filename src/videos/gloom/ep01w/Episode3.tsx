@@ -79,7 +79,7 @@ export const Ep01V3: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} />)}
-      <Sequence from={3}><Audio src={staticFile(VOICE_FILE)} /></Sequence>
+      <Audio src={staticFile("audio/ep01v2/mix.wav")} />
       <CapView f={f} />
       <Disclaimer f={f} />
     </AbsoluteFill>

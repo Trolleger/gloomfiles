@@ -1,0 +1,207 @@
+{
+ "source": "build/ep01v2/ep01v2_words_fast.json",
+ "fps": 30,
+ "lead": 0.1,
+ "cues": [
+  {
+   "t": 2.259,
+   "type": "tick",
+   "visual": "target hit"
+  },
+  {
+   "t": 3.112,
+   "type": "tick",
+   "visual": "target hit"
+  },
+  {
+   "t": 3.916,
+   "type": "tick",
+   "visual": "target hit"
+  },
+  {
+   "t": 4.19,
+   "type": "slap",
+   "visual": "kick: three"
+  },
+  {
+   "t": 4.57,
+   "type": "slap",
+   "visual": "kick: hits"
+  },
+  {
+   "t": 4.95,
+   "type": "slap",
+   "visual": "cut to S02"
+  },
+  {
+   "t": 6.441,
+   "type": "slap",
+   "visual": "cut to S03"
+  },
+  {
+   "t": 10.085,
+   "type": "slap",
+   "visual": "cut to S04"
+  },
+  {
+   "t": 10.24,
+   "type": "pin",
+   "visual": "post card 1 pinned"
+  },
+  {
+   "t": 10.452,
+   "type": "pin",
+   "visual": "post card 2 pinned"
+  },
+  {
+   "t": 10.664,
+   "type": "pin",
+   "visual": "post card 3 pinned"
+  },
+  {
+   "t": 10.876,
+   "type": "pin",
+   "visual": "post card 4 pinned"
+  },
+  {
+   "t": 11.088,
+   "type": "pin",
+   "visual": "post card 5 pinned"
+  },
+  {
+   "t": 11.3,
+   "type": "pin",
+   "visual": "post card 6 pinned"
+  },
+  {
+   "t": 11.512,
+   "type": "pin",
+   "visual": "post card 7 pinned"
+  },
+  {
+   "t": 11.724,
+   "type": "pin",
+   "visual": "post card 8 pinned"
+  },
+  {
+   "t": 12.205,
+   "type": "slap",
+   "visual": "cut to S05"
+  },
+  {
+   "t": 14.513,
+   "type": "pin",
+   "visual": "candle out"
+  },
+  {
+   "t": 15.075,
+   "type": "slap",
+   "visual": "kick: kills"
+  },
+  {
+   "t": 15.814,
+   "type": "slap",
+   "visual": "cut to S06"
+  },
+  {
+   "t": 17.864,
+   "type": "stamp",
+   "visual": "ARCHIVED stamp"
+  },
+  {
+   "t": 19.414,
+   "type": "slap",
+   "visual": "cut to S07"
+  },
+  {
+   "t": 20.344,
+   "type": "tick",
+   "visual": "guess panel"
+  },
+  {
+   "t": 21.633,
+   "type": "tick",
+   "visual": "guess panel"
+  },
+  {
+   "t": 22.75,
+   "type": "tick",
+   "visual": "guess panel"
+  },
+  {
+   "t": 23.712,
+   "type": "slap",
+   "visual": "cut to S08"
+  },
+  {
+   "t": 24.082,
+   "type": "tick",
+   "visual": "3 of 8 check"
+  },
+  {
+   "t": 25.872,
+   "type": "slap",
+   "visual": "cut to S09"
+  },
+  {
+   "t": 28.222,
+   "type": "slap",
+   "visual": "lightning"
+  },
+  {
+   "t": 28.81,
+   "type": "slap",
+   "visual": "cut to S10"
+  },
+  {
+   "t": 28.98,
+   "type": "page",
+   "visual": "book"
+  },
+  {
+   "t": 34.849,
+   "type": "slap",
+   "visual": "cut to S11"
+  },
+  {
+   "t": 39.039,
+   "type": "slap",
+   "visual": "cut to S12"
+  },
+  {
+   "t": 42.239,
+   "type": "slap",
+   "visual": "kick: fear"
+  },
+  {
+   "t": 43.318,
+   "type": "pin",
+   "visual": "late post 1"
+  },
+  {
+   "t": 46.118,
+   "type": "pin",
+   "visual": "late post 2"
+  },
+  {
+   "t": 48.618,
+   "type": "pin",
+   "visual": "late post 3"
+  },
+  {
+   "t": 50.138,
+   "type": "keys",
+   "visual": "left one"
+  },
+  {
+   "t": 50.944,
+   "type": "slap",
+   "visual": "cut to S14"
+  },
+  {
+   "t": 55.554,
+   "type": "powerdown",
+   "visual": "closing"
+  }
+ ]
+}

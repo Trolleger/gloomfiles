@@ -34,7 +34,7 @@ export const SHOTS3: Shot3[] = [
   { id: "S06", line: "He'd been silent a week. His last thread was archived.", world: "archive", light: "golden", sun: FRONT, caption: "A WEEK", cInf: 6,
     keys: [k(0, [1.6, 2.0, 2.6], [-1.2, 2.4, -6], 52), k(1, [-0.2, 2.0, -0.8], [-1.6, 2.4, -5], 44, { du: 0.8, roll: -0.04 })], cast: [g(4.2, 0.9, 0.6, { point: 50, beam: 1.0 })] },
   { id: "S07", line: "Replies guess: real life, no results, boredom, the feds.", world: "guesses", light: "night", sun: NIGHT, caption: "THE FEDS", cInf: 5,
-    keys: [k(0, [0, 3.4, 17], [0, 3.4, -6], 52), k(0.28, [-3.6, 6.0, 1.2], [-3.6, 5.6, -6], 44, { du: 0.14 }), k(0.5, [3.6, 6.0, 1.2], [3.6, 5.6, -6], 44, { du: 0.12 }), k(0.74, [-3.6, 1.0, 1.2], [-3.6, 0.9, -6], 44, { du: 0.12 }), k(1, [3.6, 1.0, 1.2], [3.6, 0.9, -6], 42, { du: 0.12 })], cast: [{ x: -13.4, z: -3.6, y: 0.6, s: 0.5, point: 60 }] },
+    keys: [k(0, [0, 5.6, 19], [0, 5.6, -6], 56), k(0.28, [-3.6, 7.6, 1.2], [-3.6, 7.6, -6], 44, { du: 0.14 }), k(0.5, [3.6, 7.6, 1.2], [3.6, 7.6, -6], 44, { du: 0.12 }), k(0.74, [-3.6, 2.6, 1.2], [-3.6, 2.6, -6], 44, { du: 0.12 }), k(1, [3.6, 2.6, 1.2], [3.6, 2.6, -6], 42, { du: 0.12 })], cast: [{ x: -13.4, z: -3.6, y: 0.6, s: 0.5, point: 60 }] },
   { id: "S08", line: "One gives the number: three of eight,", world: "eightboxes", light: "night", sun: NIGHT, caption: "3 OF 8", cInf: 5,
     keys: [k(0, [0, 4.4, 10], [0, 4.4, -9], 56), k(1, [0, 4.2, 5.5], [0, 4.4, -9], 46, { du: 0.8 })], cast: [] },
   { id: "S09", line: "like hitting a one-metre target at a thousand metres in a storm.", world: "range", light: "night", sun: NIGHT, caption: "1 IN 1000", cInf: 0,
