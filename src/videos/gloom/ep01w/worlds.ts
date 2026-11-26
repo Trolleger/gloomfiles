@@ -1,5 +1,6 @@
 // EP01 worlds: one 3D set per beat, every set literally shows what the line says. Built from code only (no GLB kit).
 import * as THREE from "three";
+import { kit, at } from "./kit";
 import { lam, glow, box, cyl, plane, sphere, canvasTex, lamTex } from "../mats";
 import * as P from "../props";
 import { rnd } from "../props/util";
@@ -177,11 +178,14 @@ export const W: Record<string, (R: R) => void> = {
     for (let i = 0; i < 10; i++) { const pd = plane(3 + rnd(i) * 3, 1.4, new THREE.MeshBasicMaterial({ color: "#6a8ad8", transparent: true, opacity: 0.55 })); pd.rotation.x = -Math.PI / 2; pd.position.set(-2 + rnd(i + 4) * 4, 0.03, -3 - i * 5); R.add(pd); }
     R.add(place(sign(textTex(512, 256, "#e8e0c8", "#1a1830", ["1000 m"], "Anton", 140, "#b02a3e"), 2.4, 1.2, 1.0), 3.4, 2.2, -8));
     R.add(box(0.12, 2.2, 0.12, lam("#3a2a24"), 3.4, 1.1, -8.05));
-    { const tt = new THREE.Group(); tt.add(box(0.5, 7, 0.5, lam("#4a3a2a"), 0, 3.5, 0)); for (const [rr, cc] of [[3.4, "#f2eadc"], [2.4, "#e8453c"], [1.4, "#f2eadc"], [0.6, "#e8453c"]] as [number, string][]) { const d = cyl(rr, rr, 0.3, new THREE.MeshBasicMaterial({ color: cc }), 0, 7.4, 0.05, 28); d.rotation.x = Math.PI / 2; tt.add(d); } place(tt, 1.2, 0, -120); R.add(tt); glowAt(R, 1.2, 7.4, -119, 16, "#ff3a2a"); R.add(place(sign(textTex(256, 128, "#e8e0c8", "#1a1830", ["1 m"], "Anton", 100, "#b02a3e"), 5, 2.5, 1.0), -3.6, 8.0, -119)); }
+    { const tt = new THREE.Group(); tt.add(box(0.5, 7, 0.5, lam("#4a3a2a"), 0, 3.5, 0)); for (const [rr, cc] of [[4.6, "#f2eadc"], [3.2, "#e8453c"], [1.9, "#f2eadc"], [0.8, "#e8453c"]] as [number, string][]) { const d = cyl(rr, rr, 0.3, new THREE.MeshBasicMaterial({ color: cc }), 0, 7.4, 0.05, 28); d.rotation.x = Math.PI / 2; tt.add(d); } place(tt, 1.2, 0, -120); R.add(tt); glowAt(R, 1.2, 7.4, -119, 16, "#ff3a2a"); R.add(place(sign(textTex(256, 128, "#e8e0c8", "#1a1830", ["1 m"], "Anton", 100, "#b02a3e"), 5, 2.5, 1.0), -3.6, 8.0, -119)); }
     R.add(place(sign(textTex(512, 256, "#e8e0c8", "#1a1830", ["1000 m"], "Anton", 140, "#b02a3e"), 1.5, 0.75, 1.0), -2.2, 1.9, -12)); R.add(box(0.1, 1.9, 0.1, lam("#3a2a24"), -2.2, 0.95, -12.05));
     const bc = P.glowSprite("#ff3a2a", 90); bc.position.set(0, 14, -990); R.add(bc);
     const rf = new THREE.Group(); rf.add(box(0.1, 0.12, 2.4, lam("#2a2a32"), 0, 0.1, 0)); rf.add(box(0.14, 0.2, 0.9, lam("#5a3a24"), 0, 0.05, 1.5)); rf.add(cyl(0.07, 0.07, 0.6, lam("#1a1a22"), 0, 0.28, 0.3, 10)); (rf.children[2] as THREE.Object3D).rotation.x = Math.PI / 2; place(rf, 0.6, 0.98, -2.2); R.add(rf);
     for (let i = 0; i < 12; i++) { const cl = P.glowSprite("#2a2a5a", 90 + rnd(i) * 50); cl.position.set(-120 + i * 22, 70 + rnd(i + 2) * 30, -300 - rnd(i + 3) * 200); R.add(cl); }
+    for (let i = 0; i < 14; i++) for (const sx of [-1, 1]) { const ps = new THREE.Group(); ps.add(box(0.14, 1.6, 0.14, lam("#c8c8d8"), 0, 0.8, 0)); ps.add(box(0.5, 0.3, 0.05, lam(i % 2 ? "#e8453c" : "#f2c84a"), 0.25, 1.5, 0)); place(ps, sx * 3.2, 0, -7 - i * 9); R.add(ps); }
+    for (let i = 0; i < 12; i++) { const pd = plane(1.6 + rnd(i) * 1.6, 0.9, new THREE.MeshBasicMaterial({ color: "#9ab8ff", transparent: true, opacity: 0.6 })); pd.rotation.x = -Math.PI / 2; pd.position.set((rnd(i + 3) - 0.5) * 4, 0.04, -4 - i * 4.4); noink(pd); R.add(pd); }
+    for (let i = 0; i < 10; i++) R.add(at(kit("nature", i % 2 ? "rock_largeD" : "log", 0.9), (i % 2 ? 1 : -1) * (4.6 + rnd(i) * 2), 0, -3 - i * 7));
     rain(R, 1800, [30, 22, 140], 0, 6);
     const bolt = new THREE.Mesh(new THREE.PlaneGeometry(14, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.6, 2.6, 3.4), transparent: true, opacity: 0.9, fog: false })); bolt.position.set(-60, 90, -900); bolt.rotation.z = 0.12; noink(bolt); R.add(bolt);
     glowAt(R, -60, 40, -890, 220, "#a8b8ff");

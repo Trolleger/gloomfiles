@@ -8,6 +8,7 @@ import { drawSilhouette } from "../props/figures";
 import { flashHand } from "../toon";
 import { fxBeam } from "../fxdraw";
 import { Light } from "../lights";
+import { TONE } from "../shade";
 import { W } from "./worlds";
 import { W2 } from "./worlds2";
 import { W3 } from "./worlds3";
@@ -15,7 +16,7 @@ import { W3 } from "./worlds3";
 export const ALLW: Record<string, (R: THREE.Group) => void> = { ...W, ...W2, ...W3 };
 export type K3 = { u: number; pos: [number, number, number]; look: [number, number, number]; fov: number; roll?: number; du?: number };
 export type Cast3 = { rel?: [number, number]; x?: number; z?: number; y?: number; s: number; point?: number; bend?: number; beam?: number; sil?: { arm?: [number, number]; col?: string }; expr?: string };
-export type Shot3 = { id: string; line: string; world: string; light: Light; sun?: { az: number; el: number }; caption: string; cInf: number; keys: K3[]; cast: Cast3[] };
+export type Shot3 = { dim?: number; id: string; line: string; world: string; light: Light; sun?: { az: number; el: number }; caption: string; cInf: number; keys: K3[]; cast: Cast3[] };
 const k = (u: number, pos: [number, number, number], look: [number, number, number], fov: number, o: Partial<K3> = {}): K3 => ({ u, pos, look, fov, ...o });
 const g = (d: number, lat: number, s: number, o: Partial<Cast3> = {}): Cast3 => ({ rel: [d, lat], s, ...o });
 const NIGHT = { az: 125, el: 42 }, FRONT = { az: 165, el: 52 };
@@ -78,6 +79,7 @@ export class Stage3 implements Stage3D {
   update(f: number, cam: THREE.PerspectiveCamera, scene: THREE.Scene) {
     const c = camPath(this.keys(), f, 0.0009);
     this.rig.frame(cam, scene, c, this.s.light, { az: this.s.sun?.az, el: this.s.sun?.el, focusR: 14 });
+    if (this.s.dim) { TONE.uLitCol.value.multiplyScalar(this.s.dim); TONE.uShadeCol.value.multiplyScalar(this.s.dim); this.rig.hemi.intensity *= this.s.dim; this.rig.sun.intensity *= this.s.dim; }
     const lt = this.rig.light2D(cam);
     this.cast.forEach(({ c: cs, x, z }, i) => {
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
