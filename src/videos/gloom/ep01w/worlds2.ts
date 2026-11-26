@@ -5,7 +5,7 @@ import { lam, glow, box, cyl, plane, sphere, canvasTex, lamTex } from "../mats";
 import * as P from "../props";
 import { rnd } from "../props/util";
 import { NOINK } from "../ink";
-import { R, place, floor, glowAt, win, rain, plant, plaster, wain, rugAt, bed, shelf, lampHang, checkTex } from "./worlds";
+import { R, place, floor, glowAt, win, rain, plant, plaster, wain, rugAt, bed, shelf, lampHang, checkTex, sign } from "./worlds";
 import { planksTex, brickTex, stoneTex, groundTex, rugTex, textTex } from "./tex";
 import { rep, ctex } from "./paint";
 
