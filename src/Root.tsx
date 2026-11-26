@@ -12,6 +12,7 @@ import {BeatStill} from './videos/gloom/ep01w/beats';
 import {Ep01W} from './videos/gloom/ep01w/Episode';
 import {Shot3Still} from './videos/gloom/ep01w/beats3';
 import {Ep01V3, TOTAL as EP1V3_TOTAL} from './videos/gloom/ep01w/Episode3';
+import {Shot4Still} from './videos/gloom/ep01w/beats4';
 import {CastSheet3D} from './videos/gloom/CastSheet3D';
 
 export const Root: React.FC = () => (
@@ -22,6 +23,7 @@ export const Root: React.FC = () => (
     <Composition id="Ep02" component={Ep02} width={1080} height={1920} fps={30} durationInFrames={EP2_TOTAL} />
     <Still id="BeatStill" component={BeatStill as any} width={1080} height={1920} defaultProps={{beat: 0}} />
     <Still id="Shot3Still" component={Shot3Still as any} width={1080} height={1920} defaultProps={{shot: 0, u: 0.3}} />
+    <Still id="Shot4Still" component={Shot4Still as any} width={1080} height={1920} defaultProps={{shot: 0, u: 0.15}} />
     <Still id="PropSheet" component={PropSheet} width={SHEET_SIZE.w} height={SHEET_SIZE.h} />
     <Still id="GloomClose" component={GloomClose} width={1080} height={1080} />
     <Still id="CastSheet3D" component={CastSheet3D} width={1920} height={1080} />
