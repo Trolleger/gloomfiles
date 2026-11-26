@@ -7,6 +7,8 @@ Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The 
 | SERIES_BIBLE.md | Cast, tone rules, safety rules, platforms, pipeline, script format |
 | EPISODE_TRACKER.md | One row per episode: status, tone, source, dates, views, plus the banger checklist |
 | SCRIPT_v6_info_heavy.md | Episode 1 (pilot) approved script. Earlier versions v2 to v5 are superseded. |
+| EP01_STORY_v4.md | Ep 1 v4: source digest (every thread detail, used vs cut) + story script (~67 s, Death Note back) + 13-place shot list. Awaiting Andrew's OK. v3 superseded. |
+| skills/ | Copies of Andrew's two source-of-truth skills: gloom-files-script and gloom-files-visuals |
 | SCRIPTS_batch1.md | Approved scripts for episodes 2 to 9 |
 | SHOT_PLANS.md | Scene-by-scene plans for episodes 1 to 9, for the Remotion build |
 | EP02-09_60s_SCRIPTS_AND_SHOTS.md | Eps 2 to 9 trimmed to about 60 s (fast Joe pace), cut facts listed, plus per-beat surreal world shot lists, colour and Kevin MacLeod music per ep. Awaiting Andrew's OK per episode. Supersedes the eps 2-9 tables in SHOT_PLANS.md once approved. |
