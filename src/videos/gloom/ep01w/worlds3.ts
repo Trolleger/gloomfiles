@@ -19,6 +19,18 @@ const target = (hit: boolean, s = 1) => {
 };
 const paperCard = (draw: (g: CanvasRenderingContext2D, w: number, h: number) => void, w = 1.1, h = 1.4, rz = 0) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: canvasTex(128, Math.round(128 * h / w), (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); draw(g, W, H); g.strokeStyle = "rgba(40,30,40,.5)"; g.lineWidth = 3; g.strokeRect(1, 1, W - 2, H - 2); }) })); m.rotation.z = rz; return m; };
 
+
+// outdoor dressing: distant hills + snowy mountains, rocks, grass tufts, clouds, village lights so skies and ground are never plain
+const outdoor = (R: R, o: { hill?: string; mount?: string; ground?: string; z?: number; cloud?: string; rocks?: number; tufts?: number; lights?: boolean } = {}) => {
+  const z0 = o.z ?? -120;
+  for (let i = 0; i < 9; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(40, 20, 10), lam(o.hill ?? "#2a2a68")); m.scale.set(1.8, 0.45 + rnd(i) * 0.3, 1.2); m.position.set(-170 + i * 45, -6, z0 + 40 - rnd(i + 3) * 30); R.add(m); }
+  for (let i = 0; i < 6; i++) { const h = 60 + rnd(i + 9) * 45, c = new THREE.Mesh(new THREE.ConeGeometry(h * 0.7, h, 6), lam(o.mount ?? "#3a3a88")); c.position.set(-150 + i * 60, h / 2 - 3, z0 - 40 - rnd(i) * 40); R.add(c); const s = new THREE.Mesh(new THREE.ConeGeometry(h * 0.24, h * 0.32, 6), lam("#dfe4ff")); s.position.set(c.position.x, h - h * 0.16 - 3, c.position.z); R.add(s); }
+  for (let i = 0; i < 10; i++) { const s = P.glowSprite(o.cloud ?? "#6a6ab8", 50 + rnd(i) * 40); s.position.set(-220 + i * 50 + rnd(i + 5) * 20, 55 + rnd(i + 8) * 40, z0 - 20 - rnd(i + 11) * 80); R.add(s); }
+  for (let i = 0; i < (o.rocks ?? 14); i++) R.add(P.at(P.rock(0.5 + rnd(i) * 0.9, i + 3, ["#6a6a98", "#5a5a88", "#7a7aa8"][i % 3]), (rnd(i + 1) - 0.5) * 36, 0, -4 - rnd(i + 6) * 50));
+  for (let i = 0; i < (o.tufts ?? 120); i++) { const t = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.5 + rnd(i) * 0.4, 5), lam(["#3a8a6a", "#2a7a5a", "#58b888"][i % 3])); t.position.set((rnd(i + 2) - 0.5) * 40, 0.25, -2 - rnd(i + 7) * 45); R.add(t); }
+  if (o.lights) for (let i = 0; i < 30; i++) glowAt(R, -80 + rnd(i) * 160, 1 + rnd(i + 4) * 2, z0 + 10 + rnd(i + 9) * 10, 1.4, "#ffd58a");
+};
+
 export const W3: Record<string, (R: R) => void> = {
   // S1: "he can attack strangers with his mind. Eight tries, three hits." eight targets, three cracked and glowing, a purple mind-beam from a glowing head
   targets8(R) {
@@ -27,7 +39,7 @@ export const W3: Record<string, (R: R) => void> = {
     const head = new THREE.Group(); head.add(sphere(0.9, lam("#d8c8e8"), 0, 0, 0)); for (const sx of [-1, 1]) head.add(sphere(0.12, glow("#d8a8ff", 3), sx * 0.3, 0.1, 0.8)); head.add(sphere(1.15, new THREE.MeshBasicMaterial({ color: new THREE.Color(0.7, 0.3, 1.4), transparent: true, opacity: 0.35 }), 0, 0, 0)); place(head, -5.5, 3.2, -4); noink(head.children[2]); R.add(head); glowAt(R, -5.5, 3.2, -4, 12, "#a86aff");
     for (const i of [1, 4, 6]) beam(R, new THREE.Vector3(-5.2, 3.2, -3.5), new THREE.Vector3((i % 2 ? 1 : -1) * 1.8, 2.5, -6 - i * 5.5), "#b87aff", 0.06);
     for (let i = 0; i < 30; i++) glowAt(R, (rnd(i) - 0.5) * 20, 0.5 + rnd(i + 4) * 6, -3 - rnd(i + 8) * 40, 0.5, "#d8b8ff");
-    R.add(P.stars(300, 6, 400, 0.08, 2.4)); R.add(P.at(P.moon(12, [60, 70, -200]))); glowAt(R, 0, 14, -90, 90, "#4a3a9a");
+    outdoor(R, { lights: true }); R.add(P.stars(300, 6, 400, 0.08, 2.4)); R.add(P.at(P.moon(16, [70, 80, -230]))); glowAt(R, 0, 14, -90, 90, "#4a3a9a");
   },
   // S2: "Then he went silent." empty chair, dead monitor, cobweb, cold mug, moonlight
   emptychair(R) {
@@ -57,7 +69,7 @@ export const W3: Record<string, (R: R) => void> = {
     const pos: [number, number][] = [[-5.2, 8.2], [-1.8, 8.6], [1.8, 7.8], [5.4, 8.4], [-4.6, 4.6], [-1.0, 4.2], [2.6, 4.8], [5.6, 4.0], [-6.0, 1.6], [-2.2, 1.4], [1.4, 1.8], [4.8, 1.2]];
     pos.forEach(([x, y], i) => { const c = paperCard(cards[i % cards.length], 2.4, 2.9, (rnd(i) - 0.5) * 0.18); c.position.set(x, y, -11.45); R.add(c); R.add(sphere(0.12, lam("#e8243e"), x, y + 1.3, -11.4)); });
     const pts = pos.map(([x, y]) => new THREE.Vector3(x, y + 1.3, -11.35)); [[0, 1], [1, 3], [3, 7], [7, 11], [11, 10], [10, 6], [6, 5], [5, 4], [4, 8], [8, 9], [9, 10], [2, 6], [1, 5]].forEach(([a, b]) => beam(R, pts[a], pts[b], "#e8243e", 0.025, 1.2));
-    R.add(P.stars(300, 12, 400, 0.05, 2.4)); glowAt(R, 0, 8, -9, 36, "#7a4ac8"); R.add(P.at(P.moon(9, [60, 60, -120])));
+    outdoor(R, { z: -90, cloud: "#7a5ac8", rocks: 4, tufts: 40 }); R.add(P.stars(300, 12, 400, 0.05, 2.4)); glowAt(R, 0, 8, -9, 36, "#7a4ac8"); R.add(P.at(P.moon(9, [60, 60, -120])));
     const lad = new THREE.Group(); for (const x of [-0.35, 0.35]) lad.add(box(0.07, 5.2, 0.07, lam("#8a6a44"), x, 2.6, 0)); for (let i = 0; i < 11; i++) lad.add(box(0.7, 0.05, 0.08, lam("#8a6a44"), 0, 0.4 + i * 0.45, 0)); lad.rotation.x = -0.1; place(lad, 7.0, 0, -11); R.add(lad);
   },
   // S4: "Eight posts, two hours forty-three." eight post cards pinned along a line under a clock showing 2:43
@@ -77,11 +89,11 @@ export const W3: Record<string, (R: R) => void> = {
   notebookdesk(R) {
     floor(R, 400, 400, lam("#1a1030"), -60);
     const tb = new THREE.Group(); tb.add(box(7, 0.3, 4, lam("#3a2418"), 0, 1.0, 0)); for (const [x, z] of [[-3.2, -1.7], [3.2, -1.7], [-3.2, 1.7], [3.2, 1.7]]) tb.add(box(0.3, 1.0, 0.3, lam("#2a1810"), x, 0.5, z)); place(tb, 0, 0, -6); R.add(tb);
-    const nb = new THREE.Group(); nb.add(box(1.5, 0.12, 2.0, lam("#0a0612"), 0, 0, 0)); nb.add(box(1.3, 0.04, 1.8, lam("#e8e0ff"), 0, 0.08, 0)); for (let i = 0; i < 9; i++) nb.add(box(0.8 + rnd(i) * 0.25, 0.01, 0.04, lam("#3a2a5a"), -0.1, 0.11, -0.7 + i * 0.16)); place(nb, 0, 1.22, -6); nb.rotation.y = 0.3; nb.scale.setScalar(1.5); R.add(nb);
+    const nb = new THREE.Group(); nb.add(box(3.0, 0.1, 2.0, lam("#0a0612"), 0, 0, 0)); for (const sx of [-1, 1]) { nb.add(box(1.4, 0.05, 1.8, lam("#efe8ff"), sx * 0.75, 0.08, 0)); for (let i = 0; i < 10; i++) nb.add(box(0.7 + rnd(i + sx) * 0.4, 0.01, 0.035, lam("#2a1a4a"), sx * 0.75 - 0.1, 0.11, -0.78 + i * 0.16)); } nb.add(box(0.06, 0.16, 2.0, lam("#c8243e"), 0, 0.05, 0)); const nm = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.3), new THREE.MeshBasicMaterial({ map: canvasTex(256, 80, (g) => { g.clearRect(0, 0, 256, 80); g.strokeStyle = "#c8243e"; g.lineWidth = 7; g.lineCap = "round"; g.beginPath(); g.moveTo(10, 50); g.bezierCurveTo(40, 6, 70, 74, 100, 30); g.bezierCurveTo(130, 6, 150, 70, 190, 34); g.bezierCurveTo(210, 20, 230, 50, 246, 40); g.stroke(); }), transparent: true, color: new THREE.Color(2, 2, 2) })); nm.rotation.x = -Math.PI / 2; nm.position.set(0.75, 0.13, 0.2); noink(nm); nb.add(nm); place(nb, 0, 1.22, -6); nb.rotation.y = 0.25; nb.scale.setScalar(1.2); R.add(nb);
     const pen = new THREE.Group(); pen.add(cyl(0.04, 0.04, 1.4, lam("#c0b0ff"), 0, 0, 0, 8)); pen.add(cyl(0.0, 0.04, 0.2, lam("#e8e0ff"), 0, -0.8, 0, 8)); pen.rotation.z = 0.6; place(pen, 0.5, 1.8, -5.8); R.add(pen);
     const title = paperCard((g, w, h) => { g.fillStyle = "#14102a"; g.fillRect(8, 10, w - 16, 34); g.fillStyle = "#c8c0e0"; for (let k = 0; k < 4; k++) g.fillRect(14, 62 + k * 16, 70 + rnd(k * 3) * 40, 8); g.fillStyle = "#e8243e"; g.fillRect(14, 140, 40, 10); }, 2.0, 2.6, -0.1); title.position.set(-2.4, 2.1, -5.2); title.rotation.y = 0.4; R.add(title); glowAt(R, -2.4, 2.1, -4.8, 4, "#ffe8c0");
     const candle = new THREE.Group(); candle.add(cyl(0.18, 0.2, 0.9, lam("#efe6cf"), 0, 0.45, 0, 12)); const fl = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.4, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(3, 1.6, 0.3) })); fl.position.y = 1.1; noink(fl); candle.add(fl); candle.userData.flame = fl; place(candle, 2.2, 1.15, -5.4); candle.scale.setScalar(1.2); R.add(candle); glowAt(R, 2.2, 2.6, -5.0, 8, "#ff9a4a");
-    glowAt(R, 0, 4, -6, 18, "#6a3aca");
+    glowAt(R, 0, 4, -6, 18, "#6a3aca"); const lec = new THREE.Group(); lec.add(box(1.3, 2.6, 1.3, stoneTex("#8a8aa8", "", [1, 2]) as any, 0, 1.3, 0)); place(lec, 5.2, 0, -7); R.add(lec); for (let i = 0; i < 5; i++) R.add(box(1.0 + rnd(i) * 0.3, 0.22, 0.8, lam(["#5a2a5a", "#2a3a6a", "#6a3a2a", "#2a5a4a", "#7a6a2a"][i]), 5.2, 2.7 + i * 0.22, -7)); outdoor(R, { z: -110, cloud: "#7a4ac8", rocks: 10 });
     for (let i = 0; i < 16; i++) { const pg = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.65), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.3, 1.25, 1.5), side: THREE.DoubleSide })); pg.position.set((rnd(i) - 0.5) * 9, 2.4 + rnd(i + 3) * 4.5, -6 + (rnd(i + 5) - 0.5) * 4); pg.rotation.set(rnd(i) * 3, rnd(i + 2) * 3, rnd(i + 4) * 3); noink(pg); R.add(pg); }
     R.add(P.stars(300, 9, 400, -0.2, 2.4)); R.add(P.at(P.moon(14, [-60, 60, -160])));
   },
@@ -101,24 +113,24 @@ export const W3: Record<string, (R: R) => void> = {
   // S7: "real life, no results, boredom, the feds": four small scenes in a row
   guesses(R) {
     floor(R, 80, 40, lam("#2a2a5a"), -6);
-    const stage = new THREE.Group(); stage.add(box(34, 0.6, 7, lam("#4a3a6a"), 0, 0.3, 0)); place(stage, 0, 0, -6); R.add(stage);
-    const X = [-12, -4, 4, 12];
+    const stage = new THREE.Group(); stage.add(box(15, 0.6, 7, lam("#4a3a6a"), 0, 0.3, 0)); stage.add(box(15, 0.6, 7, lam("#3a5a8a"), 0, 5.3, 0)); stage.add(box(0.4, 5.6, 6, lam("#2a2a4a"), -7.4, 2.8, 0)); stage.add(box(0.4, 5.6, 6, lam("#2a2a4a"), 7.4, 2.8, 0)); place(stage, 0, 0, -6); R.add(stage);
+    const X = [-3.6, 3.6, -3.6, 3.6], Y = [5.6, 5.6, 0.6, 0.6];
     // 1 real life: a house and a person with a briefcase on a road
-    { const g = new THREE.Group(); g.add(box(2.8, 2.2, 2.4, lam("#e8c86a"), 0, 1.4, 0)); const roof = new THREE.Mesh(new THREE.ConeGeometry(2.4, 1.2, 4), lam("#b04a3a")); roof.position.y = 3.1; roof.rotation.y = Math.PI / 4; g.add(roof); g.add(box(0.6, 1.2, 0.1, lam("#6a3a24"), 0, 0.9, 1.25)); g.add(box(3.2, 0.1, 5, lam("#5a5a6a"), 1.4, 0.65, 0)); const pr = new THREE.Group(); pr.add(box(0.4, 0.9, 0.25, lam("#2f6aa8"), 0, 0.6, 0)); pr.add(sphere(0.2, lam("#f0d0b0"), 0, 1.25, 0)); pr.add(box(0.35, 0.28, 0.12, lam("#6a3a24"), 0.3, 0.5, 0)); place(pr, 2.2, 0.7, 1.6); g.add(pr); place(g, X[0], 0.6, -6); R.add(g); glowAt(R, X[0], 3, -4, 7, "#ffd58a"); }
+    { const g = new THREE.Group(); g.add(box(2.8, 2.2, 2.4, lam("#e8c86a"), 0, 1.4, 0)); const roof = new THREE.Mesh(new THREE.ConeGeometry(2.4, 1.2, 4), lam("#b04a3a")); roof.position.y = 3.1; roof.rotation.y = Math.PI / 4; g.add(roof); g.add(box(0.6, 1.2, 0.1, lam("#6a3a24"), 0, 0.9, 1.25)); g.add(box(3.2, 0.1, 5, lam("#5a5a6a"), 1.4, 0.65, 0)); const pr = new THREE.Group(); pr.add(box(0.4, 0.9, 0.25, lam("#2f6aa8"), 0, 0.6, 0)); pr.add(sphere(0.2, lam("#f0d0b0"), 0, 1.25, 0)); pr.add(box(0.35, 0.28, 0.12, lam("#6a3a24"), 0.3, 0.5, 0)); place(pr, 2.2, 0.7, 1.6); g.add(pr); place(g, X[0], Y[0], -6); R.add(g); glowAt(R, X[0], Y[0] + 2.4, -4, 7, "#ffd58a"); }
     // 2 no results: a scoreboard reading 0
-    { const g = new THREE.Group(); g.add(box(3.6, 2.4, 0.4, lam("#1a1a2a"), 0, 2.2, 0)); g.add(box(0.2, 2.0, 0.2, lam("#3a3a4a"), -1.5, 1.0, 0)); g.add(box(0.2, 2.0, 0.2, lam("#3a3a4a"), 1.5, 1.0, 0)); const sc = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.0), new THREE.MeshBasicMaterial({ map: textTex(256, 160, "#04100a", "#ff4a3a", ["0"], "Anton", 140), color: new THREE.Color(1.6, 1.6, 1.6) })); sc.position.set(0, 2.2, 0.22); g.add(sc); place(g, X[1], 0.6, -6); R.add(g); glowAt(R, X[1], 2.8, -5, 7, "#ff4a3a"); }
+    { const g = new THREE.Group(); g.add(box(3.6, 2.4, 0.4, lam("#1a1a2a"), 0, 2.2, 0)); g.add(box(0.2, 2.0, 0.2, lam("#3a3a4a"), -1.5, 1.0, 0)); g.add(box(0.2, 2.0, 0.2, lam("#3a3a4a"), 1.5, 1.0, 0)); const sc = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.0), new THREE.MeshBasicMaterial({ map: textTex(256, 160, "#04100a", "#ff4a3a", ["0"], "Anton", 140), color: new THREE.Color(1.6, 1.6, 1.6) })); sc.position.set(0, 2.2, 0.22); g.add(sc); place(g, X[1], Y[1], -6); R.add(g); glowAt(R, X[1], Y[1] + 2.2, -5, 7, "#ff4a3a"); }
     // 3 boredom: a person yawning on a couch with a big clock
-    { const g = new THREE.Group(); g.add(P.at(P.couch("#7a4a68"), 0, 0, 0)); const pr = new THREE.Group(); pr.add(box(0.5, 0.7, 0.3, lam("#3aa0a0"), 0, 0.6, 0)); pr.add(sphere(0.26, lam("#f0d0b0"), 0, 1.15, 0)); pr.add(sphere(0.12, lam("#3a1a2a"), 0, 1.08, 0.24)); place(pr, 0, 0.6, 0.1); g.add(pr); const ck = clock(g, "6:00", 0, 4, -1.2, 1.2); void ck; place(g, X[2], 0.6, -6); R.add(g); glowAt(R, X[2], 3, -4.6, 6, "#ffe8a8"); }
+    { const g = new THREE.Group(); g.add(P.at(P.couch("#7a4a68"), 0, 0, 0)); const pr = new THREE.Group(); pr.add(box(0.5, 0.7, 0.3, lam("#3aa0a0"), 0, 0.6, 0)); pr.add(sphere(0.26, lam("#f0d0b0"), 0, 1.15, 0)); pr.add(sphere(0.12, lam("#3a1a2a"), 0, 1.08, 0.24)); place(pr, 0, 0.6, 0.1); g.add(pr); const ck = clock(g, "6:00", 0, 4, -1.2, 1.2); void ck; place(g, X[2], Y[2], -6); R.add(g); glowAt(R, X[2], Y[2] + 2.4, -4.6, 6, "#ffe8a8"); }
     // 4 the feds: two men in black with hats and shades beside a black car
-    { const g = new THREE.Group(); const car = new THREE.Group(); car.add(box(3.4, 0.8, 1.5, lam("#0a0814"), 0, 0.8, 0)); car.add(box(1.8, 0.7, 1.4, lam("#14102a"), -0.2, 1.5, 0)); for (const x of [-1.1, 1.1]) car.add(cyl(0.35, 0.35, 1.7, lam("#1a1a22"), x, 0.45, 0, 14)).rotation.x = 0; (car.children[2] as THREE.Object3D).rotation.x = Math.PI / 2; (car.children[3] as THREE.Object3D).rotation.x = Math.PI / 2; g.add(car); for (const dx of [-0.9, 0.9]) { const mb = new THREE.Group(); mb.add(box(0.5, 1.2, 0.3, lam("#0a0814"), 0, 0.6, 0)); mb.add(sphere(0.22, lam("#d8c0a8"), 0, 1.45, 0)); mb.add(cyl(0.3, 0.3, 0.05, lam("#0a0814"), 0, 1.65, 0)); mb.add(cyl(0.2, 0.2, 0.2, lam("#0a0814"), 0, 1.75, 0)); mb.add(box(0.34, 0.07, 0.05, lam("#000000"), 0, 1.48, 0.2)); place(mb, dx, 0, 1.6); g.add(mb); } place(g, X[3], 0.6, -6); R.add(g); }
-    R.add(P.stars(300, 5, 400, -0.1, 2.4)); glowAt(R, 0, 5, -16, 60, "#4a3aaa");
+    { const g = new THREE.Group(); const car = new THREE.Group(); car.add(box(3.4, 0.8, 1.5, lam("#0a0814"), 0, 0.8, 0)); car.add(box(1.8, 0.7, 1.4, lam("#14102a"), -0.2, 1.5, 0)); for (const x of [-1.1, 1.1]) car.add(cyl(0.35, 0.35, 1.7, lam("#1a1a22"), x, 0.45, 0, 14)).rotation.x = 0; (car.children[2] as THREE.Object3D).rotation.x = Math.PI / 2; (car.children[3] as THREE.Object3D).rotation.x = Math.PI / 2; g.add(car); for (const dx of [-0.9, 0.9]) { const mb = new THREE.Group(); mb.add(box(0.5, 1.2, 0.3, lam("#0a0814"), 0, 0.6, 0)); mb.add(sphere(0.22, lam("#d8c0a8"), 0, 1.45, 0)); mb.add(cyl(0.3, 0.3, 0.05, lam("#0a0814"), 0, 1.65, 0)); mb.add(cyl(0.2, 0.2, 0.2, lam("#0a0814"), 0, 1.75, 0)); mb.add(box(0.34, 0.07, 0.05, lam("#000000"), 0, 1.48, 0.2)); place(mb, dx, 0, 1.6); g.add(mb); } place(g, X[3], Y[3], -6); R.add(g); }
+    outdoor(R, { z: -100, rocks: 0, tufts: 0 }); R.add(P.stars(300, 5, 400, -0.1, 2.4)); glowAt(R, 0, 5, -16, 60, "#4a3aaa");
   },
   // S8a: "three of eight": eight big boxes with check marks, three checked
   eightboxes(R) {
     floor(R, 100, 60, lam("#1a2a4a"), -10); rugAt(R, rugTex("#2a3a6a", "#5a7aca"), 26, 8, 0, 0.02, -7);
     for (let i = 0; i < 8; i++) { const on = i === 1 || i === 4 || i === 6, g = new THREE.Group(); g.add(box(2.2, 2.2, 0.4, lam(on ? "#2fa860" : "#e8e4f4"), 0, 1.1, 0)); const t = canvasTex(128, 128, (c) => { c.clearRect(0, 0, 128, 128); c.strokeStyle = on ? "#ffffff" : "#c8243e"; c.lineWidth = 16; c.lineCap = "round"; c.beginPath(); if (on) { c.moveTo(24, 66); c.lineTo(54, 98); c.lineTo(104, 30); } else { c.moveTo(30, 30); c.lineTo(98, 98); c.moveTo(98, 30); c.lineTo(30, 98); } c.stroke(); }); const m = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.8), new THREE.MeshBasicMaterial({ map: t, transparent: true })); m.position.set(0, 1.1, 0.22); g.add(m); const gx = -3.9 + (i % 4) * 2.6, gy = i < 4 ? 2.9 : 0.2; place(g, gx, gy, -7); R.add(g); if (on) glowAt(R, gx, gy + 1.4, -6.4, 5, "#58ffa0"); }
     for (let i = 0; i < 30; i++) glowAt(R, (rnd(i) - 0.5) * 24, 0.5 + rnd(i + 3) * 5, -4 - rnd(i + 8) * 8, 0.3, "#9ad0ff");
-    R.add(P.stars(200, 3, 300, 0.05, 2)); glowAt(R, 0, 5, -12, 50, "#3a5aaa");
+    outdoor(R, { z: -100, rocks: 6, tufts: 60, hill: "#2a3a78", mount: "#3a4a98" }); R.add(P.stars(200, 3, 300, 0.05, 2)); glowAt(R, 0, 5, -12, 50, "#3a5aaa");
   },
   // S9: "a book ... influencing people from a distance": the paperback on a plinth with threads across a map to tiny far-away figures
   bookmap(R) {
@@ -129,6 +141,6 @@ export const W3: Record<string, (R: R) => void> = {
     const sp = new THREE.SpotLight("#ffd8a0", 70, 12, 0.45, 0.6); sp.position.set(0, 7, -2); sp.target.position.set(0, 1.5, -3.4); R.add(sp, sp.target);
     const spots: [number, number][] = [[-12, -10], [-6, -20], [9, -9], [14, -18], [2, -24], [-16, -17]];
     spots.forEach(([x, z], i) => { const f = new THREE.Group(); f.add(box(0.5, 0.9, 0.3, lam(["#e8c24a", "#3aa0a0", "#d85a6a", "#7a8ad8", "#58b868", "#c8a070"][i]), 0, 0.55, 0)); f.add(sphere(0.25, lam("#f0d0b0"), 0, 1.2, 0)); f.scale.setScalar(1.4); place(f, x, 0.08, z); R.add(f); beam(R, new THREE.Vector3(0, 2.3, -3.4), new THREE.Vector3(x, 1.2, z), "#b87aff", 0.03, 2); glowAt(R, x, 1.2, z, 3, "#a86aff"); });
-    R.add(P.stars(300, 14, 400, 0.05, 2.4));
+    outdoor(R, { z: -120, rocks: 0, tufts: 0 }); R.add(P.stars(300, 14, 400, 0.05, 2.4));
   },
 };
