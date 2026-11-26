@@ -202,7 +202,7 @@ Colour: parchment gold and leaf green, night blue for the star pages. Music: "Te
 
 **New from the digest:** the 1639 "Sphinx" letter, calfskin, the Rudolf II claim (attributed, unproven), the Jesuit sale, the women holding stars, words repeating five times, Friedman's punch cards, the parade of claimed solutions, the book being online.
 **Cut:** Kircher and hieroglyphs, the faded name under UV, the 1870 hiding in Rome, Ethel Voynich, the missing zodiac pages, the six-page foldout, about five scribes, the statistics (8,100 unique words, low entropy), the hoax experiments, the Roger Bacon theory.
-**Flag:** batch 1 said not to mention Rudolf II because it was unverified. The source does give it as a claim in a 1665 letter, so it's attributed and marked unproven. Say if you'd rather drop it.
+**Rudolf II:** kept as an attributed, unproven claim (Andrew, 2026-11-26).
 
 ### Shots
 | # | Line | What's shown | Why | Camera | Cast | Caption | Text |
