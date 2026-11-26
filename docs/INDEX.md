@@ -7,6 +7,7 @@ Everything for the series, in `/mnt/project-files/shorts/`. Plain markdown. The 
 | SERIES_BIBLE.md | Cast, tone rules, safety rules, platforms, pipeline, script format |
 | EPISODE_TRACKER.md | One row per episode: status, tone, source, dates, views, plus the banger checklist |
 | SCRIPT_v6_info_heavy.md | Episode 1 (pilot) approved script. Earlier versions v2 to v5 are superseded. |
+| BATCH2_v2_SCRIPTS_AND_SHOTS.md | Eps 10-17 v2: rewritten on the original mromidev formula from fully re-read sources (digests/ep10-17) + shot lists + cut lists. Awaiting Andrew's OK. Replaces SCRIPTS_batch2.md drafts. |
 | EP02-09_v3_SCRIPTS_AND_SHOTS.md | Eps 2-9 v3: on the original mromidev formula (like ep 1 v7) + shot lists + cut lists. Awaiting Andrew's OK. v2 superseded. |
 | EP01_STORY_v7.md | Ep 1 v7: written line by line on the original mromidev formula and SCRIPT_example (paradox hook, setting, 3 beats, snap, Wait?, Luckily/Unluckily, You see + Ever analogy, consequence, callback) + 16 shots. ON HOLD: missed thread content (Andrew); redo after reading the raw thread. |
 | EP01_STORY_v6.md | Ep 1 v6 (superseded): v4 facts on the mromidev skill's script formula (hook, setting, escalation, snap, You see analogy, consequence, callback) + 13 shots. Awaiting Andrew's OK. v5 superseded. |

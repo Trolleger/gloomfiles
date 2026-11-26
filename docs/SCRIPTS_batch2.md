@@ -1,5 +1,7 @@
 # Batch 2: scripts for episodes 10 to 17 (for approval)
 
+> Superseded by BATCH2_v2_SCRIPTS_AND_SHOTS.md (original formula, sources re-read).
+
 Facts checked against Wikipedia, NOAA/NPS, Scientific American and the CIA site on 2026-11-25. Same rules as batch 1: platform-neutral, no subscribe lines, centre safe area, claims attributed. Each script is about 150 spoken words. Funny ones use Gloom, Moth and Biscuit.
 
 ---
