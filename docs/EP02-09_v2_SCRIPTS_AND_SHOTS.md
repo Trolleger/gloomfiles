@@ -1,5 +1,7 @@
 # Eps 2-9 v2: scripts rebuilt from source digests + shot lists (for Andrew's OK)
 
+> Superseded by EP02-09_v3_SCRIPTS_AND_SHOTS.md (original formula).
+
 Written 2026-11-26 to the gloom-files-script skill (mine the source fully, tell the story, specific details over generic lines) and the gloom-files-visuals skill (every shot literally shows its line, with why). Replaces EP02-09_60s_SCRIPTS_AND_SHOTS.md. Nothing is built or rendered.
 
 **Digests:** each episode's full source digest (every detail, in order) is in `shorts/digests/epNN_*.md`. Under each script below: what's new from the digest, and what was cut so you can ask for any back (about 3 s each).
