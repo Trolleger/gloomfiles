@@ -73,8 +73,8 @@ export class Stage3 implements Stage3D {
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
     if (s.scatter) {
       const out = s.scatter === "out", names: [string, string, number][] = out
-        ? [["nature", "plant_bushLarge", 1.1], ["nature", "rock_smallE", 0.7], ["nature", "mushroom_tan", 0.5], ["nature", "fence_planks", 1.0], ["nature", "log", 0.5], ["nature", "plant_bushTriangle", 1.3], ["nature", "stump_oldTall", 0.9]]
-        : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "plantSmall1", 0.7], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
+        ? [["nature", "plant_bushLarge", 1.1], ["nature", "mushroom_tan", 0.5], ["nature", "fence_planks", 1.0], ["nature", "log", 0.5], ["nature", "stump_oldTall", 0.9]]
+        : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
       for (let q = 0; q < 14; q++) { const side = q % 2 ? 1 : -1, d = 3.0 + (q >> 1) * 1.0, lat = side * (0.9 + (q >> 1) * 0.6 + (q % 3) * 0.2), [pk, nm, hh] = names[q % names.length];
         const o = kat(kit(pk as any, nm, hh), c0.pos[0] + f.x * d + r.x * lat, 0, c0.pos[2] + f.z * d + r.z * lat, q * 1.7); this.root.add(o); }
     }

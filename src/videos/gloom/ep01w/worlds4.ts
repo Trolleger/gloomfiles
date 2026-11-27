@@ -32,7 +32,41 @@ const pines = (R: R, n: number, x0: number, x1: number, z0: number, z1: number, 
 const nightSky = (R: R, moon = [-80, 70, -200] as [number, number, number], seed = 1) => { const g = new THREE.Group(); g.userData.night = true; g.add(P.stars(300, seed, 400, 0.08, 2.4)); g.add(P.at(P.moon(10, moon))); R.add(g); };
 const cloudsAt = (R: R, y: number, c: string, z = -150, n = 9) => { for (let i = 0; i < n; i++) { const s = P.glowSprite(c, 50 + rnd(i) * 40); s.userData.night = true; s.position.set(-200 + i * 50, y + rnd(i + 3) * 25, z - rnd(i + 5) * 60); R.add(s); } };
 const roomShell = (R: R, o: { w?: number; d?: number; h?: number; wall: string; trim: string; floorTex?: THREE.Material; z?: number }) => { const w = o.w ?? 16, d = o.d ?? 14, h = o.h ?? 9, z0 = o.z ?? -7;
-  floor(R, w, d, o.floorTex ?? planksTex("#6a4a30", "", [4, 4]), z0 + d / 2 - 1); R.add(box(w, h, 0.4, plaster(o.wall, 5, 2), 0, h / 2, z0)); wain(R, w, z0, o.trim, "#f4ead2"); R.add(box(0.4, h, d, plaster(o.wall, 4, 2), -w / 2, h / 2, z0 + d / 2)); R.add(box(0.4, h, d, plaster(o.wall, 4, 2), w / 2, h / 2, z0 + d / 2)); };
+  floor(R, w, d, o.floorTex ?? planksTex("#6a4a30", "", [4, 4]), z0 + d / 2 - 1); R.add(box(w, h, 0.4, plaster(o.wall, 5, 2), 0, h / 2, z0)); wain(R, w, z0, o.trim, "#f4ead2"); R.add(box(0.4, h, d, plaster(o.wall, 4, 2), -w / 2, h / 2, z0 + d / 2)); R.add(box(0.4, h, d, plaster(o.wall, 4, 2), w / 2, h / 2, z0 + d / 2));
+  const dark = "#" + new THREE.Color(o.trim).multiplyScalar(0.72).getHexString(), lite = "#" + new THREE.Color(o.trim).multiplyScalar(1.25).getHexString();
+  R.add(box(w, 2.4, 0.12, tileTex("wn" + o.trim, [o.trim, lite], dark, w / 3, 1), 0, 1.2, z0 + 0.3)); R.add(box(w, 0.2, 0.3, planksTex("#8a5a34", "", [8, 1]), 0, 2.5, z0 + 0.34)); R.add(box(w, 0.3, 0.3, planksTex("#8a5a34", "", [8, 1]), 0, 0.15, z0 + 0.36));
+  for (const [x, y, c] of [[-w * 0.34, 4.6, "#e8a860"], [-w * 0.2, 5.5, "#58b0a8"], [w * 0.31, 4.8, "#d8685a"]] as const) { R.add(box(1.25, 1.5, 0.1, planksTex("#6a4224", "", [1, 1]), x, y, z0 + 0.27)); R.add(box(1.0, 1.25, 0.12, tileTex("pic" + c, [c, "#f2e2c0"], "#4a3040", 1, 1), x, y, z0 + 0.28)); }
+  R.add(box(3, 0.14, 0.55, planksTex("#8a5a34", "", [2, 1]), w * 0.3, 3.4, z0 + 0.45)); for (let i = 0; i < 9; i++) { const hh = 0.5 + rnd(i + w) * 0.35; R.add(box(0.2, hh, 0.4, lam(["#c8443a", "#2f8a84", "#e0a030", "#4a5ab8", "#f4ead2"][i % 5]), w * 0.3 - 1.2 + i * 0.27, 3.47 + hh / 2, z0 + 0.45)); }
+};
+
+/** painted ceramic tiles: per-tile colour jitter, soft highlight, ink grout, chips (template painted-texture style) */
+const tileTex = (key: string, cols: string[], grout: string, rx: number, ry: number) => lamTex(rep(ctex("tile5" + key, 512, 512, (g, r) => {
+  g.fillStyle = grout; g.fillRect(0, 0, 512, 512);
+  for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) { const px = x * 128 + 4, py = y * 128 + 4; g.fillStyle = cols[Math.floor(r() * cols.length)]; g.fillRect(px, py, 121, 121); g.fillStyle = "rgba(255,255,255,.35)"; g.fillRect(px + 6, py + 6, 80, 7); g.fillStyle = "rgba(40,30,60,.16)"; g.fillRect(px, py + 108, 121, 13);
+    for (let i = 0; i < 26; i++) { g.fillStyle = r() > 0.5 ? "rgba(255,255,255,.16)" : "rgba(40,30,60,.12)"; g.fillRect(px + r() * 110, py + r() * 110, 3 + r() * 16, 2 + r() * 5); }
+    if (r() < 0.2) { g.strokeStyle = "rgba(40,20,50,.6)"; g.lineWidth = 2; g.beginPath(); g.moveTo(px + r() * 120, py); g.lineTo(px + r() * 120, py + 50 + r() * 50); g.stroke(); } }
+}), rx, ry));
+/** line 3's bathroom, dense: tiled floor and wainscot, painted wall, window light, shelf, towels, tub, mat, clutter */
+const bathShell = (R: R) => {
+  floor(R, 12, 11, tileTex("floor", ["#e8dcc0", "#f2e8d0", "#d8c8a8", "#8ab4ac", "#9cc4bc"], "#5a4a52", 5, 5), -1.5);
+  R.add(box(12, 8, 0.4, plaster("#e8a860", 4, 2), 0, 4, -6.1)); for (const s of [-1, 1]) { R.add(box(0.4, 8, 11, plaster("#d89858", 4, 2), s * 6, 4, -1)); R.add(box(0.15, 3.0, 11, tileTex("side", ["#2f9a94", "#38a8a0", "#278880"], "#123a44", 6, 2), s * 5.75, 1.5, -1)); }
+  R.add(box(12, 3.0, 0.16, tileTex("back", ["#2f9a94", "#38a8a0", "#278880", "#48b0a4"], "#123a44", 6, 2), 0, 1.5, -5.86)); R.add(box(12, 0.18, 0.26, lam("#f4ead2"), 0, 3.08, -5.82));
+  // window with warm daylight, frame, curtain
+  R.add(box(2.0, 2.2, 0.06, MB("#fff0c0", 1.5), -3.8, 5.0, -5.86)); for (const x of [-4.86, -3.8, -2.74]) R.add(box(0.12, 2.4, 0.14, lam("#8a4a2a"), x, 5.0, -5.8)); for (const y of [3.84, 5.0, 6.16]) R.add(box(2.24, 0.12, 0.14, lam("#8a4a2a"), -3.8, y, -5.8)); R.add(box(0.5, 2.8, 0.16, lam("#c8443a"), -5.2, 4.9, -5.65)); glowAt(R, -3.8, 5.0, -5.3, 5, "#ffd890");
+  // shelf with bottles, towel rail, tub edge, bath mat, floor clutter
+  R.add(box(2.6, 0.12, 0.5, lam("#8a5a34"), 4.2, 5.3, -5.6)); for (let i = 0; i < 7; i++) { const h = 0.35 + rnd(i) * 0.5, c = ["#e8453c", "#f2c030", "#3a7ad8", "#58b870", "#d870a8"][i % 5]; R.add(cyl(0.13, 0.15, h, lam(c), 3.1 + i * 0.36, 5.36 + h / 2, -5.6, 10)); R.add(cyl(0.05, 0.05, 0.12, lam("#f4ead2"), 3.1 + i * 0.36, 5.42 + h, -5.6, 8)); }
+  R.add(box(2.0, 0.08, 0.08, lam("#c8c8d8"), -1.9, 2.9, -5.66)); for (const [x, c] of [[-2.4, "#e8453c"], [-1.5, "#f4ead2"]] as const) { R.add(box(0.7, 1.2, 0.1, lam(c), x, 2.35, -5.62)); R.add(box(0.7, 0.12, 0.12, lam("#3a7ad8"), x, 2.0, -5.6)); }
+  add(R, at(kit("furniture", "bathtub", 1.2), 4.4, 0, -2.6, -Math.PI / 2), at(kit("furniture", "bathroomCabinet", 1.6), 4.6, 0, -5.4), at(kit("furniture", "washer", 2.0), -4.8, 0, -3.0, Math.PI / 2), at(kit("furniture", "plantSmall2", 0.9), 4.6, 1.6, -5.3), at(kit("furniture", "cardboardBoxOpen", 0.5), -3.4, 0, -4.6));
+  R.add(box(2.4, 0.05, 1.3, tileTex("mat", ["#d8584a", "#c8443a"], "#7a2430", 2, 1), -2.2, 0.04, -3.9));
+  for (let i = 0; i < 9; i++) { const rl = cyl(0.16, 0.16, 0.24, lam(i % 3 ? "#f4ead2" : "#d8cbb0"), 2.2 + rnd(i) * 2.2, 0.14, -4.9 + rnd(i + 4) * 0.8, 12); R.add(rl); }
+};
+/** line 2's street dressing: kerbs, shop awnings, crates, barrels, flower boxes, puddles, railings */
+const streetDress = (R: R) => {
+  for (const z of [-3.1, -9.6]) R.add(box(60, 0.18, 0.4, stoneTex("#cbbda4", "", [30, 1]), 0, 0.09, z));
+  for (let i = 0; i < 9; i++) { const x = -18 + i * 4.4 + rnd(i) * 1.2, c = ["#c8443a", "#2f8a84", "#e0a030", "#4a5ab8"][i % 4]; for (let k = 0; k < 6; k++) { const a = box(0.42, 0.1, 1.2, lam(k % 2 ? c : "#f4ead2"), x - 1.05 + k * 0.42, 3.0, -9.9); a.rotation.x = 0.45; R.add(a); } }
+  for (let i = 0; i < 16; i++) { const x = -15 + i * 2 + rnd(i + 3), z = -8.9 + rnd(i + 5) * 0.6; if (i % 3 === 0) { R.add(cyl(0.34, 0.3, 0.8, planksTex("#8a5a34", "", [2, 1]), x, 0.4, z, 12)); R.add(cyl(0.36, 0.36, 0.08, lam("#3a3040"), x, 0.62, z, 12)); } else { R.add(box(0.6, 0.6, 0.6, planksTex("#a87040", "", [1, 1]), x, 0.3, z)); if (i % 2) R.add(box(0.45, 0.45, 0.45, planksTex("#a87040", "", [1, 1]), x + 0.1, 0.82, z)); }
+    for (let k = 0; k < 4; k++) R.add(sphere(0.12, lam(["#e8453c", "#ffd040", "#f4ead2"][(i + k) % 3]), x - 0.3 + k * 0.2, i % 3 ? 0.68 + (i % 2) * 0.46 : 0.9, z + 0.2)); }
+};
 
 import { W2 } from "./worlds2";
 export const W4: Record<string, (R: R) => void> = {
@@ -93,7 +127,7 @@ export const W4: Record<string, (R: R) => void> = {
   // line 2b: "his blog logs colds, missed buses and, very rarely, death": a street with three vignettes (cold, bus leaving, gravestone with a candle going out)
   logStreet(R) {
     floor(R, 300, 300, lamTex(rep(cobbleHD(), 60, 60)), -60); R.add(at(box(8, 0.05, 160, lam("#7a6a5a"), 0, 0.03, -40), 0, 0, 0));
-    townHouses(R, -14, 9, 4, 60); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
+    townHouses(R, -14.5, 9, 4, 60); streetDress(R); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
     for (const x of [-22, -8, 8, 22]) { R.add(at(kit("graveyard", "lightpost-single", 4.4), x, 0, -9)); glowAt(R, x, 4.4, -9, 5, "#ffcf8a"); }
     // (a) a cold: a sneezing person with a green puff and a tissue
     /*fig*/ for (let i = 0; i < 10; i++) R.add(sphere(0.28 + rnd(i) * 0.22, new THREE.MeshBasicMaterial({ color: i % 2 ? "#c8ffb0" : "#8ae88a", transparent: true, opacity: 0.75 }), -2.7 + i * 0.3, 2.3 + (rnd(i) - 0.5) * 0.8, -5.5));
@@ -108,12 +142,11 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 3: "prints their photo, pisses on it, says their name, wishes the worst, with no thinking, just anger": a bathroom, a printed photo on the tiles, a cartoon yellow stream, red hatred cloud
   bathroom(R) {
-    roomShell(R, { w: 12, d: 10, h: 8, wall: "#3a9a98", trim: "#1f5a68", floorTex: checkTex("#f0e8d4", "#9cc4c0"), z: -6 });
+    bathShell(R);
     add(R, at(kit("furniture", "toilet", 2.4), -2.4, 0, -5.2), at(kit("furniture", "bathroomSink", 2.4), 2.5, 0, -5.4), at(kit("furniture", "bathroomMirror", 2.4), 2.5, 4.1, -5.6), at(kit("furniture", "trashcan", 1.4), -4.4, 0, -4.4));
     const ph = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 2.6), new THREE.MeshBasicMaterial({ map: canvasTex(128, 166, (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); g.fillStyle = "#9ab8d8"; g.fillRect(8, 8, W - 16, H - 40); g.fillStyle = "#f4d8b8"; g.beginPath(); g.ellipse(64, 66, 28, 32, 0, 0, 7); g.fill(); g.fillStyle = "#5a3a2a"; g.fillRect(36, 36, 56, 14); g.fillStyle = "#14102a"; g.fillRect(50, 62, 8, 8); g.fillRect(72, 62, 8, 8); g.fillStyle = "#c8243e"; g.fillRect(54, 84, 20, 5); g.fillStyle = "#e8d49a"; g.font = "bold 18px Anton"; g.fillText("PRINTED", 30, H - 12); }) })); ph.position.set(0.6, 3.6, -5.55); R.add(ph); R.add(box(2.2, 2.8, 0.06, lam("#f4ead2"), 0.6, 3.6, -5.62));
     for (const sx of [-0.8, 0.8]) R.add(sphere(0.07, lam("#e8243e"), 0.6 + sx, 4.8, -5.5));
     /*fig*/
-    R.add(box(9, 4.2, 0.2, MB("#3aa8a0"), 0, 2.1, -5.85)); R.add(box(9, 0.14, 0.3, MB("#f4ead2"), 0, 4.25, -5.8));
     for (let i = 0; i < 18; i++) { const t = i / 17, dr = sphere(0.1, MB("#ffe04a", 1.7), -0.1 + 0.7 * t, 1.5 + 1.6 * t - 2.0 * t * t, -3.6 - 1.9 * t); noink(dr); R.add(dr); }
     for (let i = 0; i < 5; i++) { const dr = sphere(0.09, MB("#ffe04a", 1.5), 0.6 + (i - 2) * 0.12, 3.0 - i * 0.28, -5.45); noink(dr); R.add(dr); }
     for (let i = 0; i < 8; i++) R.add(sphere(0.2 + rnd(i) * 0.14, lam(i % 2 ? "#e8453c" : "#c8243e"), -0.9 + i * 0.27, 2.9 + Math.sin(i * 1.3) * 0.18, -3.7 + (i % 3) * 0.1));
@@ -123,7 +156,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 4: "ran it like a lab: forty targets, each matched with a control, coded in advance": 40 targets and 40 controls under glass domes, coded tags
   labForty(R) {
-    floor(R, 80, 80, checkTex("#7a8a98", "#3a5470"), -14); R.add(box(80, 20, 0.4, plaster("#2f5a88", 8, 2), 0, 10, -40)); for (let q = -6; q <= 6; q++) { R.add(at(kit("furniture", q % 2 ? "bookcaseClosed" : "cabinetTelevision", 3.2), q * 4.2, 0, -38)); } for (let q = 0; q < 14; q++) R.add(cyl(0.3, 0.4, 0.9, new THREE.MeshLambertMaterial({ color: ["#7affc8", "#ff7ab0", "#e8e07a", "#7ab0ff"][q % 4], transparent: true, opacity: 0.8 }), -26 + q * 4, 4.2, -37, 12));
+    floor(R, 80, 80, tileTex("lf", ["#b8c8cc", "#a8bcc4", "#c8d4d0", "#7a9aa8"], "#35485a", 18, 18), -14); R.add(box(80, 20, 0.4, tileTex("lw", ["#3a7a9a", "#438aa4", "#32708c"], "#173a50", 20, 5), 0, 10, -40)); for (let q = -6; q <= 6; q++) { R.add(at(kit("furniture", q % 2 ? "bookcaseClosed" : "cabinetTelevision", 3.2), q * 4.2, 0, -38)); } for (let q = 0; q < 14; q++) R.add(cyl(0.3, 0.4, 0.9, new THREE.MeshLambertMaterial({ color: ["#7affc8", "#ff7ab0", "#e8e07a", "#7ab0ff"][q % 4], transparent: true, opacity: 0.8 }), -26 + q * 4, 4.2, -37, 12));
     for (let r = 0; r < 10; r++) for (let c = 0; c < 8; c++) {
       const x = -9 + c * 1.2 + (c >= 4 ? 1.6 : 0), z = -3.5 - r * 2.0, tgt = c < 4, p = person(tgt ? "#d85a6a" : "#58b8c8", 0.62, { face: true });
       place(p, x, 0, z); if (!tgt) { const dome = new THREE.Mesh(new THREE.SphereGeometry(0.62, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.7, 1.2, 1.6), transparent: true, opacity: 0.5 })); const rim = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.04, 6, 20), MB("#ffffff")); rim.rotation.x = Math.PI / 2; rim.position.set(x, 0.04, z); noink(rim); R.add(rim); dome.position.set(x, 0, z); noink(dome); R.add(dome); }
@@ -167,7 +200,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 8: "Luckily, nobody can prove he hurt anyone. Unluckily, nobody can prove he didn't.": a courtroom, an empty witness stand, scales with both pans empty
   courtroom(R) {
-    roomShell(R, { w: 22, d: 16, h: 12, wall: "#3a5a6a", trim: "#2a3a48", floorTex: planksTex("#5a3a28", "", [6, 5]), z: -10 });
+    roomShell(R, { w: 22, d: 16, h: 30, wall: "#3a5a6a", trim: "#2a3a48", floorTex: planksTex("#5a3a28", "", [6, 5]), z: -10 }); R.add(box(22, 5, 0.2, tileTex("ct", ["#8a5434", "#7a482c", "#96603c"], "#341a10", 7, 2), 0, 2.5, -9.5)); for (const zz of [-1.6, 0.6]) for (const sx of [-1, 1]) { R.add(box(5.5, 0.18, 0.8, planksTex("#8a5a34", "", [3, 1]), sx * 5.4, 0.8, zz)); R.add(box(5.5, 1.1, 0.14, planksTex("#7a4a2c", "", [3, 1]), sx * 5.4, 1.2, zz + 0.42)); for (const dx of [-2.5, 2.5]) R.add(box(0.2, 0.8, 0.7, lam("#4a2c1c"), sx * 5.4 + dx, 0.4, zz)); }
     R.add(box(8, 2.2, 2.4, lam("#3a2218"), 0, 1.1, -8.4)); R.add(box(8.4, 0.3, 2.8, lam("#4a2c20"), 0, 2.3, -8.4)); R.add(box(3, 1.6, 1.8, lam("#4a2c20"), -6.5, 0.8, -5)); R.add(box(3.2, 0.3, 2.0, lam("#5a3a28"), -6.5, 1.65, -5));
     const sc = new THREE.Group(); sc.add(cyl(0.1, 0.1, 4.6, lam("#d8b24a"), 0, 2.3, 0, 8)); sc.add(box(5.6, 0.14, 0.14, lam("#d8b24a"), 0, 4.5, 0)); for (const sx of [-2.7, 2.7]) { sc.add(cyl(0.02, 0.02, 1.6, lam("#d8b24a"), sx, 3.7, 0, 6)); sc.add(cyl(1.5, 0.2, 0.2, MB("#f0d070"), sx, 2.85, 0, 18)); } sc.add(sphere(0.22, lam("#d8b24a"), 0, 4.7, 0)); place(sc, 0, 2.4, -7.6); R.add(sc);
     for (const sx of [-2.7, 2.7]) glowAt(R, sx, 5.8, -7.2, 4, "#fff0c0");
@@ -179,7 +212,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 9: "Ever been so scared you froze?": a graveyard path at night, a person frozen mid-step, a ghost, a lantern
   graveyardPath(R) {
-    floor(R, 300, 300, lamTex(rep(grassHD(), 60, 60)), -60); R.add(at(box(6, 0.05, 80, lam("#7a6a58"), 0, 0.03, -30), 0, 0, 0));
+    floor(R, 300, 300, lamTex(rep(grassHD(), 60, 60)), -60); R.add(box(6, 0.05, 80, lamTex(rep(cobbleHD(), 2, 24)), 0, 0.03, -30)); for (const sx of [-1, 1]) for (let i = 0; i < 12; i++) R.add(box(0.6, 0.8 + rnd(i) * 0.2, 3.2, stoneTex("#a89c8a", "", [2, 1]), sx * 11, 0.45, -2 - i * 3.5)); for (let i = 0; i < 90; i++) R.add(at(kit("nature", i % 5 ? "grass_large" : "flower_redA", 0.4 + rnd(i) * 0.4), (i % 2 ? 1 : -1) * (3.3 + rnd(i + 2) * 7), 0, -1 - rnd(i + 4) * 30, rnd(i) * 6));
     for (let i = 0; i < 30; i++) R.add(at(kit("graveyard", ["pine-fall", "pine-fall-crooked", "pine"][i % 3], 5 + rnd(i) * 5), (i % 2 ? 1 : -1) * (8 + rnd(i + 3) * 24), 0, -4 - rnd(i + 5) * 40, rnd(i + 7) * 6));
     for (let i = 0; i < 16; i++) R.add(at(kit("graveyard", ["gravestone-cross", "gravestone-round", "gravestone-broken", "gravestone-wide", "cross"][i % 5], 2.2 + rnd(i) * 0.8), (i % 2 ? 1 : -1) * (2.6 + rnd(i + 2) * 5), 0, -3.5 - i * 2.2, (rnd(i) - 0.5) * 0.5));
     R.add(at(kit("graveyard", "crypt-small", 4.5), 8, 0, -20, -0.5)); R.add(at(kit("graveyard", "iron-fence", 1.4, 1.5), -7, 0, -9)); R.add(at(kit("graveyard", "iron-fence", 1.4, 1.5), 7, 0, -9));

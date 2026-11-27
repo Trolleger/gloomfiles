@@ -128,7 +128,7 @@ export const W2: Record<string, (R: R) => void> = {
   },
   // B11: 1942, a physiology lab: tiled walls, tall windows, benches with flasks, a doll with pins, the heart monitor
   lab(R) {
-    floor(R, 18, 18, checkTex("#5a6a68", "#12404e"), -2);
+    floor(R, 18, 18, brickTex("#5a6a68", "", [5, 5]), -2);
     R.add(box(18, 9, 0.4, lamTex(rep(ctex("labtile", 256, 256, (g) => { g.fillStyle = "#cfe8e0"; g.fillRect(0, 0, 256, 256); g.strokeStyle = "#7aa8a0"; g.lineWidth = 3; for (let i = 0; i <= 8; i++) { g.beginPath(); g.moveTo(i * 32, 0); g.lineTo(i * 32, 256); g.moveTo(0, i * 32); g.lineTo(256, i * 32); g.stroke(); } }), 4, 2)) as any, 0, 4.5, -8));
     for (const x of [-4, 0.6, 5]) { win(R, x, 5.0, -7.7, 2.4, 3.6, "#cfe8ff"); glowAt(R, x, 4.6, -7.2, 8, "#e8f4ff"); }
     const mk = (x: number, z: number, w: number) => { const b = new THREE.Group(); b.add(box(w, 0.14, 1.4, lam("#2a2830"), 0, 1.0, 0)); b.add(box(w - 0.2, 1.0, 1.3, lam("#4a4a58"), 0, 0.5, 0)); place(b, x, 0, z); R.add(b); };
