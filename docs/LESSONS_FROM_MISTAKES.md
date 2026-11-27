@@ -11,3 +11,5 @@ Rule from Andrew: every time a mistake is caught, add a lesson here so it never 
 8. Judge short rendered motion clips with a fresh reviewer each round, not stills judged by the builder (builders score about 2 points too high). Pass is 7+ per area.
 9. Never claim "following the skill" without checking it against the skill's steps: measure the reference, owners per file, 8-area scoring.
 10. Never run a GPU render on Andrew's PC without his "render" in his own words.
+11. Contact shadows must use a multiply blob card (key contains |blob|); a soft card with a white background draws white squares under characters.
+12. Build sets from the skill template's world pieces (facade houses, painted ground, cumulus) before writing custom geometry; the template look comes from world construction, not post.

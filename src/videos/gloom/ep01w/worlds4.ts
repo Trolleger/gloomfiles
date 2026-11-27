@@ -1,3 +1,5 @@
+import { Batch, house } from "./bbuild";
+import { cloudHD, cobbleHD } from "./paint";
 // EP01 v8 worlds: built for the approved v8 script, one literal place per line, using the Kenney CC0 kits (Nature, Furniture, Graveyard).
 import * as THREE from "three";
 import { lam, glow, box, cyl, plane, sphere, canvasTex, lamTex } from "../mats";
@@ -23,7 +25,9 @@ const person = (c: string, s = 1, o: { arms?: boolean; face?: boolean; hat?: str
   if (o.hat) g.add(cyl(0.3, 0.3, 0.1, lam(o.hat), 0, 2.24, 0, 12));
   g.scale.setScalar(s * 0.9); return g;
 };
-const townHouses = (R: R, z: number, n: number, seed = 0, span = 90) => { for (let i = 0; i < n; i++) { const ww = 5 + rnd(i + seed) * 2.5, hh = 5 + rnd(i + seed + 2) * 3, dd = 4.5, tex = lamTex(rep(facadeHD("t" + ((i + seed) % 5), ww, hh, { wall: ["#d8b88a", "#c8a0a0", "#a8b8c8", "#c8c88a", "#b8a0c8"][(i + seed) % 5], shutter: ["#3a5a8a", "#8a3a3a", "#3a7a5a", "#7a5a2a", "#5a3a7a"][(i + seed) % 5], door: i % 2 === 0, timber: i % 3 === 0 }), 1, 1)); const h = new THREE.Group(); h.add(box(ww, hh, dd, tex, 0, hh / 2, 0)); const rf = new THREE.Mesh(new THREE.ConeGeometry(ww * 0.78, 2.6, 4), lamTex(rep(roofHD(["#9a4a3a", "#5a4a7a", "#3a5a7a"][i % 3]), 2, 1))); rf.position.y = hh + 1.3; rf.rotation.y = Math.PI / 4; rf.scale.z = dd / ww * 1.25; h.add(rf); h.position.set(-span / 2 + i * (span / n) + rnd(i + 6) * 2, 0, z - rnd(i + 8) * 5); R.add(h); for (let w = 0; w < 3; w++) if (rnd(i * 5 + w + seed) > 0.4) glowAt(R, h.position.x + (w - 1) * 1.6, 2.4 + rnd(w) * 2, h.position.z + 2.4, 1.6, "#ffcf8a"); } };
+/** the template's painted cumulus cut-outs, shown on day and golden shots */
+const dayClouds = (R: R, z: number, seed = 0) => { for (let i = 0; i < 5; i++) { const w = 38 + rnd(i + seed) * 26, m = new THREE.Mesh(new THREE.PlaneGeometry(w, w / 2), new THREE.MeshBasicMaterial({ map: cloudHD(i % 4), transparent: true, depthWrite: false, fog: false })); m.userData.day = true; m.position.set(-100 + i * 50 + rnd(i) * 20, 28 + rnd(i + 3) * 22, z - 40); noink(m); R.add(m); } };
+const townHouses = (R: R, z: number, n: number, seed = 0, span = 90) => { const b = new Batch(); for (let i = 0; i < n; i++) { const ww = rnd(i + seed) > 0.5 ? 9 : 7, hh = [7, 8.4, 9.8][Math.floor(rnd(i + seed + 2) * 3) % 3], x = -span / 2 + i * (span / n) + rnd(i + 6) * 1.2, zz = z - rnd(i + 8) * 4; house(b, x, zz, 0, ww, 8, hh, (i + seed) % 8, 0); for (let w = 0; w < 2; w++) if (rnd(i * 5 + w + seed) > 0.5) glowAt(R, x + (w - 0.5) * 3, 2.4 + rnd(w) * 3, zz + 4.2, 1.8, "#ffcf8a"); } b.build(R as any); dayClouds(R, z - 60, seed); };
 const pines = (R: R, n: number, x0: number, x1: number, z0: number, z1: number, seed = 0, names = ["tree_pineDefaultA", "tree_pineTallB", "tree_pineRoundA", "tree_pineSmallA"]) => { for (let i = 0; i < n; i++) R.add(at(kit("nature", names[i % names.length], 4 + rnd(i + seed) * 5), x0 + rnd(i + seed + 1) * (x1 - x0), 0, z0 + rnd(i + seed + 3) * (z1 - z0), rnd(i) * 6)); };
 const nightSky = (R: R, moon = [-80, 70, -200] as [number, number, number], seed = 1) => { const g = new THREE.Group(); g.userData.night = true; g.add(P.stars(300, seed, 400, 0.08, 2.4)); g.add(P.at(P.moon(10, moon))); R.add(g); };
 const cloudsAt = (R: R, y: number, c: string, z = -150, n = 9) => { for (let i = 0; i < n; i++) { const s = P.glowSprite(c, 50 + rnd(i) * 40); s.userData.night = true; s.position.set(-200 + i * 50, y + rnd(i + 3) * 25, z - rnd(i + 5) * 60); R.add(s); } };
@@ -90,7 +94,7 @@ export const W4: Record<string, (R: R) => void> = {
   },
   // line 2b: "his blog logs colds, missed buses and, very rarely, death": a street with three vignettes (cold, bus leaving, gravestone with a candle going out)
   logStreet(R) {
-    floor(R, 300, 300, stoneTex("#cdb894", "", [30, 30]), -60); R.add(at(box(8, 0.05, 160, lam("#7a6a5a"), 0, 0.03, -40), 0, 0, 0));
+    floor(R, 300, 300, lamTex(rep(cobbleHD(), 60, 60)), -60); R.add(at(box(8, 0.05, 160, lam("#7a6a5a"), 0, 0.03, -40), 0, 0, 0));
     townHouses(R, -14, 9, 4, 60); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
     for (const x of [-22, -8, 8, 22]) { R.add(at(kit("graveyard", "lightpost-single", 4.4), x, 0, -9)); glowAt(R, x, 4.4, -9, 5, "#ffcf8a"); }
     // (a) a cold: a sneezing person with a green puff and a tissue

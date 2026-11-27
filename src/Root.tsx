@@ -1,5 +1,6 @@
 import React from 'react';
 import {Composition, Still} from 'remotion';
+import {BridgeShort, BRIDGE_FRAMES} from './videos/bridge';
 import './lib/fonts';
 import {CastSheet} from './comps/CastSheet';
 import {W, H, FPS} from './theme';
@@ -18,6 +19,7 @@ import {CastSheet3D} from './videos/gloom/CastSheet3D';
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="BridgeShort" component={BridgeShort} width={1080} height={1920} fps={30} durationInFrames={BRIDGE_FRAMES} />
     <Composition id="Ep01" component={Ep01} width={1080} height={1920} fps={30} durationInFrames={EP1_TOTAL} />
     <Composition id="Ep01W" component={Ep01W} width={1080} height={1920} fps={30} durationInFrames={EP1_TOTAL} />
     <Composition id="Ep01V3" component={Ep01V3} width={1080} height={1920} fps={30} durationInFrames={EP1V3_TOTAL} />
