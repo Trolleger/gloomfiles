@@ -12,12 +12,14 @@ const grain = () => {
   let sd = 7; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 1400; i++) { const v = 205 + Math.floor(r() * 40); g.fillStyle = `rgb(${v},${v - 4},${v - 8})`; g.fillRect(r() * 256, r() * 256, 2 + r() * 9, 1 + r() * 4); }
   for (let i = 0; i < 500; i++) { g.strokeStyle = r() > 0.5 ? "rgba(255,255,255,0.7)" : "rgba(150,140,150,0.25)"; g.lineWidth = 1; const x = r() * 256, y = r() * 256; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - 0.5) * 26, y + (r() - 0.5) * 10); g.stroke(); }
-  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(2, 2); t.anisotropy = 8; grainT = t; return t;
+  // painted board courses every half tile (1 m with metre UVs): ink seams with a light edge, staggered joints
+  for (let row = 0; row < 2; row++) { const y = row * 128 + 4; g.fillStyle = "rgba(60,40,70,0.55)"; for (let x = 0; x < 256; x += 8) g.fillRect(x, y + (r() - 0.5) * 2, 9, 2.5); g.fillStyle = "rgba(255,255,255,0.8)"; g.fillRect(0, y + 4, 256, 2); const jx = 40 + row * 110 + r() * 30; g.fillStyle = "rgba(60,40,70,0.5)"; g.fillRect(jx, y, 2.5, 126); }
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 1); t.anisotropy = 8; grainT = t; return t;
 };
 export const lam = (color: string, opts: THREE.MeshLambertMaterialParameters = {}) => {
   const key = color + JSON.stringify(opts);
   let m = cache.get(key) as THREE.MeshLambertMaterial | undefined;
-  if (!m) { m = twoTone(new THREE.MeshLambertMaterial({ color, map: grain(), ...opts })); cache.set(key, m); }
+  if (!m) { m = twoTone(new THREE.MeshLambertMaterial({ color, map: grain(), ...opts })); m.userData.grain = true; cache.set(key, m); }
   return m;
 };
 export const lamTex = (tex: THREE.Texture, opts: THREE.MeshLambertMaterialParameters = {}) => twoTone(new THREE.MeshLambertMaterial({ map: tex, ...opts }));
@@ -31,13 +33,17 @@ export const canvasTex = (w: number, h: number, draw: (g: CanvasRenderingContext
   return t;
 };
 export const box = (w: number, h: number, d: number, m: THREE.Material, x = 0, y = 0, z = 0) => {
-  const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; return o;
+  const geo = new THREE.BoxGeometry(w, h, d);
+  if ((m as THREE.Material).userData?.grain) { const uv = geo.attributes.uv, dims = [[d, h], [d, h], [w, d], [w, d], [w, h], [w, h]]; for (let i = 0; i < uv.count; i++) { const [a, b] = dims[Math.floor(i / 4)]; uv.setXY(i, uv.getX(i) * a / 2, uv.getY(i) * b / 2); } }
+  const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; return o;
 };
 export const cyl = (rt: number, rb: number, h: number, m: THREE.Material, x = 0, y = 0, z = 0, seg = 24) => {
   const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; return o;
 };
 export const plane = (w: number, h: number, m: THREE.Material, x = 0, y = 0, z = 0) => {
-  const o = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); o.position.set(x, y, z); o.receiveShadow = true; return o;
+  const geo = new THREE.PlaneGeometry(w, h);
+  if ((m as THREE.Material).userData?.grain) { const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 2, uv.getY(i) * h / 2); }
+  const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.receiveShadow = true; return o;
 };
 export const sphere = (r: number, m: THREE.Material, x = 0, y = 0, z = 0) => {
   const o = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 16), m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; return o;
