@@ -13,3 +13,4 @@ Rule from Andrew: every time a mistake is caught, add a lesson here so it never 
 10. Never run a GPU render on Andrew's PC without his "render" in his own words.
 11. Contact shadows must use a multiply blob card (key contains |blob|); a soft card with a white background draws white squares under characters.
 12. Build sets from the skill template's world pieces (facade houses, painted ground, cumulus) before writing custom geometry; the template look comes from world construction, not post.
+13. Textures and ink come from metre-scaled painted textures on every set surface (tileTex, plank courses), not from flat colours; this moved the reviewer from 4.1 to 4.9. Long shots need clearly different angles, and a character must never be half cut off at the frame edge.
