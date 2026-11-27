@@ -35,7 +35,7 @@ export const LIGHTS: Record<Light, LightPreset> = {
   // GLOOM FILES night: cold moon/lamp key, deep navy shade (never black), readable on a phone. Series-specific.
   night: {
     az: 40, el: 38,
-    lit: [1.15, 1.15, 1.3], shade: [0.3, 0.3, 0.4], lift: [0.03, 0.035, 0.08], lambert: 0.35, sideK: 0.84, term: 0.2,
+    lit: [1.45, 1.45, 1.6], shade: [0.42, 0.42, 0.56], lift: [0.05, 0.055, 0.11], lambert: 0.35, sideK: 0.84, term: 0.2,
     charTint: [0.92, 0.96, 1.08], charShade: 0.84, charGrad: 0.08, bodyGrad: 0.22, sideTint: [0.84, 0.86, 1.0],
     blob: [0.4, 0.42, 0.62], actorShadow: false,
     top: "#0a0f2a", hor: "#26306a", skyCurve: [0.0, 0.5, 0.6], fog: "#171e48", fogNear: 20, fogFar: 140, sunDisc: "#000000",
