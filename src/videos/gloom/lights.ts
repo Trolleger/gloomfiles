@@ -35,11 +35,11 @@ export const LIGHTS: Record<Light, LightPreset> = {
   // GLOOM FILES night: cold moon/lamp key, deep navy shade (never black), readable on a phone. Series-specific.
   night: {
     az: 40, el: 38,
-    lit: [1.45, 1.45, 1.6], shade: [0.42, 0.42, 0.56], lift: [0.05, 0.055, 0.11], lambert: 0.35, sideK: 0.84, term: 0.2,
+    lit: [1.35, 1.42, 1.6], shade: [0.28, 0.4, 0.56], lift: [0.02, 0.055, 0.1], lambert: 0.35, sideK: 0.84, term: 0.2,
     charTint: [0.92, 0.96, 1.08], charShade: 0.84, charGrad: 0.08, bodyGrad: 0.22, sideTint: [0.84, 0.86, 1.0],
     blob: [0.4, 0.42, 0.62], actorShadow: false,
-    top: "#0a0f2a", hor: "#26306a", skyCurve: [0.0, 0.5, 0.6], fog: "#171e48", fogNear: 20, fogFar: 140, sunDisc: "#000000",
-    sunCol: "#cfe0ff", sunI: 2.4, sky: "#5a6cc0", ground: "#1c2050", hemiI: 0.5,
+    top: "#061434", hor: "#1f4a72", skyCurve: [0.0, 0.5, 0.6], fog: "#12284c", fogNear: 20, fogFar: 140, sunDisc: "#000000",
+    sunCol: "#cfe0ff", sunI: 2.4, sky: "#5a8cc0", ground: "#14305a", hemiI: 0.5,
     bias: -0.0004, normalBias: 0.02,
   },
 };
@@ -72,7 +72,7 @@ export const LOOK: Record<Light, WorldLook> = {
     sat: 1.1,
   },
   night: {
-    sky: { c: ["#2b366f", "#232d5f", "#1a2350", "#121a40", "#0a1030"], e: [0, 4, 12, 24, 50] },
+    sky: { c: ["#1f4a72", "#183c66", "#102c54", "#0b2044", "#061434"], e: [0, 4, 12, 24, 50] },
     water: { near: "#1a2a66", mid: "#142052", far: "#26357a", crest: "#6a82d0", trough: "#0c1438", glint: "#cfe0ff", shade: [0.4, 0.46, 0.8] },
     cloud: { lit: "#6a7ec0", mid: "#46589a", shade: "#2a3678" },
     bounce: [0.0, 0.02, 0.06],

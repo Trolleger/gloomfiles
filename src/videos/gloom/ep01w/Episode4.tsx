@@ -19,7 +19,7 @@ export const TOTAL_S = takeV3.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
 const B = [0, WT(0, /^and$/, 0, -0.08), SEC[1].start - 0.1, WT(1, /^and$/, 0, -0.08), SEC[2].start - 0.1, SEC[3].start - 0.1, SEC[4].start - 0.1, WT(4, /^like$/, 0, -0.1), SEC[5].start - 0.1, SEC[6].start - 0.1, WT(6, /^His$/, 0, -0.1), SEC[7].start - 0.1, SEC[8].start - 0.1, WT(8, /^In$/, 0, -0.1), SEC[9].start - 0.1, TOTAL_S];
 const SH0 = SHOTS4.map((s, i) => ({ s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }));
-const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: [q.look[0] + (q.pos[0] - q.look[0]) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (q.pos[2] - q.look[2]) * 0.6] as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
+const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: ((dx: number, dz: number, a: number) => [q.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * 0.6])(q.pos[0] - q.look[0], q.pos[2] - q.look[2], 0.36) as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
 const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
 SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
@@ -45,7 +45,7 @@ const CAPS = buildCaps();
 const CapView: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, c = CAPS.find((q) => t >= q.from && t < q.to); if (!c) return null;
   const text = c.words.map((w) => w[0]).join(""), size = Math.max(96, Math.min(180, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
-  return (<div style={{ position: "absolute", left: 80, width: 920, top: 1290, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
+  return (<div style={{ position: "absolute", left: 80, width: 920, top: 1400, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
     {c.words.map((w, i) => <span key={i} style={{ color: w[1] ?? "#fff" }}>{w[0]}</span>)}</div>);
 };
 const Disclaimer: React.FC<{ f: number }> = ({ f }) => {

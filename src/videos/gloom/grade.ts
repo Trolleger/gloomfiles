@@ -170,7 +170,7 @@ export const GRADE_GOLDEN2: GradeParams = {
 export const GRADE_NIGHT: GradeParams = {
   ky: [0.03, 0.13, 0.31, 0.62, 0.86, 0.96, 1],
   sat: [1.0, 1.12, 1.1],
-  tintS: [0.004, -0.012], tintM: [-0.004, 0.012], tintH: [-0.034, 0.046],
+  tintS: [-0.012, -0.004], tintM: [0.004, 0.004], tintH: [0.02, -0.01],
   vig: [0.5, 0.34],
 };
 export const GRADES: Record<"day" | "golden" | "night", GradeParams> = { day: GRADE_DAY2, golden: GRADE_GOLDEN2, night: GRADE_NIGHT };
