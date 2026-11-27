@@ -108,7 +108,7 @@ export const W4: Record<string, (R: R) => void> = {
     // the grounded last room: planks, walls, a warm lamp left on, a dead screen and the empty chair
     roomShell(R, { w: 16, d: 16, h: 10, wall: "#2f4a78", trim: "#1f2f52", floorTex: planksTex("#6a4a30", "", [6, 6]), z: -9 });
     add(R, at(kit("furniture", "desk", 1.0), 0, 0, -6), at(kit("furniture", "computerScreen", 0.9), 0, 1.0, -6.1), at(kit("furniture", "chairDesk", 1.4), 1.6, 0, -4.4, 2.2), at(kit("furniture", "lampRoundFloor", 3.0), -2.4, 0, -6.4), at(kit("furniture", "bookcaseOpen", 3.4), -4.8, 0, -8.2), at(kit("furniture", "pottedPlant", 1.8), 4.2, 0, -7.6), at(kit("furniture", "rugRound", 0.05, 2.6), 0.6, 0.02, -5), at(kit("furniture", "books", 0.5), -0.6, 1.0, -6));
-    lampPool(R, -2.4, 3.0, -6.2, "#ffb45a", 8); lampPool(R, 0.4, 3.6, -5.4, "#ffc878", 4);
+    lampPool(R, -2.4, 3.0, -6.2, "#ffb45a", 8); { const dead = plane(1.05, 0.62, new THREE.MeshBasicMaterial({ color: "#04050a" }), 0, 1.58, -5.96); R.add(dead); } lampPool(R, 0.4, 3.6, -5.4, "#ffc878", 4);
     const c = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.8), new THREE.MeshBasicMaterial({ map: canvasTex(256, 90, (g, W, H) => { g.fillStyle = "#cfe8ff"; g.fillRect(0, 0, W, H); g.strokeStyle = "#3a6aa8"; g.lineWidth = 4; g.strokeRect(2, 2, W - 4, H - 4); g.fillStyle = "#14102a"; g.font = "bold 30px 'Special Elite','Courier New',monospace"; g.fillText("I left a comment.", 14, 56); }), color: new THREE.Color(1.5, 1.5, 1.5) })); c.position.set(-0.6, 3.4, -5.6); R.add(c); glowAt(R, 0, 3.2, -5.2, 8, "#9ad0ff");
     for (let i = 0; i < 14; i++) glowAt(R, (rnd(i) - 0.5) * 10, 1.5 + rnd(i + 3) * 5, -3 - rnd(i + 8) * 5, 0.3, "#8a9aff");
   },

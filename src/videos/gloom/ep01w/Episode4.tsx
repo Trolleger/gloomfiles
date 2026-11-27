@@ -21,7 +21,7 @@ const B = [0, WT(0, /^and$/, 0, -0.08), SEC[1].start - 0.1, WT(1, /^and$/, 0, -0
 const SH0 = SHOTS4.map((s, i) => ({ s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }));
 const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: ((dx: number, dz: number, a: number) => [q.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * 0.6])(q.pos[0] - q.look[0], q.pos[2] - q.look[2], 0.36) as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
 const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
-SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
+SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05" && q.s.id !== "S15") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
 const KICKS: [number, number][] = [[WT(0, /^death/, 0, 0), 1.2], [WT(1, /^Death/, 0, 0), 1], [WT(1, /^death/, 0, 0), 1.3], [WT(3, /^forty/, 0, 0), 0.9], [WT(4, /^three/, 0, 0), 1.2], [WT(4, /^storm/, 0, 0), 1.5], [WT(7, /^didn/, 0, 0.3), 0.8], [WT(8, /^froze/, 0, 0), 1.4], [WT(8, /^fear/, 0, 0), 1.3], [WT(9, /^silence/, 0, 0), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
