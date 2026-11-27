@@ -40,7 +40,7 @@ export const SHOTS4: Shot3[] = [
     keys: [k(0, [-1.2, 2.2, 2.4], [0.4, 1.6, -10], 54), k(1, [-0.6, 2.0, -2.2], [0.4, 1.8, -10], 44, { du: 0.8 })], cast: [{ rel: [4.0, 0.4], s: 1.1, fig: { outfit: "frozen", expr: "shock", wave: 50 } }, g(5.0, -1.6, 0.75, { point: 130, expr: "nervous" })] },
   { id: "S14", scatter: "in", line: "In 1942, Walter Cannon argued a curse can kill through fear alone.", world: "lab", light: "day", caption: "FEAR ALONE", cInf: 11,
     keys: [k(0, [0.4, 2.1, 3.6], [0.8, 1.6, -5], 48), k(1, [0.5, 2.0, 0.8], [1.0, 1.5, -5], 40, { du: 0.8, roll: -0.05 })], cast: [{ rel: [3.8, 0.5], s: 1.0, fig: { outfit: "volunteer", expr: "nervous", wave: 50 } }, g(4.0, -1.5, 0.7, { point: 35, expr: "shock", beam: 1.2 })] },
-  { id: "S15", scatter: "out", line: "He said it only worked when he stopped trying. Now he's stopped everything, and nobody can say which kind of silence that is.", world: "islandEmpty", light: "night", dim: 0.4, caption: "WHICH SILENCE", cInf: 4,
+  { id: "S15", scatter: "in", line: "He said it only worked when he stopped trying. Now he's stopped everything, and nobody can say which kind of silence that is.", world: "islandEmpty", light: "night", dim: 0.4, caption: "WHICH SILENCE", cInf: 4,
     keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(1, [3.6, 3.2, 7], [0, 1.2, -8], 58, { du: 0.9 })], cast: [g(4.2, 0.9, 1.0, { point: 40, expr: "neutral" })] },
 ];
 
