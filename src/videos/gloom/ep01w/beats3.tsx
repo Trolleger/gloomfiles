@@ -75,7 +75,7 @@ export class Stage3 implements Stage3D {
       const out = s.scatter === "out", names: [string, string, number][] = out
         ? [["nature", "plant_bushLarge", 1.1], ["nature", "rock_smallE", 0.7], ["nature", "mushroom_tan", 0.5], ["nature", "fence_planks", 1.0], ["nature", "log", 0.5], ["nature", "plant_bushTriangle", 1.3], ["nature", "stump_oldTall", 0.9]]
         : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "plantSmall1", 0.7], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
-      for (let q = 0; q < 8; q++) { const side = q % 2 ? 1 : -1, d = 1.6 + (q >> 1) * 1.3, lat = side * (0.9 + (q >> 1) * 0.55 + (q % 3) * 0.15), [pk, nm, hh] = names[q % names.length];
+      for (let q = 0; q < 14; q++) { const side = q % 2 ? 1 : -1, d = 1.6 + (q >> 1) * 1.1, lat = side * (0.9 + (q >> 1) * 0.6 + (q % 3) * 0.2), [pk, nm, hh] = names[q % names.length];
         const o = kat(kit(pk as any, nm, hh), c0.pos[0] + f.x * d + r.x * lat, 0, c0.pos[2] + f.z * d + r.z * lat, q * 1.7); this.root.add(o); }
     }
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
