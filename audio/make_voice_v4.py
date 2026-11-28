@@ -18,6 +18,7 @@ SCRIPT = [
  "You see, belief is powerful. Ever been so scared you froze? In 1942, Walter Cannon argued a curse can kill through fear alone.",
  "He said it only worked when he stopped trying. Now he's stopped everything, and nobody can say which kind of silence that is.",
 ]
+if os.environ.get("SCRIPT_JSON"): SCRIPT = json.load(open(os.environ["SCRIPT_JSON"]))
 SPOKEN = [("/x/", "Slash X"), ("4chan's", "four-chan's"), ("2005", "two thousand five"), ("2007", "two thousand seven"), ("2003", "two thousand three"),
           ("2020", "twenty twenty"), ("112", "a hundred and twelve"), ("1930", "nineteen thirty"), ("1942", "nineteen forty-two"), ("one-metre", "one metre")]
 NUM = {"2005": "two thousand five", "2007": "two thousand seven", "2003": "two thousand three", "2020": "twenty twenty", "112": "a hundred and twelve",
@@ -60,7 +61,7 @@ for i, text in enumerate(SCRIPT, 1):
     a = np.concatenate(audio); dur = len(a) / PR
     spoken = sp.split()
     # espeak words may differ from whitespace tokens (hyphens): map by merging to script words
-    MERGE = {("out", "of"), ("there", "were"), ("for", "a")}  # espeak fuses these into one phoneme word
+    MERGE = {("out", "of"), ("there", "were"), ("for", "a"), ("that", "it")}  # espeak fuses these into one phoneme word
     per = []
     for j, w in enumerate(S):
         k = w.strip(".,:;\"!?").lower()

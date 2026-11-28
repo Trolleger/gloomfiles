@@ -8,6 +8,7 @@ import { drawSilhouette } from "../props/figures";
 import { flashHand, bodyFront, Outfit } from "../toon";
 import { fxBeam } from "../fxdraw";
 import { fxContact } from "../toon";
+import { clamp01 } from "../core";
 import { kit, at as kat } from "./kit";
 import { Light } from "../lights";
 import { TONE } from "../shade";
@@ -73,7 +74,7 @@ export class Stage3 implements Stage3D {
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
     if (s.scatter) {
       const out = s.scatter === "out", names: [string, string, number][] = out
-        ? [["nature", "plant_bushLarge", 1.1], ["nature", "mushroom_tan", 0.5], ["nature", "fence_planks", 1.0], ["nature", "log", 0.5], ["nature", "stump_oldTall", 0.9]]
+        ? [["nature", "plant_bushLarge", 1.1], ["nature", "mushroom_tan", 0.5], ["nature", "stump_oldTall", 0.9]]
         : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
       for (let q = 0; q < 14; q++) { const side = q % 2 ? 1 : -1, d = 3.0 + (q >> 1) * 1.0, lat = side * (0.9 + (q >> 1) * 0.6 + (q % 3) * 0.2), [pk, nm, hh] = names[q % names.length];
         const o = kat(kit(pk as any, nm, hh), c0.pos[0] + f.x * d + r.x * lat, 0, c0.pos[2] + f.z * d + r.z * lat, q * 1.7); this.root.add(o); }
@@ -96,16 +97,28 @@ export class Stage3 implements Stage3D {
   }
   update(f: number, cam: THREE.PerspectiveCamera, scene: THREE.Scene) {
     const c = camPath(this.keys(), f, 0.0009);
+    { // camera travel: every shot dollies in and arcs around its subject (alternating direction), never a held frame
+      const u = clamp01(f / Math.max(1, this.D)), e = 1 - (1 - u) * (1 - u), dirn = Number(this.s.id.slice(1)) % 2 ? 1 : -1, far = Math.hypot(c.pos[0] - c.look[0], c.pos[2] - c.look[2]) > 30, a = far ? 0 : dirn * 0.18 * (e - 0.55), k2 = far ? 1 : 1.08 - 0.16 * e;
+      const dx = c.pos[0] - c.look[0], dy = c.pos[1] - c.look[1], dz = c.pos[2] - c.look[2];
+      c.pos = [c.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * k2, c.look[1] + dy * k2, c.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * k2]; }
     this.rig.frame(cam, scene, c, this.s.light, { az: this.s.sun?.az, el: this.s.sun?.el, focusR: 14 });
     if (this.s.dim) { TONE.uLitCol.value.multiplyScalar(this.s.dim); TONE.uShadeCol.value.multiplyScalar(this.s.dim); this.rig.hemi.intensity *= this.s.dim; this.rig.sun.intensity *= this.s.dim; }
     const lt = this.rig.light2D(cam);
-    this.cast.forEach(({ c: cs, x, z }, i) => {
-      const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = cs.y ?? 0;
-      this.rig.fxCard(cam, { key: "contact|blob|" + (cs.fig ? "f" : "g"), cw: 128, ch: 128, draw: (p) => fxContact(p, "#8a7e8e"), x, y: y + 0.03, z, w: 1.5 * cs.s, h: 0.8 * cs.s, flat: true, soft: true });
-      if (cs.fig) { const f = cs.fig, key = "fig" + f.outfit + f.expr + f.wave + lt; this.rig.card(cam, { key, draw: (p) => { p.g.translate(150, 0); bodyFront(p, OUTFITS[f.outfit], { mode: "stand", expr: (f.expr as any) ?? "neutral", wave: f.wave, light: lt, seed: 4 }); }, w, h, k: kk, x, y, z, scale: cs.s, mirror: f.mirror }); }
+    this.cast.forEach(({ c: cs, x: mx, z: mz }, i) => {
+      // acting: walk in to the mark over the first beats, then breathe, gesture and react
+      const R0 = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), from = (i % 2 ? -1 : 1) * (cs.fig ? 2.2 : 1.4), t0 = i * 5, wk = cs.sil ? 1 : clamp01((f - t0) / (cs.fig ? 30 : 22)), walking = wk < 1;
+      const off = from * (1 - wk) * (1 - wk * 0.3), x = mx + R0.x * off, z = mz + R0.z * off;
+      const hop = cs.sil ? 0 : walking ? 0.09 * Math.abs(Math.sin(f / 3.2)) : 0.018 * Math.sin(f / 7 + i * 2);
+      const react = f > this.D * 0.55;
+      const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = (cs.y ?? 0) + hop;
+      this.rig.fxCard(cam, { key: "contact|blob|" + (cs.fig ? "f" : "g"), cw: 128, ch: 128, draw: (p) => fxContact(p, "#8a7e8e"), x, y: (cs.y ?? 0) + 0.03, z, w: 1.5 * cs.s, h: 0.8 * cs.s, flat: true, soft: true });
+      if (cs.fig) { const fg = cs.fig, ph = walking ? Math.floor(((f / 18) % 1) * 12) / 12 : 0;
+        const gest = !walking && Math.sin(f / 11 + i) > 0.2, wave = walking ? undefined : fg.wave !== undefined ? Math.round(fg.wave + 22 * Math.sin(f / 5)) : react && gest ? Math.round(35 + 25 * Math.sin(f / 5)) : undefined;
+        const expr = react && (f - this.D * 0.55) < this.D * 0.3 && fg.expr !== "shock" ? "shock" : (fg.expr ?? "neutral"), blink = (f + i * 31) % 70 < 4, tilt = walking ? 0 : Math.round(Math.sin(f / 16 + i) * 4);
+        const key = "fig" + fg.outfit + expr + wave + ph + walking + blink + tilt + lt; this.rig.card(cam, { key, draw: (p) => { p.g.translate(150, 0); bodyFront(p, OUTFITS[fg.outfit], { mode: walking ? "stroll" : "stand", phase: ph, expr: expr as any, wave, blink, headTilt: tilt, light: lt, seed: 4 }); }, w, h, k: kk, x, y, z, scale: cs.s, mirror: walking ? from > 0 : fg.mirror }); }
       else if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {
-        const tk = Math.round((this.talk?.(f) ?? 0) * 6) / 6, bl = (f % 97) < 4 ? 1 : 0, sway = Math.round((cs.point ?? 40) + 4 * Math.sin(f / 20)); this.rig.card(cam, { key: "g" + JSON.stringify([sway, cs.bend, !!cs.beam, cs.expr, tk, bl]) + lt, draw: (p) => drawGloom(p, { expr: (cs.expr as any) ?? "neutral", point: sway, bend: cs.bend ?? 8, talk: tk, blink: bl, light: lt, flash: !!cs.beam }), w, h, k: kk, x, y, z, scale: cs.s });
+        const tk = Math.round((this.talk?.(f) ?? 0) * 6) / 6, bl = (f % 97) < 4 ? 1 : 0, sway = Math.round((cs.point ?? 40) * (walking ? 0.3 : clamp01((f - t0 - 22) / 10) * 0.7 + 0.3) + (tk > 0 ? 14 * Math.sin(f / 6) : 5 * Math.sin(f / 20))); this.rig.card(cam, { key: "g" + JSON.stringify([sway, cs.bend, !!cs.beam, cs.expr, tk, bl]) + lt, draw: (p) => drawGloom(p, { expr: (cs.expr as any) ?? "neutral", point: sway, bend: cs.bend ?? 8, talk: tk, blink: bl, light: lt, flash: !!cs.beam }), w, h, k: kk, x, y, z, scale: cs.s });
         if (cs.beam) { const fh = flashHand(GLOOM, 3, sway, cs.bend ?? 8), Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), su = SU * cs.s, L = cs.beam;
           const hx = x + Rv.x * (fh.x - 300) * su, hz = z + Rv.z * (fh.x - 300) * su, hy = (975 - fh.y) * su + y, ang = Math.atan2(-fh.dy, fh.dx);
           this.rig.fxCard(cam, { key: "beam", cw: 512, ch: 256, draw: (p) => fxBeam(p, 512, 256), x: hx + Rv.x * Math.cos(ang) * L / 2, y: hy + Math.sin(ang) * L / 2, z: hz + Rv.z * Math.cos(ang) * L / 2, w: L, h: L * 0.42, soft: true, rot: ang }); }

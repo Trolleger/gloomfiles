@@ -12,7 +12,7 @@ const g = (d: number, lat: number, s: number, o: Partial<Cast3> = {}): Cast3 => 
 const NIGHT = { az: 70, el: 36 }, FRONT = { az: 120, el: 44 };
 
 export const SHOTS4: Shot3[] = [
-  { id: "S01", scatter: "out", line: "A man online says he can curse strangers to death,", world: "deskNight", light: "golden", caption: "CURSE STRANGERS", cInf: 10,
+  { id: "S01", line: "A man online says he can curse strangers to death,", world: "deskNight", light: "golden", caption: "CURSE STRANGERS", cInf: 10,
     keys: [k(0, [2.4, 2.0, 2.4], [0.5, 0.2, -14], 54), k(1, [1.2, 1.7, -1.4], [0.3, -1.6, -20], 46, { du: 0.8 })], cast: [{ rel: [4.2, -0.4], s: 1.15, fig: { outfit: "anon", expr: "stern" } }, g(5.2, 1.6, 0.7, { point: 120, expr: "stern" })] },
   { id: "S02", scatter: "out", line: "and it only works when he stops trying.", world: "island", light: "golden", caption: "STOPS TRYING", cInf: 10,
     keys: [k(0, [2.6, 2.4, 2.6], [0, 1.6, -6], 52), k(1, [1.2, 2.2, -0.2], [0.4, 1.8, -6], 44, { du: 0.8, roll: 0.04 })], cast: [{ rel: [4.0, 0.0], s: 1.1, fig: { outfit: "anon", expr: "neutral" } }, g(5.4, 1.8, 0.65, { point: 130, expr: "neutral" })] },
@@ -41,7 +41,7 @@ export const SHOTS4: Shot3[] = [
   { id: "S14", scatter: "in", line: "In 1942, Walter Cannon argued a curse can kill through fear alone.", world: "lab", light: "day", caption: "FEAR ALONE", cInf: 11,
     keys: [k(0, [0.4, 2.1, 3.6], [0.8, 1.6, -5], 48), k(1, [0.5, 2.0, 0.8], [1.0, 1.5, -5], 40, { du: 0.8, roll: -0.05 })], cast: [{ rel: [3.8, 0.5], s: 1.0, fig: { outfit: "volunteer", expr: "nervous", wave: 50 } }, g(4.0, -1.5, 0.7, { point: 35, expr: "shock", beam: 1.2 })] },
   { id: "S15", scatter: "in", line: "He said it only worked when he stopped trying. Now he's stopped everything, and nobody can say which kind of silence that is.", world: "islandEmpty", light: "night", dim: 0.4, caption: "WHICH SILENCE", cInf: 4,
-    keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(0.34, [0.2, 2.3, -2.4], [0, 1.5, -6.1], 38, { du: 0.1 }), k(0.66, [-4.2, 4.6, 0.6], [0.4, 1.0, -6], 52, { du: 0.12, roll: -0.04 }), k(1, [-1.4, 5.2, 5], [0.2, 0.9, -6.4], 58, { du: 0.3 })], cast: [g(4.2, 0.9, 1.0, { point: 40, expr: "neutral" })] },
+    keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(0.34, [0.2, 2.3, -2.4], [0, 1.5, -6.1], 38, { du: 0.1 }), k(0.66, [-4.2, 4.6, 0.6], [0.4, 1.0, -6], 52, { du: 0.12, roll: -0.04 }), k(1, [-1.4, 5.2, 5], [0.2, 0.9, -6.4], 58, { du: 0.3 })], cast: [{ x: -0.95, z: -5.1, s: 0.82, point: 40, expr: "neutral" }] },
 ];
 
 const PULL: Record<string, number> = { S01: 1.5, S03: 1.25, S05: 1.8, S09: 1.45, S10: 1.0, S11: 1.35, S12: 1.0, S14: 1.2 };
