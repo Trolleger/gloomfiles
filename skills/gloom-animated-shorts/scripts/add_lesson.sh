@@ -9,7 +9,7 @@ printf '%s. [%s] %s (%s, %s)\n' "$n" "$area" "$text" "$src" "$d" >> LESSONS.md
 IFS=. read -r a b c < VERSION; v="$a.$b.$((c+1))"; echo "$v" > VERSION
 printf '\n## %s (%s)\n- Lesson %s [%s]: %s\n' "$v" "$d" "$n" "$area" "$text" > .cl.tmp
 # insert new entry after the header line (line 3)
-{ head -n 3 CHANGELOG.md; cat .cl.tmp; tail -n +4 CHANGELOG.md; } > .cl.new && mv .cl.new CHANGELOG.md; rm -f .cl.tmp
+{ head -n 1 CHANGELOG.md; cat .cl.tmp; tail -n +2 CHANGELOG.md; } > .cl.new && mv .cl.new CHANGELOG.md; rm -f .cl.tmp
 echo "Added lesson $n, version $v"
 M=/mnt/project-files/shorts/skills/gloom-animated-shorts
 if [ -d /mnt/project-files/shorts/skills ]; then mkdir -p "$M" && cp -r ./* "$M"/ && echo "Mirrored to $M"; fi
