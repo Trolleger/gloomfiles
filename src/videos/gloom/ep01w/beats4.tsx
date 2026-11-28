@@ -13,11 +13,11 @@ const NIGHT = { az: 70, el: 36 }, FRONT = { az: 120, el: 44 };
 
 export const SHOTS4: Shot3[] = [
   { id: "S01", line: "A man online says he can curse strangers to death,", world: "deskNight", light: "golden", caption: "CURSE STRANGERS", cInf: 10,
-    keys: [k(0, [2.4, 2.0, 2.4], [0.5, 0.2, -14], 54), k(1, [1.2, 1.7, -1.4], [0.3, -1.6, -20], 46, { du: 0.8 })], cast: [{ rel: [4.2, -0.4], s: 1.15, fig: { outfit: "anon", expr: "stern" } }, g(5.2, 1.6, 0.7, { point: 120, expr: "stern" })] },
+    keys: [k(0, [2.4, 2.2, 2.8], [0.2, 0.9, -8], 54), k(1, [1.7, 2.0, 2.0], [0.2, 0.9, -8], 52, { du: 0.9 })], cast: [{ x: -0.1, z: -2.6, s: 1.1, fig: { outfit: "anon", expr: "stern", wave: 70 } }] },
   { id: "S02", scatter: "out", line: "and it only works when he stops trying.", world: "island", light: "golden", caption: "STOPS TRYING", cInf: 10,
-    keys: [k(0, [2.6, 2.4, 2.6], [0, 1.6, -6], 52), k(1, [1.2, 2.2, -0.2], [0.4, 1.8, -6], 44, { du: 0.8, roll: 0.04 })], cast: [{ rel: [4.0, 0.0], s: 1.1, fig: { outfit: "anon", expr: "neutral" } }, g(5.4, 1.8, 0.65, { point: 130, expr: "neutral" })] },
+    keys: [k(0, [2.6, 2.6, 3.2], [0, 1.5, -6], 54), k(1, [1.8, 2.4, 2.0], [0.2, 1.6, -6], 52, { du: 0.9 })], cast: [{ rel: [4.0, 0.0], s: 1.1, fig: { outfit: "anon", expr: "neutral" } }, g(5.4, 1.8, 0.65, { point: 130, expr: "neutral" })] },
   { id: "S03", scatter: "out", line: "He posted in a Death Note thread,", world: "deathNote", light: "golden", caption: "DEATH NOTE", cInf: 8,
-    keys: [k(0, [-1.2, 3.8, 0.6], [0, 1.6, -5.4], 50), k(1, [-0.6, 3.2, -1.6], [0, 1.7, -5.4], 42, { du: 0.8, roll: -0.04 })], cast: [g(3.8, 1.0, 1.0, { point: 40, expr: "stern", beam: 0.9 })] },
+    keys: [k(0, [-1.2, 3.8, 0.6], [0, 1.6, -5.4], 50), k(1, [-0.6, 3.2, -1.6], [0, 1.7, -5.4], 42, { du: 0.8, roll: -0.04 })], cast: [] },
   { id: "S04", scatter: "out", line: "and his blog logs colds, missed buses and, very rarely, death.", world: "logStreet", light: "day", caption: "VERY RARELY", cInf: 7,
     keys: [k(0, [0.5, 2.6, 9], [0.5, 2.6, -6], 62), k(0.34, [-4.2, 2.4, 3], [-4.0, 1.6, -6], 50, { du: 0.12 }), k(0.62, [1.0, 2.4, 3], [1.4, 1.6, -6], 50, { du: 0.12 }), k(1, [5.8, 2.4, 3], [5.9, 1.4, -6], 46, { du: 0.12 })], cast: [{ rel: [5.2, -0.8], s: 0.95, fig: { outfit: "green", expr: "shock" } }, { rel: [5.4, 0.7], s: 0.95, fig: { outfit: "runner", expr: "nervous", wave: 60 } }, g(7, 2.0, 0.8, { point: 40, expr: "neutral" })] },
   { id: "S04a", line: "like catching a cold", world: "sickCold", light: "day", caption: "COLD", cInf: 6,

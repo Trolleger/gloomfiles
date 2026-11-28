@@ -25,7 +25,7 @@ const B = [...ORDER.map(([, ph], i) => (i ? AT(ph, -0.08) : 0)), TOTAL_S];
 const SH0 = ORDER.map(([id], i) => { const s = SHOTS4.find((q) => q.id === id)!; return { s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }; });
 const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: ((dx: number, dz: number, a: number) => [q.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * 0.6])(q.pos[0] - q.look[0], q.pos[2] - q.look[2], 0.36) as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
 const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
-SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05" && q.s.id !== "S15") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
+SH0.forEach((q) => { if (q.b - q.a > 150 && !["S01", "S02", "S05", "S15"].includes(q.s.id)) { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
 const KICKS: [number, number][] = [[AT("dies His"), 1.3], [AT("anger"), 1.2], [AT("forty targets"), 0.9], [AT("three hits"), 1.2], [AT("storm"), 1.5], [AT("went quiet", 0.1), 0.8], [AT("like me"), 0.8], [AT("fear That's"), 1.4], [AT("now he seems"), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
