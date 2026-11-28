@@ -22,6 +22,7 @@ export const OUTFITS: Record<string, Outfit> = {
   green: { jacket: "#58b868", pants: "#3a3a52", boots: "#241726", hat: "cap", cap: "#e8c24a", skin: "#fbf7ee", build: "adult" },
   runner: { jacket: "#e8c24a", pants: "#3a5a8a", boots: "#f4f1ea", hat: "hair", hair: "#4a2a1a", skin: "#fbf7ee", build: "adult" },
   frozen: { jacket: "#e8c24a", pants: "#3a5a8a", boots: "#241726", hat: "cap", cap: "#d85a6a", skin: "#fbf7ee", build: "adult" },
+  cannon: { jacket: "#f4f2ea", pants: "#4a4a5a", boots: "#241726", hat: "hair", hair: "#b8b8c0", skin: "#fbf7ee", build: "adult", glasses: true, moustache: "#9a9aa4", bow: "#a01828", lapel: "#d8d4c8" },
   volunteer: { jacket: "#a8a8e8", pants: "#4a4a6a", boots: "#241726", hat: "hair", hair: "#3a2a1a", skin: "#fbf7ee", build: "adult" },
 };
 export const ALLW: Record<string, (R: THREE.Group) => void> = { ...W, ...W2, ...W3 };

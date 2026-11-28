@@ -45,7 +45,7 @@ export const SHOTS4: Shot3[] = [
   { id: "S13", scatter: "out", line: "You see, belief is powerful. Ever been so scared you froze?", world: "graveyardPath", light: "night", caption: "SO SCARED", cInf: 10,
     keys: [k(0, [-1.2, 2.2, 2.4], [0.4, 1.6, -10], 54), k(1, [-0.6, 2.0, -2.2], [0.4, 1.8, -10], 44, { du: 0.8 })], cast: [{ rel: [4.0, 0.15], s: 1.1, fig: { outfit: "frozen", expr: "shock", wave: 50 } }, g(5.0, -1.6, 0.75, { point: 130, expr: "nervous" })] },
   { id: "S14", scatter: "in", line: "In 1942, Walter Cannon argued a curse can kill through fear alone.", world: "lab", light: "day", caption: "FEAR ALONE", cInf: 11,
-    keys: [k(0, [0.4, 2.1, 3.6], [0.8, 1.6, -5], 48), k(1, [0.5, 2.0, 0.8], [1.0, 1.5, -5], 40, { du: 0.8, roll: -0.05 })], cast: [{ rel: [3.8, 0.5], s: 1.0, fig: { outfit: "volunteer", expr: "nervous", wave: 50 } }, g(4.0, -1.5, 0.7, { point: 35, expr: "shock", beam: 1.2 })] },
+    keys: [k(0, [0.4, 2.1, 3.6], [0.8, 1.6, -5], 48), k(1, [0.5, 2.0, 0.8], [1.0, 1.5, -5], 40, { du: 0.8, roll: -0.05 })], cast: [{ rel: [4.8, 0.3], s: 0.95, fig: { outfit: "cannon", expr: "stern", wave: 45 } }] },
   { id: "S15", scatter: "in", line: "He said it only worked when he stopped trying. Now he's stopped everything, and nobody can say which kind of silence that is.", world: "islandEmpty", light: "night", dim: 0.4, caption: "WHICH SILENCE", cInf: 4,
     keys: [k(0, [2.6, 2.4, 2.6], [0, 1.8, -6], 50), k(0.34, [-0.2, 2.4, -1.6], [-0.7, 1.5, -5.4], 42, { du: 0.1 }), k(0.66, [-4.2, 4.6, 0.6], [0.4, 1.0, -6], 52, { du: 0.12, roll: -0.04 }), k(1, [-1.4, 5.2, 5], [0.2, 0.9, -6.4], 58, { du: 0.3 })], cast: [{ x: -0.95, z: -5.1, s: 0.95, fig: { outfit: "anon", expr: "smile_closed" } }] },
 ];

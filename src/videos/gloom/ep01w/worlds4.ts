@@ -95,7 +95,7 @@ export const W4: Record<string, (R: R) => void> = {
     const roof = new THREE.Group(); roof.add(box(9, 0.8, 7, lam("#5a4a6a"), 0, -0.4, 0)); for (let x = -4.2; x <= 4.2; x += 1.4) roof.add(box(0.15, 1.0, 0.15, lam("#2a2a3a"), x, 0.5, 3.3)); roof.add(box(8.6, 0.12, 0.15, lam("#2a2a3a"), 0, 1.0, 3.3)); place(roof, 0, 0, -4); R.add(roof);
     add(R, at(kit("furniture", "desk", 1.0), 0, 0, -5.6), at(kit("furniture", "computerScreen", 0.9), 0, 1.0, -5.7), at(kit("furniture", "computerKeyboard", 0.08), 0, 1.0, -5.2), at(kit("furniture", "chairDesk", 1.4), 0.2, 0, -4.4, 2.9), at(kit("furniture", "lampRoundTable", 0.9), 1.0, 1.0, -5.8), at(kit("furniture", "pottedPlant", 1.2), -3.4, 0, -5.4));
     /*fig*/
-    { const v = person("#58b868", 1.5); place(v, 2.9, -0.4, -8.2); R.add(v); curseCloud(R, 2.9, 4.0, -8.2, 1.15, 0.35); }
+    for (const [x, c, rv] of [[-2.5, "#d85a6a", 0.25], [2.4, "#58b868", 0.4]] as const) { const v = person(c, 0.95); place(v, x, 0, -6.4); R.add(v); curseCloud(R, x, 2.7, -6.4, 0.7, rv); }
     nightSky(R); cloudsAt(R, 55, "#4a3a9a");
   },
   // line 1b: "it only works when he stops trying": the anon on a floating island, thought bubbles popping, the beam getting stronger
@@ -187,10 +187,12 @@ export const W4: Record<string, (R: R) => void> = {
       g.strokeStyle = "#1a1020"; g.lineWidth = 4; g.strokeRect(16, 16, 238, 236); g.fillStyle = "#4a3a4a"; g.font = "bold 40px Anton"; g.textAlign = "center"; g.fillText("NAME: ?????", 135, 298); }) }));
     ph.position.set(0.5, 3.5, -5.5); R.add(ph); for (const [x, r] of [[-0.85, 0.7], [1.85, -0.7]] as const) { const t = box(0.7, 0.22, 0.04, lam("#e8d9a0"), x, 5.05, -5.46); t.rotation.z = r; R.add(t); }
     /*fig*/
-    for (let i = 0; i < 18; i++) { const t = i / 17, dr = sphere(0.1, MB("#ffe04a", 1.7), -0.1 + 0.7 * t, 1.5 + 1.6 * t - 2.0 * t * t, -3.6 - 1.9 * t); noink(dr); R.add(dr); }
-    for (let i = 0; i < 5; i++) { const dr = sphere(0.09, MB("#ffe04a", 1.5), 0.6 + (i - 2) * 0.12, 3.0 - i * 0.28, -5.45); noink(dr); R.add(dr); }
     R.add(box(3.2, 2.6, 0.12, MB("#cfe8f0", 1.1), 2.5, 4.0, -5.75)); R.add(box(3.5, 2.9, 0.1, lam("#f4ead2"), 2.5, 4.0, -5.8)); R.add(box(1.4, 1.2, 0.1, lam("#f4ead2"), -3.6, 2.4, -5.7)); R.add(box(1.2, 0.2, 0.2, lam("#c8c8d8"), -3.6, 3.1, -5.6)); for (const q of [-0.4, 0.4]) R.add(box(0.5, 1.0, 0.08, lam("#e8453c"), -3.6 + q, 2.5, -5.55));
     R.add(P.at(P.lampDesk("#ff9a7a"), 4.2, 3.0, -5.6));
+    // one unbroken yellow stream from him up to the photo, splashing off it
+    { const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0.0, 1.1, -3.0), new THREE.Vector3(0.3, 4.6, -4.2), new THREE.Vector3(0.5, 3.0, -5.42));
+      const st = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.085, 10), MB("#ffd21a", 1.35)); noink(st); R.add(st);
+      for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2, rr = 0.25 + rnd(i) * 0.4, d = sphere(0.05 + rnd(i + 3) * 0.05, MB("#ffd21a", 1.3), 0.5 + Math.cos(a) * rr, 3.0 + Math.sin(a) * rr * 0.7, -5.38); noink(d); R.add(d); } }
   },
   // line 4: "ran it like a lab: forty targets, each matched with a control, coded in advance": 40 targets and 40 controls under glass domes, coded tags
   labForty(R) {
