@@ -16,7 +16,7 @@ const MB = (c: string, k = 1) => new THREE.MeshBasicMaterial({ color: new THREE.
 const add = (R: R, ...o: THREE.Object3D[]) => { o.forEach((x) => R.add(x)); };
 const beamLine = (R: R, a: THREE.Vector3, b: THREE.Vector3, c: string, r = 0.07, k = 2.2, solid = false) => { const d = new THREE.Vector3().subVectors(b, a), L = d.length(), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 10), new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(k), transparent: !solid, opacity: solid ? 1 : 0.85, fog: false })); m.position.copy(a).addScaledVector(d, 0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); noink(m); R.add(m); return m; };
 /** a cartoon person (no face detail beyond dots): body colour, scale, optional arms-up */
-const person = (c: string, s = 1, o: { arms?: boolean; face?: boolean; hat?: string } = {}) => {
+export const person = (c: string, s = 1, o: { arms?: boolean; face?: boolean; hat?: string } = {}) => {
   const g = new THREE.Group(); const body = sphere(0.36, lam(c)); body.scale.set(0.9, 1.15, 0.7); body.position.y = 1.15; g.add(body);
   for (const x of [-0.12, 0.12]) { const l = cyl(0.035, 0.035, 0.7, lam("#241726"), x, 0.38, 0, 6); g.add(l); g.add(sphere(0.07, lam("#241726"), x, 0.04, 0.05)); }
   const head = sphere(0.3, lam("#f4d8b8")); head.scale.set(0.92, 1.05, 0.9); head.position.y = 1.95; g.add(head);
@@ -26,9 +26,9 @@ const person = (c: string, s = 1, o: { arms?: boolean; face?: boolean; hat?: str
   g.scale.setScalar(s * 0.9); return g;
 };
 /** the template's painted cumulus cut-outs, shown on day and golden shots */
-const dayClouds = (R: R, z: number, seed = 0) => { for (let i = 0; i < 5; i++) { const w = 38 + rnd(i + seed) * 26, m = new THREE.Mesh(new THREE.PlaneGeometry(w, w / 2), new THREE.MeshBasicMaterial({ map: cloudHD(i % 4), transparent: true, depthWrite: false, fog: false })); m.userData.day = true; m.position.set(-100 + i * 50 + rnd(i) * 20, 28 + rnd(i + 3) * 22, z - 40); noink(m); R.add(m); } };
-const townHouses = (R: R, z: number, n: number, seed = 0, span = 90) => { const b = new Batch(); for (let i = 0; i < n; i++) { const ww = rnd(i + seed) > 0.5 ? 9 : 7, hh = [7, 8.4, 9.8][Math.floor(rnd(i + seed + 2) * 3) % 3], x = -span / 2 + i * (span / n) + rnd(i + 6) * 1.2, zz = z - rnd(i + 8) * 4; house(b, x, zz, 0, ww, 8, hh, (i + seed) % 8, 0); for (let w = 0; w < 2; w++) if (rnd(i * 5 + w + seed) > 0.5) glowAt(R, x + (w - 0.5) * 3, 2.4 + rnd(w) * 3, zz + 4.2, 1.8, "#ffcf8a"); } b.build(R as any); dayClouds(R, z - 60, seed); };
-const pines = (R: R, n: number, x0: number, x1: number, z0: number, z1: number, seed = 0, names = ["tree_pineDefaultA", "tree_pineTallB", "tree_pineRoundA", "tree_pineSmallA"]) => { for (let i = 0; i < n; i++) R.add(at(kit("nature", names[i % names.length], 4 + rnd(i + seed) * 5), x0 + rnd(i + seed + 1) * (x1 - x0), 0, z0 + rnd(i + seed + 3) * (z1 - z0), rnd(i) * 6)); };
+export const dayClouds = (R: R, z: number, seed = 0) => { for (let i = 0; i < 5; i++) { const w = 38 + rnd(i + seed) * 26, m = new THREE.Mesh(new THREE.PlaneGeometry(w, w / 2), new THREE.MeshBasicMaterial({ map: cloudHD(i % 4), transparent: true, depthWrite: false, fog: false })); m.userData.day = true; m.position.set(-100 + i * 50 + rnd(i) * 20, 28 + rnd(i + 3) * 22, z - 40); noink(m); R.add(m); } };
+export const townHouses = (R: R, z: number, n: number, seed = 0, span = 90) => { const b = new Batch(); for (let i = 0; i < n; i++) { const ww = rnd(i + seed) > 0.5 ? 9 : 7, hh = [7, 8.4, 9.8][Math.floor(rnd(i + seed + 2) * 3) % 3], x = -span / 2 + i * (span / n) + rnd(i + 6) * 1.2, zz = z - rnd(i + 8) * 4; house(b, x, zz, 0, ww, 8, hh, (i + seed) % 8, 0); for (let w = 0; w < 2; w++) if (rnd(i * 5 + w + seed) > 0.5) glowAt(R, x + (w - 0.5) * 3, 2.4 + rnd(w) * 3, zz + 4.2, 1.8, "#ffcf8a"); } b.build(R as any); dayClouds(R, z - 60, seed); };
+export const pines = (R: R, n: number, x0: number, x1: number, z0: number, z1: number, seed = 0, names = ["tree_pineDefaultA", "tree_pineTallB", "tree_pineRoundA", "tree_pineSmallA"]) => { for (let i = 0; i < n; i++) R.add(at(kit("nature", names[i % names.length], 4 + rnd(i + seed) * 5), x0 + rnd(i + seed + 1) * (x1 - x0), 0, z0 + rnd(i + seed + 3) * (z1 - z0), rnd(i) * 6)); };
 const nightSky = (R: R, moon = [-80, 70, -200] as [number, number, number], seed = 1) => { const g = new THREE.Group(); g.userData.night = true; g.add(P.stars(300, seed, 400, 0.08, 2.4)); g.add(P.at(P.moon(10, moon))); R.add(g); };
 const cloudsAt = (R: R, y: number, c: string, z = -150, n = 9) => { for (let i = 0; i < n; i++) { const s = P.glowSprite(c, 50 + rnd(i) * 40); s.userData.night = true; s.position.set(-200 + i * 50, y + rnd(i + 3) * 25, z - rnd(i + 5) * 60); R.add(s); } };
 const roomShell = (R: R, o: { w?: number; d?: number; h?: number; wall: string; trim: string; floorTex?: THREE.Material; z?: number }) => { const w = o.w ?? 16, d = o.d ?? 14, h = o.h ?? 9, z0 = o.z ?? -7;
@@ -40,14 +40,14 @@ const roomShell = (R: R, o: { w?: number; d?: number; h?: number; wall: string; 
 };
 
 /** painted ceramic tiles: per-tile colour jitter, soft highlight, ink grout, chips (template painted-texture style) */
-const tileTex = (key: string, cols: string[], grout: string, rx: number, ry: number) => lamTex(rep(ctex("tile5" + key, 512, 512, (g, r) => {
+export const tileTex = (key: string, cols: string[], grout: string, rx: number, ry: number) => lamTex(rep(ctex("tile5" + key, 512, 512, (g, r) => {
   g.fillStyle = grout; g.fillRect(0, 0, 512, 512);
   for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) { const px = x * 128 + 4, py = y * 128 + 4; g.fillStyle = cols[Math.floor(r() * cols.length)]; g.fillRect(px, py, 121, 121); g.fillStyle = "rgba(255,255,255,.35)"; g.fillRect(px + 6, py + 6, 80, 7); g.fillStyle = "rgba(40,30,60,.16)"; g.fillRect(px, py + 108, 121, 13);
     for (let i = 0; i < 26; i++) { g.fillStyle = r() > 0.5 ? "rgba(255,255,255,.16)" : "rgba(40,30,60,.12)"; g.fillRect(px + r() * 110, py + r() * 110, 3 + r() * 16, 2 + r() * 5); }
     if (r() < 0.2) { g.strokeStyle = "rgba(40,20,50,.6)"; g.lineWidth = 2; g.beginPath(); g.moveTo(px + r() * 120, py); g.lineTo(px + r() * 120, py + 50 + r() * 50); g.stroke(); } }
 }), rx, ry));
 /** line 3's bathroom, dense: tiled floor and wainscot, painted wall, window light, shelf, towels, tub, mat, clutter */
-const bathShell = (R: R) => {
+export const bathShell = (R: R) => {
   floor(R, 12, 11, tileTex("floor", ["#e8dcc0", "#f2e8d0", "#d8c8a8", "#8ab4ac", "#9cc4bc"], "#5a4a52", 5, 5), -1.5);
   R.add(box(12, 8, 0.4, plaster("#e8a860", 4, 2), 0, 4, -6.1)); for (const s of [-1, 1]) { R.add(box(0.4, 8, 11, plaster("#d89858", 4, 2), s * 6, 4, -1)); R.add(box(0.15, 3.0, 11, tileTex("side", ["#2f9a94", "#38a8a0", "#278880"], "#123a44", 6, 2), s * 5.75, 1.5, -1)); }
   R.add(box(12, 3.0, 0.16, tileTex("back", ["#2f9a94", "#38a8a0", "#278880", "#48b0a4"], "#123a44", 6, 2), 0, 1.5, -5.86)); R.add(box(12, 0.18, 0.26, lam("#f4ead2"), 0, 3.08, -5.82));
@@ -73,7 +73,7 @@ const board = (R: R, lines: string[], w: number, x: number, y: number, z: number
   const th = 90 + (lines.length - 1) * 84, m = new THREE.Mesh(new THREE.PlaneGeometry(w, (w * th) / 512), new THREE.MeshBasicMaterial({ map: textTex(512, th, o.bg ?? "#f7f0dc", o.fg ?? "#1a1020", lines, "Anton", o.size ?? 66, "#1a1020") }));
   m.position.set(x, y, z); if (o.ry) m.rotation.y = o.ry; if (o.rv !== undefined) m.userData.rv = o.rv; if (o.rvOff !== undefined) m.userData.rvOff = o.rvOff; noink(m); R.add(m); return m; };
 /** the universal cartoon curse: a small black storm cloud raining and zapping the one person under it */
-const curseCloud = (R: R, x: number, y: number, z: number, k = 1, rv = 0) => { const g = new THREE.Group(); for (let i = 0; i < 7; i++) g.add(sphere((0.42 + rnd(i) * 0.24) * k, lam(i % 2 ? "#2a2438" : "#3a3250"), (i - 3) * 0.32 * k, Math.sin(i * 2.1) * 0.14 * k, (i % 3) * 0.1));
+export const curseCloud = (R: R, x: number, y: number, z: number, k = 1, rv = 0) => { const g = new THREE.Group(); for (let i = 0; i < 7; i++) g.add(sphere((0.42 + rnd(i) * 0.24) * k, lam(i % 2 ? "#2a2438" : "#3a3250"), (i - 3) * 0.32 * k, Math.sin(i * 2.1) * 0.14 * k, (i % 3) * 0.1));
   for (let i = 0; i < 14; i++) { const d = box(0.04 * k, 0.4 * k, 0.04, MB("#7ac8ff", 1.3), (rnd(i + 5) - 0.5) * 1.9 * k, -(0.6 + rnd(i) * 0.9) * k, 0.1); noink(d); g.add(d); }
   for (const [dx, dy, r] of [[0.05, -0.62, 0.55], [-0.08, -1.0, -0.6], [0.08, -1.36, 0.5]] as const) { const b = box(0.14 * k, 0.5 * k, 0.08, MB("#ffe23a", 1.9), dx * k, dy * k, 0.5); b.rotation.z = r; g.add(b); }
   g.position.set(x, y, z); g.userData.rv = rv; R.add(g); return g; };
@@ -191,8 +191,8 @@ export const W4: Record<string, (R: R) => void> = {
     R.add(P.at(P.lampDesk("#ff9a7a"), 4.2, 3.0, -5.6));
     // one unbroken yellow stream from him up to the photo, splashing off it
     { const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0.0, 1.1, -3.0), new THREE.Vector3(0.3, 4.6, -4.2), new THREE.Vector3(0.5, 3.0, -5.42));
-      const st = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.085, 10), MB("#ffd21a", 1.35)); noink(st); R.add(st);
-      for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2, rr = 0.25 + rnd(i) * 0.4, d = sphere(0.05 + rnd(i + 3) * 0.05, MB("#ffd21a", 1.3), 0.5 + Math.cos(a) * rr, 3.0 + Math.sin(a) * rr * 0.7, -5.38); noink(d); R.add(d); } }
+      const st = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.085, 10), MB("#ffd21a", 1.35)); noink(st); st.userData.oldStream = true; R.add(st);
+      for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2, rr = 0.25 + rnd(i) * 0.4, d = sphere(0.05 + rnd(i + 3) * 0.05, MB("#ffd21a", 1.3), 0.5 + Math.cos(a) * rr, 3.0 + Math.sin(a) * rr * 0.7, -5.38); noink(d); d.userData.oldStream = true; R.add(d); } }
   },
   // line 4: "ran it like a lab: forty targets, each matched with a control, coded in advance": 40 targets and 40 controls under glass domes, coded tags
   labForty(R) {

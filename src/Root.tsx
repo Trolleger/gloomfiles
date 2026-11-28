@@ -1,3 +1,4 @@
+import {Ep01Open, OPEN_FRAMES} from './videos/gloom/ep01w/open';
 import React from 'react';
 import {Composition, Still} from 'remotion';
 import {BridgeShort, BRIDGE_FRAMES} from './videos/bridge';
@@ -23,6 +24,7 @@ export const Root: React.FC = () => (
     <Composition id="Ep01" component={Ep01} width={1080} height={1920} fps={30} durationInFrames={EP1_TOTAL} />
     <Composition id="Ep01W" component={Ep01W} width={1080} height={1920} fps={30} durationInFrames={EP1_TOTAL} />
     <Composition id="Ep01V3" component={Ep01V3} width={1080} height={1920} fps={30} durationInFrames={EP1V3_TOTAL} />
+    <Composition id="Ep01Open" component={Ep01Open} width={1080} height={1920} fps={30} durationInFrames={OPEN_FRAMES} />
     <Composition id="Ep01V8" component={Ep01V8} width={1080} height={1920} fps={30} durationInFrames={EP1V8_TOTAL} />
     <Composition id="Ep02" component={Ep02} width={1080} height={1920} fps={30} durationInFrames={EP2_TOTAL} />
     <Still id="BeatStill" component={BeatStill as any} width={1080} height={1920} defaultProps={{beat: 0}} />

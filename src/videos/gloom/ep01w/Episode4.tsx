@@ -16,7 +16,7 @@ type TW = { word: string; start: number; end: number; section: number };
 const WS = takeV3.words as TW[];
 const nw = (x: string) => x.toLowerCase().replace(/[^a-z0-9]/g, "");
 /** start time of the first word of `phrase` in the take (script v9): every cut and kick is anchored to spoken words */
-const AT = (phrase: string, off = 0) => { const q = phrase.split(" ").map(nw); const i = WS.findIndex((_, k) => q.every((w, j) => WS[k + j] && nw(WS[k + j].word) === w)); if (i < 0) throw new Error(`ep01v9: phrase not found: ${phrase}`); return WS[i].start + off; };
+export const AT = (phrase: string, off = 0) => { const q = phrase.split(" ").map(nw); const i = WS.findIndex((_, k) => q.every((w, j) => WS[k + j] && nw(WS[k + j].word) === w)); if (i < 0) throw new Error(`ep01v9: phrase not found: ${phrase}`); return WS[i].start + off; };
 export const TOTAL_S = takeV3.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
 /** shot order of script v9: [shot id, first spoken words of its line] */
@@ -29,7 +29,7 @@ SH0.forEach((q) => { if (q.b - q.a > 150 && !["S01", "S02", "S05", "S15"].includ
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
 const KICKS: [number, number][] = [[AT("dies His"), 1.3], [AT("anger"), 1.2], [AT("forty targets"), 0.9], [AT("three hits"), 1.2], [AT("storm"), 1.5], [AT("went quiet", 0.1), 0.8], [AT("like me"), 0.8], [AT("fear That's"), 1.4], [AT("now he seems"), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
-const talkAt = (f: number) => mouthFromWords(f, FPS, WORDS);
+export const talkAt = (f: number) => mouthFromWords(f, FPS, WORDS);
 
 // Captions are built straight from the word timings (never hand-anchored), so they always match the audio.
 type Cap = { from: number; to: number; words: [string, string?][] };
@@ -62,7 +62,7 @@ const buildCaps = (): Cap[] => {
   });
 };
 const CAPS = buildCaps();
-const CapView: React.FC<{ f: number }> = ({ f }) => {
+export const CapView: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, c = CAPS.find((q) => t >= q.from && t < q.to); if (!c) return null;
   const text = c.words.map((w) => w[0]).join(""), rage = /^ANGER/.test(text), size = rage ? 300 : Math.max(96, Math.min(180, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
   return (<div style={{ position: "absolute", left: 80, width: 920, top: rage ? 1300 : 1400, marginLeft: rage ? (f % 2 ? 9 : -9) : 0, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
@@ -84,7 +84,7 @@ const LabelView: React.FC<{ f: number }> = ({ f }) => {
   return (<div style={{ position: "absolute", left: 60, right: 60, top: low ? 380 : 190, display: "flex", justifyContent: "center" }}>
     <div style={{ padding: "16px 34px", borderRadius: 18, background: l[3] ?? "#fff3c4", border: "7px solid #1a1020", color: "#1a1020", fontFamily: FONT_DISPLAY, fontSize: Math.min(76, 1500 / l[2].length), letterSpacing: 2, transform: `scale(${0.8 + 0.2 * p}) rotate(-1.5deg)`, boxShadow: "0 10px 0 rgba(0,0,0,.35)", whiteSpace: "nowrap" }}>{l[2]}</div></div>);
 };
-const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
+export const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, endA = TOTAL_S - 3.0; const on = t < 2.6 || t > endA; if (!on) return null;
   const a = t < 2.6 ? smooth(clamp01(t / 0.25)) * smooth(clamp01((2.6 - t) / 0.3)) : smooth(clamp01((t - endA) / 0.3));
   return (<div style={{ position: "absolute", left: 120, right: 120, top: 170, padding: "20px 24px", borderRadius: 22, background: "rgba(16,14,40,.82)", border: "6px solid #ffe44d", textAlign: "center", opacity: a, fontFamily: FONT_DISPLAY }}>
