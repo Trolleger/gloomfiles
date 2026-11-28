@@ -20,3 +20,4 @@ Rule from Andrew: every time a mistake is caught, add a lesson here so it never 
 17. Every line must be instantly clear ("from a cold to death" confused him): state the range plainly, and name the source (4chan /x/ thread) in the first sentence.
 18. Visual metaphors must be self-explanatory (a red cloud with eyes read as nothing). Show the real object (their photo, labelled) and the emotion on a face: close-up, angry expression, burst, big caption.
 19. Captions break at natural phrases, never end on a joining word, and the punch word stands alone and large.
+20. Before showing anything, audit one still per spoken phrase (scripts/caption_stills.py): every concrete noun is literally shown, every object has an obvious meaning, no filler props or abstract shapes, labels as screen overlays so they are never cut off; a fresh reviewer does the same check.

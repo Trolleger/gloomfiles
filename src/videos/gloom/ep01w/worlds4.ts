@@ -68,6 +68,17 @@ const streetDress = (R: R) => {
     for (let k = 0; k < 4; k++) R.add(sphere(0.12, lam(["#e8453c", "#ffd040", "#f4ead2"][(i + k) % 3]), x - 0.3 + k * 0.2, i % 3 ? 0.68 + (i % 2) * 0.46 : 0.9, z + 0.2)); }
 };
 
+/** a plain labelled board: every sign says exactly what the narrator is saying */
+const board = (R: R, lines: string[], w: number, x: number, y: number, z: number, o: { bg?: string; fg?: string; size?: number; rv?: number; rvOff?: number; ry?: number } = {}) => {
+  const th = 90 + (lines.length - 1) * 84, m = new THREE.Mesh(new THREE.PlaneGeometry(w, (w * th) / 512), new THREE.MeshBasicMaterial({ map: textTex(512, th, o.bg ?? "#f7f0dc", o.fg ?? "#1a1020", lines, "Anton", o.size ?? 66, "#1a1020") }));
+  m.position.set(x, y, z); if (o.ry) m.rotation.y = o.ry; if (o.rv !== undefined) m.userData.rv = o.rv; if (o.rvOff !== undefined) m.userData.rvOff = o.rvOff; noink(m); R.add(m); return m; };
+/** the universal cartoon curse: a small black storm cloud raining and zapping the one person under it */
+const curseCloud = (R: R, x: number, y: number, z: number, k = 1, rv = 0) => { const g = new THREE.Group(); for (let i = 0; i < 7; i++) g.add(sphere((0.42 + rnd(i) * 0.24) * k, lam(i % 2 ? "#2a2438" : "#3a3250"), (i - 3) * 0.32 * k, Math.sin(i * 2.1) * 0.14 * k, (i % 3) * 0.1));
+  for (let i = 0; i < 14; i++) { const d = box(0.04 * k, 0.4 * k, 0.04, MB("#7ac8ff", 1.3), (rnd(i + 5) - 0.5) * 1.9 * k, -(0.6 + rnd(i) * 0.9) * k, 0.1); noink(d); g.add(d); }
+  for (const [dx, dy, r] of [[0.05, -0.62, 0.55], [-0.08, -1.0, -0.6], [0.08, -1.36, 0.5]] as const) { const b = box(0.14 * k, 0.5 * k, 0.08, MB("#ffe23a", 1.9), dx * k, dy * k, 0.5); b.rotation.z = r; g.add(b); }
+  g.position.set(x, y, z); g.userData.rv = rv; R.add(g); return g; };
+const brickStreet = (R: R, seed: number) => { floor(R, 300, 300, lamTex(rep(cobbleHD(), 60, 60)), -60); townHouses(R, -13, 7, seed, 48); streetDress(R); };
+
 import { W2 } from "./worlds2";
 export const W4: Record<string, (R: R) => void> = {
   // line 13: the 1942 lab, a visibly frightened volunteer in a chair, a pinned doll, a racing heart monitor
@@ -84,7 +95,7 @@ export const W4: Record<string, (R: R) => void> = {
     const roof = new THREE.Group(); roof.add(box(9, 0.8, 7, lam("#5a4a6a"), 0, -0.4, 0)); for (let x = -4.2; x <= 4.2; x += 1.4) roof.add(box(0.15, 1.0, 0.15, lam("#2a2a3a"), x, 0.5, 3.3)); roof.add(box(8.6, 0.12, 0.15, lam("#2a2a3a"), 0, 1.0, 3.3)); place(roof, 0, 0, -4); R.add(roof);
     add(R, at(kit("furniture", "desk", 1.0), 0, 0, -5.6), at(kit("furniture", "computerScreen", 0.9), 0, 1.0, -5.7), at(kit("furniture", "computerKeyboard", 0.08), 0, 1.0, -5.2), at(kit("furniture", "chairDesk", 1.4), 0.2, 0, -4.4, 2.9), at(kit("furniture", "lampRoundTable", 0.9), 1.0, 1.0, -5.8), at(kit("furniture", "pottedPlant", 1.2), -3.4, 0, -5.4));
     /*fig*/
-    beamLine(R, new THREE.Vector3(0.1, 2.9, -4.1), new THREE.Vector3(2.4, 0.4, -39.5), "#a040ff", 0.9, 1.6, true); for (let q = 0; q < 6; q++) glowAt(R, 0.1 + (2.3) * q / 6, 2.9 - 2.5 * q / 6, -4.1 - 35.4 * q / 6, 5, "#c880ff"); glowAt(R, 0.1, 2.9, -4.1, 12, "#b87aff");
+    { const v = person("#58b868", 1.5); place(v, 2.9, -0.4, -8.2); R.add(v); curseCloud(R, 2.9, 4.0, -8.2, 1.15, 0.35); }
     nightSky(R); cloudsAt(R, 55, "#4a3a9a");
   },
   // line 1b: "it only works when he stops trying": the anon on a floating island, thought bubbles popping, the beam getting stronger
@@ -96,11 +107,7 @@ export const W4: Record<string, (R: R) => void> = {
     rk(-4, -3, -8, 1.2); rk(5, -4.5, -10, 1.6); rk(1, -6, -6, 0.9); rk(-7, -8, -14, 2);
     add(R, at(kit("furniture", "desk", 1.0), 0, 0.2, -6), at(kit("furniture", "computerScreen", 0.9), 0, 1.2, -6.1), at(kit("furniture", "chairDesk", 1.4), 0.3, 0.2, -4.7, 2.9), at(kit("furniture", "lampRoundTable", 0.9), 1.0, 1.2, -6.2));
     /*fig*/
-    glowAt(R, 0, 2.3, -5.5, 6, "#6aa8ff");
-    // thinking bubbles popping, then a bigger beam to a far toy town
-    for (let i = 0; i < 6; i++) { const b = new THREE.Mesh(new THREE.CircleGeometry(0.45 + (i % 3) * 0.12, 20), new THREE.MeshBasicMaterial({ color: "#f4f1ff", transparent: true, opacity: 0.9 })); b.position.set(-1.2 + (i % 3) * 1.3, 3.3 + Math.floor(i / 3) * 1.1 + (i % 2) * 0.4, -5.4); b.userData.rvOff = 0.18 + i * 0.1; noink(b); R.add(b); const tx = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({ map: canvasTex(64, 64, (c) => { c.clearRect(0, 0, 64, 64); c.strokeStyle = "#241726"; c.lineWidth = 5; c.lineCap = "round"; c.beginPath(); if (i % 3 === 0) { c.moveTo(8, 40); c.bezierCurveTo(10, 8, 54, 8, 56, 40); c.moveTo(20, 50); c.lineTo(44, 50); } else if (i % 3 === 1) { c.moveTo(10, 46); c.lineTo(22, 16); c.lineTo(34, 46); c.lineTo(46, 16); c.lineTo(56, 40); } else { c.arc(32, 28, 16, 0, 7); c.moveTo(32, 46); c.lineTo(32, 56); } c.stroke(); }), transparent: true })); tx.position.set(b.position.x, b.position.y, -5.38); tx.userData.rvOff = b.userData.rvOff; R.add(tx); }
-    const b1 = beamLine(R, new THREE.Vector3(0.5, 3.0, -6), new THREE.Vector3(60, 6, -120), "#8a5ae8", 0.05); b1.userData.rvOff = 0.5; b1.scale.x = b1.scale.z = 2.4;
-    const b2 = beamLine(R, new THREE.Vector3(0.5, 3.0, -6), new THREE.Vector3(60, 6, -120), "#d89aff", 0.28); b2.userData.rv = 0.5;
+    { const v = person("#d85a6a", 1.2); place(v, 3.2, 0.2, -6.4); R.add(v); curseCloud(R, 3.2, 3.2, -6.4, 0.8, 0.55); }
     townHouses(R, -130, 8, 1, 60); nightSky(R, [-60, 60, -220], 4); cloudsAt(R, 45, "#5a3aaa", -120);
   },
   // callback: "Now he's stopped everything": the same floating island, empty and dark, the chair pushed back, one comment glowing
@@ -110,7 +117,7 @@ export const W4: Record<string, (R: R) => void> = {
     add(R, at(kit("furniture", "desk", 1.0), 0, 0, -6), at(kit("furniture", "computerScreen", 0.9), 0, 1.0, -6.1), at(kit("furniture", "chairDesk", 1.4), 1.6, 0, -4.4, 2.2), at(kit("furniture", "lampRoundFloor", 3.0), -2.4, 0, -6.4), at(kit("furniture", "bookcaseOpen", 3.4), -4.8, 0, -8.2), at(kit("furniture", "pottedPlant", 1.8), 4.2, 0, -7.6), at(kit("furniture", "rugRound", 0.05, 2.6), 0.6, 0.02, -5), at(kit("furniture", "books", 0.5), -0.6, 1.0, -6));
     lampPool(R, -2.4, 3.0, -6.2, "#ffb45a", 8); { const dead = plane(1.05, 0.62, new THREE.MeshBasicMaterial({ color: "#04050a" }), 0, 1.58, -5.96); R.add(dead); } lampPool(R, 0.4, 3.6, -5.4, "#ffc878", 4);
     const c = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.8), new THREE.MeshBasicMaterial({ map: canvasTex(256, 90, (g, W, H) => { g.fillStyle = "#cfe8ff"; g.fillRect(0, 0, W, H); g.strokeStyle = "#3a6aa8"; g.lineWidth = 4; g.strokeRect(2, 2, W - 4, H - 4); g.fillStyle = "#14102a"; g.font = "bold 30px 'Special Elite','Courier New',monospace"; g.fillText("I left a comment.", 14, 56); }), color: new THREE.Color(1.5, 1.5, 1.5) })); c.position.set(-0.6, 3.4, -5.6); R.add(c); glowAt(R, 0, 3.2, -5.2, 8, "#9ad0ff");
-    for (let i = 0; i < 14; i++) glowAt(R, (rnd(i) - 0.5) * 10, 1.5 + rnd(i + 3) * 5, -3 - rnd(i + 8) * 5, 0.3, "#8a9aff");
+    
   },
   // line 2: "He posted in a Death Note thread": a black notebook with white gothic lettering on a stone altar with candles; a thread board behind
   deathNote(R) {
@@ -125,6 +132,30 @@ export const W4: Record<string, (R: R) => void> = {
     glowAt(R, 0, 2.9, -4.4, 5, "#7a6aff"); nightSky(R, [60, 80, -180], 9); cloudsAt(R, 60, "#4a3a8a");
   },
   // line 2b: "his blog logs colds, missed buses and, very rarely, death": a street with three vignettes (cold, bus leaving, gravestone with a candle going out)
+  sickCold(R) {
+    brickStreet(R, 4);
+    board(R, ["ACHOO!"], 3.2, 1.0, 4.1, -5.6, { bg: "#fff36a", size: 78 });
+    R.add(at(kit("graveyard", "bench", 1.2, 1.6), -0.1, 0, -5.4));
+    for (const [x, y] of [[0.75, 2.2], [1.05, 2.45], [1.15, 1.95], [1.5, 2.25], [1.75, 2.55], [1.8, 1.85]]) { const d = sphere(0.07, MB("#bfe8ff", 1.2), x, y, -3.9); noink(d); R.add(d); }
+    // a tissue box and a big thermometer reading hot
+    R.add(box(0.9, 0.45, 0.55, lam("#3a7ad8"), -2.0, 0.25, -3.8)); R.add(box(0.35, 0.35, 0.1, lam("#fbf8f0"), -2.0, 0.62, -3.8));
+    R.add(box(0.34, 2.2, 0.16, lam("#f4f4fa"), -2.3, 2.3, -5.0)); R.add(box(0.14, 1.7, 0.18, MB("#ff2a1c", 1.2), -2.3, 2.15, -4.98)); R.add(sphere(0.3, MB("#ff2a1c", 1.2), -2.3, 1.2, -4.95)); board(R, ["39°"], 1.1, -2.3, 3.75, -5.0, { fg: "#c8141e" });
+  },
+  missedBus(R) {
+    brickStreet(R, 7); R.add(at(box(40, 0.05, 4.2, lam("#4a4650"), 0, 0.04, -7.2), 0, 0, 0)); for (let x = -18; x < 19; x += 3) R.add(box(1.4, 0.02, 0.2, MB("#f4ead2"), x, 0.08, -7.2));
+    const bus = new THREE.Group(); bus.add(box(6.4, 2.6, 2.2, lam("#f2c030"), 0, 1.9, 0)); for (let q = 0; q < 4; q++) bus.add(box(1.05, 0.85, 0.08, MB("#bfe8ff"), -2.1 + q * 1.4, 2.55, 1.12)); for (const x of [-2.1, 2.1]) { const wh = cyl(0.65, 0.65, 2.4, lam("#1a1a22"), x, 0.65, 0, 16); wh.rotation.x = Math.PI / 2; bus.add(wh); }
+    board(bus as any, ["CITY BUS 7"], 3.4, 0, 1.45, 1.15, { size: 64 }); for (const y of [1.0, 1.6]) bus.add(sphere(0.14, MB("#ff2a1c", 1.8), -3.22, y, 0.9));
+    for (let i = 0; i < 5; i++) { const p = sphere(0.22 + i * 0.1, new THREE.MeshBasicMaterial({ color: "#c8c4cc", transparent: true, opacity: 0.75 - i * 0.12 }), -3.7 - i * 0.55, 0.8 + i * 0.12, 0.7); noink(p); bus.add(p); }
+    bus.scale.setScalar(0.72); bus.position.set(0.2, 0, -8.4); bus.userData.drive = [0.2, 4.2]; R.add(bus);
+    R.add(box(0.16, 3.4, 0.16, lam("#7a7a8a"), -2.6, 1.7, -4.8)); board(R, ["BUS STOP"], 1.9, -2.6, 3.7, -4.7, { bg: "#2a5ab8", fg: "#ffffff" });
+  },
+  graveNod(R) {
+    floor(R, 300, 300, lamTex(rep(grassHD(), 60, 60)), -60); pines(R, 14, -26, 26, -14, -30, 5);
+    R.add(at(kit("graveyard", "gravestone-round", 3.6), 0, 0, -5.4)); board(R, ["R.I.P."], 1.5, 0, 2.2, -4.7, { bg: "#b8b4c4" });
+    R.add(at(kit("graveyard", "candle", 1.1), 1.7, 0, -4.2)); const fl = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.46, 8), MB("#ff9a3a", 1.9)); fl.position.set(1.7, 1.4, -4.2); fl.userData.rvOff = 0.55; noink(fl); R.add(fl);
+    for (let i = 0; i < 4; i++) { const sm = sphere(0.1 + i * 0.05, new THREE.MeshBasicMaterial({ color: "#d8d4e0", transparent: true, opacity: 0.7 }), 1.7 + Math.sin(i * 2) * 0.12, 1.5 + i * 0.3, -4.2); sm.userData.rv = 0.55; noink(sm); R.add(sm); }
+    for (const x of [-4, 3.8]) R.add(at(kit("graveyard", "gravestone-cross", 2.4), x, 0, -7.5));
+  },
   logStreet(R) {
     floor(R, 300, 300, lamTex(rep(cobbleHD(), 60, 60)), -60); R.add(at(box(8, 0.05, 160, lam("#7a6a5a"), 0, 0.03, -40), 0, 0, 0));
     townHouses(R, -14.5, 9, 4, 60); streetDress(R); townHouses(R, -26, 11, 7, 100); pines(R, 8, -40, 40, -16, -24, 3);
@@ -153,7 +184,7 @@ export const W4: Record<string, (R: R) => void> = {
       g.fillStyle = "#6a3a20"; g.beginPath(); g.ellipse(135, 86, 54, 24, 0, 0, 7); g.fill();
       g.fillStyle = "#1a1020"; for (const x of [115, 155]) { g.beginPath(); g.arc(x, 124, 6, 0, 7); g.fill(); }
       g.strokeStyle = "#1a1020"; g.lineWidth = 5; g.beginPath(); g.arc(135, 146, 22, 0.15, Math.PI - 0.15); g.stroke();
-      g.strokeStyle = "#1a1020"; g.lineWidth = 4; g.strokeRect(16, 16, 238, 236); g.fillStyle = "#4a3a4a"; g.font = "bold 40px Anton"; g.textAlign = "center"; g.fillText("THEIR PHOTO", 135, 298); }) }));
+      g.strokeStyle = "#1a1020"; g.lineWidth = 4; g.strokeRect(16, 16, 238, 236); g.fillStyle = "#4a3a4a"; g.font = "bold 40px Anton"; g.textAlign = "center"; g.fillText("NAME: ?????", 135, 298); }) }));
     ph.position.set(0.5, 3.5, -5.5); R.add(ph); for (const [x, r] of [[-0.85, 0.7], [1.85, -0.7]] as const) { const t = box(0.7, 0.22, 0.04, lam("#e8d9a0"), x, 5.05, -5.46); t.rotation.z = r; R.add(t); }
     /*fig*/
     for (let i = 0; i < 18; i++) { const t = i / 17, dr = sphere(0.1, MB("#ffe04a", 1.7), -0.1 + 0.7 * t, 1.5 + 1.6 * t - 2.0 * t * t, -3.6 - 1.9 * t); noink(dr); R.add(dr); }
@@ -165,7 +196,7 @@ export const W4: Record<string, (R: R) => void> = {
   labForty(R) {
     floor(R, 80, 80, tileTex("lf", ["#b8c8cc", "#a8bcc4", "#c8d4d0", "#7a9aa8"], "#35485a", 18, 18), -14); R.add(box(80, 20, 0.4, tileTex("lw", ["#3a7a9a", "#438aa4", "#32708c"], "#173a50", 20, 5), 0, 10, -40)); for (let q = -6; q <= 6; q++) { R.add(at(kit("furniture", q % 2 ? "bookcaseClosed" : "cabinetTelevision", 3.2), q * 4.2, 0, -38)); } for (let q = 0; q < 14; q++) R.add(cyl(0.3, 0.4, 0.9, new THREE.MeshLambertMaterial({ color: ["#7affc8", "#ff7ab0", "#e8e07a", "#7ab0ff"][q % 4], transparent: true, opacity: 0.8 }), -26 + q * 4, 4.2, -37, 12));
     for (let r = 0; r < 10; r++) for (let c = 0; c < 8; c++) {
-      const x = -9 + c * 1.2 + (c >= 4 ? 1.6 : 0), z = -3.5 - r * 2.0, tgt = c < 4, p = person(tgt ? "#d85a6a" : "#58b8c8", 0.62, { face: true });
+      const x = -5.0 + c * 1.2 + (c >= 4 ? 1.6 : 0), z = -3.5 - r * 2.0, tgt = c < 4, p = person(tgt ? "#d85a6a" : "#58b8c8", 0.62, { face: true });
       place(p, x, 0, z); if (!tgt) { const dome = new THREE.Mesh(new THREE.SphereGeometry(0.62, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.7, 1.2, 1.6), transparent: true, opacity: 0.5 })); const rim = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.04, 6, 20), MB("#ffffff")); rim.rotation.x = Math.PI / 2; rim.position.set(x, 0.04, z); noink(rim); R.add(rim); dome.position.set(x, 0, z); noink(dome); R.add(dome); }
       R.add(p); const tag = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.3), new THREE.MeshBasicMaterial({ map: textTex(128, 64, tgt ? "#ffe04a" : "#a8ffd8", tgt ? "#8a1a2a" : "#1a5a3a", [(tgt ? "T" : "C") + String(r * 4 + (c % 4) + 1).padStart(2, "0")], "Anton", 44) })); tag.position.set(x, 1.62, z); R.add(tag); tag.userData.rv = (r * 8 + c) / 80 * 0.55;
     }
@@ -179,7 +210,6 @@ export const W4: Record<string, (R: R) => void> = {
     const scr = plane(2.1, 1.3, new THREE.MeshBasicMaterial({ color: "#030306" })); scr.position.set(0, 2.45, -5.74); R.add(scr);
     clock(R, "3:07", -3.0, 6.6, -6.75, 1.0);
     const cal = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 3.6), new THREE.MeshBasicMaterial({ map: canvasTex(256, 256, (g) => { g.fillStyle = "#f4efe4"; g.fillRect(0, 0, 256, 256); g.fillStyle = "#c8243e"; g.fillRect(0, 0, 256, 40); g.strokeStyle = "#8a8a98"; g.lineWidth = 2; for (let i = 0; i <= 7; i++) { g.beginPath(); g.moveTo(i * 36, 46); g.lineTo(i * 36, 256); g.stroke(); } g.strokeStyle = "#c8243e"; g.lineWidth = 6; for (let i = 0; i < 7; i++) { g.beginPath(); g.moveTo(i * 36 + 5, 52); g.lineTo(i * 36 + 31, 84); g.moveTo(i * 36 + 31, 52); g.lineTo(i * 36 + 5, 84); g.stroke(); } }) })); cal.scale.setScalar(0.8); cal.position.set(0.7, 6.4, -6.75); R.add(cal);
-    for (let i = 0; i < 50; i++) glowAt(R, (rnd(i) - 0.5) * 12, 0.4 + rnd(i + 3) * 6, -6 + rnd(i + 8) * 5, 0.12, "#c8d0ff");
     win(R, 6.0, 4.6, -6.7, 2.4, 3.2, "#34406a"); glowAt(R, 6.0, 4.4, -6.2, 8, "#7a8aff");
   },
   // line 7: "an anon wrote 'I didn't think there were others like me'": a second anon in an attic, laptop glow, a faint far window across the roofs
@@ -197,7 +227,7 @@ export const W4: Record<string, (R: R) => void> = {
   // line 7b: "His blog takes anonymous comments, so someone left one": a giant blog page with the comment box; a comment slides in
   commentBox(R) {
     roomShell(R, { w: 26, d: 18, h: 22, wall: "#3a2a5a", trim: "#241a40", z: -9.5 });
-    const pg = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 10.4), new THREE.MeshBasicMaterial({ map: canvasTex(512, 700, (g, W, H) => { g.fillStyle = "#f4efe4"; g.fillRect(0, 0, W, H); g.fillStyle = "#2a2a3a"; g.fillRect(0, 0, W, 80); g.fillStyle = "#f4efe4"; g.font = "bold 44px Anton"; g.fillText("MY BLOG", 24, 56); g.fillStyle = "#c8c8d8"; for (let k = 0; k < 7; k++) g.fillRect(24, 110 + k * 30, 300 + (k * 53) % 160, 12); g.fillStyle = "#e8e4f4"; g.fillRect(24, 360, W - 48, 260); g.strokeStyle = "#8a8aa8"; g.lineWidth = 3; g.strokeRect(24, 360, W - 48, 260); g.fillStyle = "#6a6a88"; g.font = "28px Anton"; g.fillText("ANONYMOUS COMMENTS", 40, 396); g.fillStyle = "#aaaabb"; g.fillRect(40, 560, 300, 14); }) })); pg.position.set(0, 6.1, -8); R.add(pg);
+    const pg = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 10.4), new THREE.MeshBasicMaterial({ map: canvasTex(512, 700, (g, W, H) => { g.fillStyle = "#f4efe4"; g.fillRect(0, 0, W, H); g.fillStyle = "#2a2a3a"; g.fillRect(0, 0, W, 80); g.fillStyle = "#f4efe4"; g.font = "bold 44px Anton"; g.fillText("HIS BLOG", 24, 56); g.fillStyle = "#c8c8d8"; for (let k = 0; k < 7; k++) g.fillRect(24, 110 + k * 30, 300 + (k * 53) % 160, 12); g.fillStyle = "#e8e4f4"; g.fillRect(24, 360, W - 48, 260); g.strokeStyle = "#8a8aa8"; g.lineWidth = 3; g.strokeRect(24, 360, W - 48, 260); g.fillStyle = "#6a6a88"; g.font = "28px Anton"; g.fillText("ANONYMOUS COMMENTS", 40, 396); g.fillStyle = "#aaaabb"; g.fillRect(40, 560, 300, 14); }) })); pg.position.set(0, 6.1, -8); R.add(pg);
     R.add(box(8.4, 11.2, 0.9, lam("#1a1a2a"), 0, 6.1, -8.6)); floor(R, 44, 44, planksTex("#6a4a30", "", [8, 8]), 6); for (let q = 0; q < 8; q++) R.add(at(kit("furniture", ["cardboardBoxClosed", "plantSmall1", "books", "pottedPlant"][q % 4], 1.0 + (q % 3) * 0.4), -6 + q * 1.7, 0, 1.5 + (q % 3) * 1.4, q));
     R.add(at(kit("furniture", "rugRound", 0.05, 6), 0, 0.03, 3)); for (const sx of [-1, 1]) { R.add(at(kit("furniture", "bookcaseClosedWide", 6), sx * 8.5, 0, -8)); R.add(at(kit("furniture", "lampSquareFloor", 3.4), sx * 6.4, 0, -4)); R.add(at(kit("furniture", "loungeSofa", 1.6, 1.6), sx * 8, 0, 0, sx * -1.2)); } R.add(box(2.4, 1.2, 1.4, lam("#2a2a3a"), 0, 0.6, -8.3)); R.add(box(5.5, 0.4, 2.6, lam("#2a2a3a"), 0, 0.2, -8.0));
     const cm = new THREE.Mesh(new THREE.PlaneGeometry(6.2, 1.6), new THREE.MeshBasicMaterial({ map: canvasTex(512, 128, (g, W, H) => { g.fillStyle = "#cfe8ff"; g.fillRect(0, 0, W, H); g.strokeStyle = "#3a6aa8"; g.lineWidth = 5; g.strokeRect(3, 3, W - 6, H - 6); g.fillStyle = "#14102a"; g.font = "bold 40px 'Special Elite','Courier New',monospace"; g.textAlign = "left"; g.fillText("I left a comment.", 24, 76); }), color: new THREE.Color(1.3, 1.3, 1.3) })); cm.position.set(0, 3.7, -7.9); cm.userData.rv = 0.35; R.add(cm); glowAt(R, 0, 3.7, -7.4, 8, "#9ad0ff");

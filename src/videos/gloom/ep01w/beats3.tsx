@@ -72,13 +72,6 @@ export class Stage3 implements Stage3D {
   constructor(public s: Shot3, public D: number, public extra?: (f: number, rig: Rig, cam: THREE.PerspectiveCamera) => void) {
     const grp = new THREE.Group(); ALLW[s.world](grp); this.root.add(grp); grp.traverse((o) => { if (o.userData.night && s.light !== "night") o.visible = false; if (o.userData.day && s.light === "night") o.visible = false; });
     const c0 = camPath(keysFor(s, D), 0, 0), f = new THREE.Vector3(c0.look[0] - c0.pos[0], 0, c0.look[2] - c0.pos[2]).normalize(), r = new THREE.Vector3(-f.z, 0, f.x);
-    if (s.scatter) {
-      const out = s.scatter === "out", names: [string, string, number][] = out
-        ? [["nature", "plant_bushLarge", 1.1], ["nature", "mushroom_tan", 0.5], ["nature", "stump_oldTall", 0.9]]
-        : [["furniture", "pottedPlant", 1.3], ["furniture", "cardboardBoxClosed", 0.8], ["furniture", "books", 0.4], ["furniture", "lampSquareFloor", 2.0], ["furniture", "cardboardBoxOpen", 0.7], ["furniture", "sideTable", 0.9]];
-      for (let q = 0; q < 14; q++) { const side = q % 2 ? 1 : -1, d = 3.0 + (q >> 1) * 1.0, lat = side * (0.9 + (q >> 1) * 0.6 + (q % 3) * 0.2), [pk, nm, hh] = names[q % names.length];
-        const o = kat(kit(pk as any, nm, hh), c0.pos[0] + f.x * d + r.x * lat, 0, c0.pos[2] + f.z * d + r.z * lat, q * 1.7); this.root.add(o); }
-    }
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
   }
   talk?: (lf: number) => number; kc?: Key[];

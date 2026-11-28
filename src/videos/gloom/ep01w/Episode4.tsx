@@ -20,7 +20,7 @@ const AT = (phrase: string, off = 0) => { const q = phrase.split(" ").map(nw); c
 export const TOTAL_S = takeV3.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
 /** shot order of script v9: [shot id, first spoken words of its line] */
-const ORDER: [string, string][] = [["S01", "There's a man"], ["S02", "and the odd"], ["S04", "His targets"], ["S05", "His surest"], ["S06", "Then he started"], ["S07", "One reader"], ["S08", "and compared"], ["S09", "But after"], ["S03", "A week later"], ["S10", "a stranger"], ["S11", "and someone else"], ["S12", "Luckily"], ["S14", "Then again"], ["S13", "that people who"], ["S15", "That's the part"]];
+const ORDER: [string, string][] = [["S01", "There's a man"], ["S02", "and the odd"], ["S04a", "His targets"], ["S04b", "or a missed"], ["S04c", "very rarely"], ["S05", "His surest"], ["S06", "Then he started"], ["S07", "One reader"], ["S08", "and compared"], ["S09", "But after"], ["S03", "A week later"], ["S10", "a stranger"], ["S11", "and someone else"], ["S12", "Luckily"], ["S14", "Then again"], ["S13", "that people who"], ["S15", "That's the part"]];
 const B = [...ORDER.map(([, ph], i) => (i ? AT(ph, -0.08) : 0)), TOTAL_S];
 const SH0 = ORDER.map(([id], i) => { const s = SHOTS4.find((q) => q.id === id)!; return { s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }; });
 const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: ((dx: number, dz: number, a: number) => [q.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * 0.6])(q.pos[0] - q.look[0], q.pos[2] - q.look[2], 0.36) as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
@@ -68,6 +68,22 @@ const CapView: React.FC<{ f: number }> = ({ f }) => {
   return (<div style={{ position: "absolute", left: 80, width: 920, top: rage ? 1300 : 1400, marginLeft: rage ? (f % 2 ? 9 : -9) : 0, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
     {c.words.map((w, i) => <span key={i} style={{ color: w[1] ?? "#fff" }}>{w[0]}</span>)}</div>);
 };
+/** plain screen labels that name what is being said, timed to words, always fully on screen: [from phrase, until phrase, text, accent] */
+const LABELS: [string, string | null, string, string?][] = [
+  ["There's a man", "and the odd", "4CHAN /x/ · PARANORMAL"], ["when he stops", "His targets", "STOPS TRYING = IT WORKS", "#7dffc8"],
+  ["while saying", "and wish", "SAYS THEIR NAME"], ["forty targets", "against a control", "40 TARGETS"], ["against a control", "One reader", "CONTROLS: NEVER TOUCHED", "#7dffc8"],
+  ["three hits", "and compared", "3 HITS OUT OF 8"], ["a one-metre", "from a thousand", "TARGET: 1 METRE"], ["from a thousand", "But after", "DISTANCE: 1,000 METRES"],
+  ["that most", "he went", "MOST ATTEMPTS FAILED", "#ff8a8a"], ["A week later", "in a thread", "1 WEEK LATER"], ["in a thread", "a stranger", "THREAD: DEATH NOTE"], ["a stranger", "and someone else", "A STRANGER REPLIES"],
+  ["and someone else", "As far", "ANONYMOUS COMMENT"], ["As far", "Luckily", "NO REPLY FROM HIM", "#ff8a8a"], ["Walter Cannon", "that people who", "WALTER CANNON · HARVARD"], ["that people who", "That's the part", "BELIEF + FEAR"],
+  ["it only works when he stops trying, and", "now he seems", "IT WORKS WHEN HE STOPS"], ["now he seems", null, "NOW HE HAS STOPPED", "#ff8a8a"],
+];
+const LabelView: React.FC<{ f: number }> = ({ f }) => {
+  const t = f / FPS, safe = (p: string) => { try { return AT(p, -0.05); } catch { return -1; } };
+  const l = LABELS.find(([a, b]) => { const from = safe(a); if (from < 0) return false; const to = b ? safe(b) : TOTAL_S; return t >= from && t < (to < 0 ? from + 2 : to); }); if (!l) return null;
+  const from = safe(l[0]), p = smooth(clamp01((t - from) / 0.18)), low = t < 2.7 || t > TOTAL_S - 3.0;
+  return (<div style={{ position: "absolute", left: 60, right: 60, top: low ? 380 : 190, display: "flex", justifyContent: "center" }}>
+    <div style={{ padding: "16px 34px", borderRadius: 18, background: l[3] ?? "#fff3c4", border: "7px solid #1a1020", color: "#1a1020", fontFamily: FONT_DISPLAY, fontSize: Math.min(76, 1500 / l[2].length), letterSpacing: 2, transform: `scale(${0.8 + 0.2 * p}) rotate(-1.5deg)`, boxShadow: "0 10px 0 rgba(0,0,0,.35)", whiteSpace: "nowrap" }}>{l[2]}</div></div>);
+};
 const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, endA = TOTAL_S - 3.0; const on = t < 2.6 || t > endA; if (!on) return null;
   const a = t < 2.6 ? smooth(clamp01(t / 0.25)) * smooth(clamp01((2.6 - t) / 0.3)) : smooth(clamp01((t - endA) / 0.3));
@@ -80,6 +96,7 @@ const Layer: React.FC<{ i: number; f: number; alpha: number; ready: boolean }> =
     const st: Stage3 = new Stage3(s, D, (lf, _rig, cam) => {
       const u = (lf + a - sa) / SD;
       st.root.traverse((o) => { if (o.userData.rv !== undefined) o.visible = u >= o.userData.rv; if (o.userData.rvOff !== undefined) o.visible = u < o.userData.rvOff; });
+      st.root.traverse((o) => { const d = o.userData.drive as [number, number] | undefined; if (d) o.position.x = d[0] + d[1] * u * u; });
       const k = kickAt(lf + a); if (k) { cam.position.x += k * 0.1; cam.position.y += k * 0.06; cam.updateMatrixWorld(); }
     });
     st.talk = (lf: number) => talkAt(lf + a);
@@ -99,6 +116,7 @@ export const Ep01V8: React.FC = () => {
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} ready={ready} />)}
       <Audio src={staticFile("audio/ep01v9/mix.wav")} />
       {(() => { const t = f / FPS - AT("anger"); return t > -0.45 && t < 0.9 ? <AbsoluteFill style={{ boxShadow: "inset 0 0 260px 90px rgba(255,20,10,.75)", opacity: clamp01((t + 0.45) / 0.2) * clamp01((0.9 - t) / 0.3) }} /> : null; })()}
+      <LabelView f={f} />
       <CapView f={f} />
       <Disclaimer f={f} />
     </AbsoluteFill>
