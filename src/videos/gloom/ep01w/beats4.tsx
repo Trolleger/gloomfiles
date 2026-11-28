@@ -29,7 +29,7 @@ export const SHOTS4: Shot3[] = [
   { id: "S05", scatter: "in", line: "He says he prints their photo, pisses on it, says their name, and wishes the worst, with no thinking, just anger.", world: "bathroom", light: "day", caption: "JUST ANGER", cInf: 11,
     keys: [k(0, [0, 2.6, 1.2], [0, 1.0, -4], 60), k(1, [0, 3.4, -0.6], [0, 0.6, -3.4], 46, { du: 0.8 })], cast: [{ rel: [3.8, -0.3], s: 1.1, fig: { outfit: "anon", expr: "stern", wave: 20 } }, g(4.6, 1.7, 0.7, { point: 30, expr: "shock", beam: 1.0 })] },
   { id: "S06", scatter: "in", line: "Then he ran it like a lab: forty targets, each matched with a control, coded in advance so nobody could say he edited it.", world: "labForty", light: "day", caption: "FORTY TARGETS", cInf: 6,
-    keys: [k(0, [-2.6, 4.2, 5.4], [-2.4, 1.2, -10], 54), k(0.45, [-3.0, 3.2, 1.0], [-3.0, 1.0, -8], 48, { du: 0.3 }), k(1, [3.0, 3.2, 0.6], [3.2, 1.0, -8], 48, { du: 0.4 })], cast: [{ x: 0, z: -2.6, s: 0.9, fig: { outfit: "anon", expr: "stern" } }] },
+    keys: [k(0, [-1.4, 4.6, 6.4], [-1.2, 1.2, -10], 56), k(0.55, [-3.0, 3.2, 1.0], [-3.0, 1.0, -8], 48, { du: 0.35 }), k(0.72, [3.0, 3.2, 0.8], [3.2, 1.0, -8], 48, { du: 0.12 }), k(1, [3.0, 3.0, 0.0], [3.2, 1.0, -8], 46, { du: 0.28 })], cast: [{ x: 0, z: -2.6, s: 0.9, fig: { outfit: "anon", expr: "stern" } }] },
   { id: "S07", line: "One reply says three hits out of eight,", world: "eightboxes", light: "golden", caption: "3 OF 8", cInf: 5,
     keys: [k(0, [0, 4.4, 10], [0, 4.4, -9], 56), k(1, [0, 4.2, 5.5], [0, 4.4, -9], 46, { du: 0.8 })], cast: [] },
   { id: "S08", scatter: "out", line: "like hitting a one-metre target from a thousand metres, in a storm.", world: "range", light: "night", caption: "1000 METRES", cInf: 0,

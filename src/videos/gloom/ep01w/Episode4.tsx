@@ -6,7 +6,7 @@ import { ShotView } from "../Shot";
 import { SHOTS4 } from "./beats4";
 import { Stage3 } from "./beats3";
 import { useKit } from "./kit";
-import takeV3 from "../../../../build/ep01v9/words.json";
+import takeV3 from "../../../../build/ep01v10/words.json";
 import { mouthFromWords } from "../../../lib/anim";
 import { FONT_DISPLAY } from "../../../theme";
 import { clamp01, smooth } from "../core";
@@ -20,21 +20,21 @@ const AT = (phrase: string, off = 0) => { const q = phrase.split(" ").map(nw); c
 export const TOTAL_S = takeV3.voice_len + TAIL;
 export const TOTAL = Math.ceil(TOTAL_S * FPS);
 /** shot order of script v9: [shot id, first spoken words of its line] */
-const ORDER: [string, string][] = [["S01", "There's a man"], ["S02", "and the odd"], ["S04a", "His targets"], ["S04b", "or a missed"], ["S04c", "very rarely"], ["S05", "His surest"], ["S06", "Then he started"], ["S07", "One reader"], ["S08", "and compared"], ["S09", "But after"], ["S03", "A week later"], ["S10", "a stranger"], ["S11", "and someone else"], ["S12", "Luckily"], ["S14", "Then again"], ["S13", "that people who"], ["S15", "That's the part"]];
+const ORDER: [string, string][] = [["S01", "On 4chan's"], ["S02", "and the odd"], ["S04a", "He says most"], ["S04b", "or missing"], ["S04c", "but very rarely"], ["S05", "His surest"], ["S06", "Then he started"], ["S07", "One reader"], ["S08", "and compared"], ["S09", "But after"], ["S03", "A week later"], ["S10", "a stranger"], ["S11", "and someone else"], ["S12", "Luckily"], ["S14", "Then again"], ["S13", "that people who"], ["S15", "That's the part"]];
 const B = [...ORDER.map(([, ph], i) => (i ? AT(ph, -0.08) : 0)), TOTAL_S];
 const SH0 = ORDER.map(([id], i) => { const s = SHOTS4.find((q) => q.id === id)!; return { s, a: Math.round(B[i] * FPS), b: Math.round(B[i + 1] * FPS), sa: Math.round(B[i] * FPS), sb: Math.round(B[i + 1] * FPS) }; });
 const closer = (s: typeof SHOTS4[number]) => ({ ...s, keys: s.keys.map((q) => ({ ...q, pos: ((dx: number, dz: number, a: number) => [q.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * 0.6, q.pos[1] + (q.look[1] - q.pos[1]) * 0.3, q.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * 0.6])(q.pos[0] - q.look[0], q.pos[2] - q.look[2], 0.36) as [number, number, number], fov: q.fov - 6, roll: -(q.roll ?? 0) || 0.04 })) });
 const SH: { s: typeof SHOTS4[number]; a: number; b: number; sa: number; sb: number; cut?: boolean }[] = [];
 SH0.forEach((q) => { if (q.b - q.a > 150 && q.s.id !== "S05" && q.s.id !== "S15") { const m = Math.round((q.a + q.b) / 2); SH.push({ ...q, b: m }, { ...q, s: closer(q.s), a: m, cut: true }); } else SH.push(q); });
 const WORDS = WS.map((w) => ({ start: w.start, end: w.end }));
-const KICKS: [number, number][] = [[AT("death His"), 1.3], [AT("anger"), 1.2], [AT("forty targets"), 0.9], [AT("three hits"), 1.2], [AT("storm"), 1.5], [AT("went quiet", 0.1), 0.8], [AT("like me"), 0.8], [AT("fear That's"), 1.4], [AT("now he seems"), 0.8]];
+const KICKS: [number, number][] = [[AT("dies His"), 1.3], [AT("anger"), 1.2], [AT("forty targets"), 0.9], [AT("three hits"), 1.2], [AT("storm"), 1.5], [AT("went quiet", 0.1), 0.8], [AT("like me"), 0.8], [AT("fear That's"), 1.4], [AT("now he seems"), 0.8]];
 const kickAt = (f: number) => { let o = 0; for (const [t, k] of KICKS) { const x = f - Math.round(t * FPS); if (x >= 0 && x < 7) o += k * (x % 2 ? -1 : 1) * (1 - x / 7); } return o; };
 const talkAt = (f: number) => mouthFromWords(f, FPS, WORDS);
 
 // Captions are built straight from the word timings (never hand-anchored), so they always match the audio.
 type Cap = { from: number; to: number; words: [string, string?][] };
 const Y = "#ffe44d", R = "#ff4a4a", M = "#7dffc8";
-const KEY: Record<string, string> = { death: R, anger: R, worst: R, froze: R, fear: R, storm: R, unluckily: R, silent: R, quiet: R, strangers: Y, kill: R, trying: Y, three: Y, forty: Y, eight: Y, "1942": Y, week: Y, thousand: Y, metres: Y, metre: Y, note: Y, luckily: M, control: M, silence: M, anonymous: M, others: Y };
+const KEY: Record<string, string> = { death: R, dies: R, anger: R, worst: R, froze: R, fear: R, storm: R, unluckily: R, silent: R, quiet: R, strangers: Y, kill: R, trying: Y, three: Y, forty: Y, eight: Y, "1942": Y, week: Y, thousand: Y, metres: Y, metre: Y, note: Y, luckily: M, control: M, silence: M, anonymous: M, others: Y };
 const buildCaps = (): Cap[] => {
   // phrase-sized chunks: never end on a joining word ("a", "to", "who", "could"...), never cross punctuation; ANGER stands alone
   const STOP = new Set("a an the and or but to of from for on in with by at that who he she they it his her their them him its is are was could can would will be been has have had it's they're there's that's if when while because so as then say says said him an no not never very just only right".split(" "));
@@ -57,7 +57,7 @@ const buildCaps = (): Cap[] => {
   return chunks.map((c, k) => {
     const next = chunks[k + 1], from = Math.max(0, c[0].start - 0.04), lastEnd = c[c.length - 1].end;
     const to = next && next[0].section === c[0].section ? Math.min(lastEnd + 0.12, next[0].start - 0.02) : lastEnd + 0.15;
-    const words: [string, string?][] = c.map((x, q) => { const clean = x.word.replace(/[^A-Za-z0-9'-]/g, ""), col = KEY[clean.toLowerCase()]; return [clean.toUpperCase() + (q < c.length - 1 ? " " : ""), col] as [string, string?]; });
+    const words: [string, string?][] = c.map((x, q) => { const clean = x.word.replace(/[^A-Za-z0-9'\/-]/g, ""), col = KEY[clean.toLowerCase()]; return [clean.toUpperCase() + (q < c.length - 1 ? " " : ""), col] as [string, string?]; });
     return { from, to, words };
   });
 };
@@ -70,7 +70,7 @@ const CapView: React.FC<{ f: number }> = ({ f }) => {
 };
 /** plain screen labels that name what is being said, timed to words, always fully on screen: [from phrase, until phrase, text, accent] */
 const LABELS: [string, string | null, string, string?][] = [
-  ["There's a man", "and the odd", "4CHAN /x/ · PARANORMAL"], ["when he stops", "His targets", "STOPS TRYING = IT WORKS", "#7dffc8"],
+  ["On 4chan's", "and the odd", "4CHAN /x/ · PARANORMAL"], ["when he stops", "He says most", "STOPS TRYING = IT WORKS", "#7dffc8"],
   ["while saying", "and wish", "SAYS THEIR NAME"], ["forty targets", "against a control", "40 TARGETS"], ["against a control", "One reader", "CONTROLS: NEVER TOUCHED", "#7dffc8"],
   ["three hits", "and compared", "3 HITS OUT OF 8"], ["a one-metre", "from a thousand", "TARGET: 1 METRE"], ["from a thousand", "But after", "DISTANCE: 1,000 METRES"],
   ["that most", "he went", "MOST ATTEMPTS FAILED", "#ff8a8a"], ["A week later", "in a thread", "1 WEEK LATER"], ["in a thread", "a stranger", "THREAD: DEATH NOTE"], ["a stranger", "and someone else", "A STRANGER REPLIES"],
@@ -100,7 +100,7 @@ const Layer: React.FC<{ i: number; f: number; alpha: number; ready: boolean }> =
       const k = kickAt(lf + a); if (k) { cam.position.x += k * 0.1; cam.position.y += k * 0.06; cam.updateMatrixWorld(); }
     });
     st.talk = (lf: number) => talkAt(lf + a);
-    if (s.id === "S05") st.rageAt = Math.round(AT("just pure", -0.05) * FPS) - a;
+    if (s.id === "S05") st.rageAt = Math.round(AT("nothing but pure", -0.05) * FPS) - a;
     return st;
   }, [i, ready]);
   return <ShotView make={make} frame={f - a} alpha={alpha} />;
@@ -114,7 +114,7 @@ export const Ep01V8: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} ready={ready} />)}
-      <Audio src={staticFile("audio/ep01v9/mix.wav")} />
+      <Audio src={staticFile("audio/ep01v10/mix.wav")} />
       {(() => { const t = f / FPS - AT("anger"); return t > -0.45 && t < 0.9 ? <AbsoluteFill style={{ boxShadow: "inset 0 0 260px 90px rgba(255,20,10,.75)", opacity: clamp01((t + 0.45) / 0.2) * clamp01((0.9 - t) / 0.3) }} /> : null; })()}
       <LabelView f={f} />
       <CapView f={f} />

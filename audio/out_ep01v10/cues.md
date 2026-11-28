@@ -1,0 +1,25 @@
+# Sound cues (seconds on the video timeline)
+
+-    4.75 s  slap      cut
+-    7.65 s  slap      cut
+-   10.83 s  slap      cut
+-   11.98 s  slap      cut
+-   13.18 s  pin       dies His
+-   13.95 s  slap      cut
+-   20.60 s  slap      anger
+-   21.35 s  slap      cut
+-   23.95 s  tick      forty targets
+-   27.32 s  slap      cut
+-   28.02 s  tick      three hits
+-   28.92 s  slap      cut
+-   32.10 s  slap      storm
+-   32.91 s  slap      cut
+-   36.08 s  slap      cut
+-   38.66 s  slap      cut
+-   40.83 s  keys      like me
+-   41.49 s  slap      cut
+-   46.36 s  slap      cut
+-   51.00 s  slap      cut
+-   55.02 s  slap      cut
+-   57.80 s  slap      cut
+-   61.86 s  powerdown now he seems

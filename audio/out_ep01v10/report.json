@@ -1,0 +1,21 @@
+{
+ "duration_s": 64.76,
+ "voice": true,
+ "music_gap_db_target": 13.0,
+ "music_gain_db": -9.27,
+ "cue_file": "audio/ep01v10_cues.json",
+ "music_file": "audio/music/Ossuary 5 - Rest.mp3",
+ "raw_peak": 0.7383050940819278,
+ "loudnorm_pass1": {
+  "input_i": "-20.56",
+  "input_tp": "-2.63",
+  "input_lra": "3.00",
+  "input_thresh": "-30.81",
+  "output_i": "-15.91",
+  "output_tp": "-1.50",
+  "output_lra": "2.30",
+  "output_thresh": "-26.06",
+  "normalization_type": "dynamic",
+  "target_offset": "0.91"
+ }
+}

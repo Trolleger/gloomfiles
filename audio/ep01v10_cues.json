@@ -1,0 +1,122 @@
+{
+ "source": "build/ep01v10/words.json",
+ "fps": 30,
+ "lead": 0.1,
+ "cues": [
+  {
+   "t": 4.75,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 7.65,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 10.83,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 11.98,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 13.18,
+   "type": "pin",
+   "visual": "dies His"
+  },
+  {
+   "t": 13.95,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 20.6,
+   "type": "slap",
+   "visual": "anger"
+  },
+  {
+   "t": 21.35,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 23.95,
+   "type": "tick",
+   "visual": "forty targets"
+  },
+  {
+   "t": 27.32,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 28.02,
+   "type": "tick",
+   "visual": "three hits"
+  },
+  {
+   "t": 28.92,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 32.1,
+   "type": "slap",
+   "visual": "storm"
+  },
+  {
+   "t": 32.91,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 36.08,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 38.66,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 40.83,
+   "type": "keys",
+   "visual": "like me"
+  },
+  {
+   "t": 41.49,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 46.36,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 51.0,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 55.02,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 57.8,
+   "type": "slap",
+   "visual": "cut"
+  },
+  {
+   "t": 61.86,
+   "type": "powerdown",
+   "visual": "now he seems"
+  }
+ ]
+}
