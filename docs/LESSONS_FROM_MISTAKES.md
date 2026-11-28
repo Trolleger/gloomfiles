@@ -17,3 +17,6 @@ Rule from Andrew: every time a mistake is caught, add a lesson here so it never 
 14. Script must be one flowing spoken story: sentences linked by cause and time ("and", "then", "but", "because"), no stacked one-liners or section-style fragments. Read it aloud before showing Andrew.
 15. Music must be a real track that fits the mood (Kevin MacLeod, credited), re-timed to the cuts. Do not ship a synthesized placeholder score.
 16. Animation needs real acting: walks, gestures, reactions, and camera travel through the world per the skill and tutorial. Standing cards with a gliding camera are not enough.
+17. Every line must be instantly clear ("from a cold to death" confused him): state the range plainly, and name the source (4chan /x/ thread) in the first sentence.
+18. Visual metaphors must be self-explanatory (a red cloud with eyes read as nothing). Show the real object (their photo, labelled) and the emotion on a face: close-up, angry expression, burst, big caption.
+19. Captions break at natural phrases, never end on a joining word, and the punch word stands alone and large.

@@ -82,6 +82,8 @@ export class Stage3 implements Stage3D {
     this.cast = s.cast.map((c) => ({ c, x: c.rel ? c0.pos[0] + f.x * c.rel[0] + r.x * c.rel[1] : c.x ?? 0, z: c.rel ? c0.pos[2] + f.z * c.rel[0] + r.z * c.rel[1] : c.z ?? 0 }));
   }
   talk?: (lf: number) => number; kc?: Key[];
+  /** local frame where the lead character loses it: angry face, burst, anger marks, camera punches in on the face */
+  rageAt?: number;
   keys() { return (this.kc ??= this.framed(keysFor(this.s, this.D))); }
   /** keep Gloom's fixed mark in frame at every key: never closer than 2.6 m ahead, never wider than 0.22 of the distance off the view axis */
   framed(ks: Key[]): Key[] {
@@ -101,20 +103,28 @@ export class Stage3 implements Stage3D {
       const u = clamp01(f / Math.max(1, this.D)), e = 1 - (1 - u) * (1 - u), dirn = Number(this.s.id.slice(1)) % 2 ? 1 : -1, far = Math.hypot(c.pos[0] - c.look[0], c.pos[2] - c.look[2]) > 30, a = far ? 0 : dirn * 0.18 * (e - 0.55), k2 = far ? 1 : 1.08 - 0.16 * e;
       const dx = c.pos[0] - c.look[0], dy = c.pos[1] - c.look[1], dz = c.pos[2] - c.look[2];
       c.pos = [c.look[0] + (dx * Math.cos(a) - dz * Math.sin(a)) * k2, c.look[1] + dy * k2, c.look[2] + (dx * Math.sin(a) + dz * Math.cos(a)) * k2]; }
+    const lead = this.cast.find((q) => q.c.fig), rage = this.rageAt !== undefined && lead ? clamp01((f - this.rageAt) / 8) : 0;
+    if (rage > 0 && lead) { const hs = lead.c.s, head = [lead.x, 1.75 * hs, lead.z], k = rage * rage * (3 - 2 * rage);
+      const away = [c.pos[0] - head[0], c.pos[1] - head[1], c.pos[2] - head[2]], len = Math.hypot(away[0], away[1], away[2]), near = 3.4 * hs / len;
+      c.pos = [c.pos[0] + (head[0] + away[0] * near - c.pos[0]) * k, c.pos[1] + (head[1] + 0.25 - c.pos[1]) * k, c.pos[2] + (head[2] + away[2] * near - c.pos[2]) * k];
+      c.look = [c.look[0] + (head[0] - c.look[0]) * k, c.look[1] + (head[1] - 0.15 - c.look[1]) * k, c.look[2] + (head[2] - c.look[2]) * k]; c.fov = c.fov + (40 - c.fov) * k; }
     this.rig.frame(cam, scene, c, this.s.light, { az: this.s.sun?.az, el: this.s.sun?.el, focusR: 14 });
     if (this.s.dim) { TONE.uLitCol.value.multiplyScalar(this.s.dim); TONE.uShadeCol.value.multiplyScalar(this.s.dim); this.rig.hemi.intensity *= this.s.dim; this.rig.sun.intensity *= this.s.dim; }
     const lt = this.rig.light2D(cam);
     this.cast.forEach(({ c: cs, x: mx, z: mz }, i) => {
       // acting: walk in to the mark over the first beats, then breathe, gesture and react
       const R0 = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), from = (i % 2 ? -1 : 1) * (cs.fig ? 2.2 : 1.4), t0 = i * 5, wk = cs.sil ? 1 : clamp01((f - t0) / (cs.fig ? 30 : 22)), walking = wk < 1;
-      const off = from * (1 - wk) * (1 - wk * 0.3), x = mx + R0.x * off, z = mz + R0.z * off;
+      const off = from * (1 - wk) * (1 - wk * 0.3), x = mx + R0.x * off + (rage > 0 ? R0.x * 0.035 * (f % 2 ? 1 : -1) : 0), z = mz + R0.z * off;
       const hop = cs.sil ? 0 : walking ? 0.09 * Math.abs(Math.sin(f / 3.2)) : 0.018 * Math.sin(f / 7 + i * 2);
       const react = f > this.D * 0.55;
       const d = cam.position.distanceTo(new THREE.Vector3(x, 1, z)) / cs.s, [w, h, kk] = this.rig.tier(d), y = (cs.y ?? 0) + hop;
       this.rig.fxCard(cam, { key: "contact|blob|" + (cs.fig ? "f" : "g"), cw: 128, ch: 128, draw: (p) => fxContact(p, "#8a7e8e"), x, y: (cs.y ?? 0) + 0.03, z, w: 1.5 * cs.s, h: 0.8 * cs.s, flat: true, soft: true });
+      if (cs.fig && rage > 0) { const Rv = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), Fw = new THREE.Vector3(); cam.getWorldDirection(Fw); const pulse = 1 + 0.08 * Math.sin(f * 1.4), hy = y + 1.85 * cs.s;
+        this.rig.fxCard(cam, { key: "rageburst", cw: 512, ch: 512, draw: (p) => { const g = p.g; for (let n = 0; n < 22; n++) { const a = (n / 22) * Math.PI * 2, w = 0.07 + (n % 3) * 0.025; g.fillStyle = n % 2 ? "#ff2a1c" : "#ff8a1c"; g.beginPath(); g.moveTo(256 + Math.cos(a - w) * 96, 256 + Math.sin(a - w) * 96); g.lineTo(256 + Math.cos(a) * (200 + (n % 4) * 18), 256 + Math.sin(a) * (200 + (n % 4) * 18)); g.lineTo(256 + Math.cos(a + w) * 96, 256 + Math.sin(a + w) * 96); g.fill(); } }, x: x + Fw.x * 0.25, y: hy, z: z + Fw.z * 0.25, w: 3.4 * cs.s * pulse * rage, h: 3.4 * cs.s * pulse * rage });
+        for (const side of [-1, 1]) this.rig.fxCard(cam, { key: "vein", cw: 128, ch: 128, draw: (p) => { const g = p.g; g.lineCap = "round"; for (const [col, lw] of [["#1a1020", 30], ["#ff2a1c", 18]] as const) { g.strokeStyle = col; g.lineWidth = lw; for (const [cx, cy, a0] of [[24, 24, 0], [104, 24, Math.PI / 2], [104, 104, Math.PI], [24, 104, -Math.PI / 2]] as const) { g.beginPath(); g.arc(cx, cy, 30, a0 + 0.15, a0 + Math.PI / 2 - 0.15); g.stroke(); } } }, x: x + Rv.x * side * 0.75 * cs.s - Fw.x * 0.2, y: hy + (side > 0 ? 0.55 : 0.3) * cs.s, z: z + Rv.z * side * 0.75 * cs.s - Fw.z * 0.2, w: 0.55 * cs.s * pulse, h: 0.55 * cs.s * pulse }); }
       if (cs.fig) { const fg = cs.fig, ph = walking ? Math.floor(((f / 18) % 1) * 12) / 12 : 0;
         const gest = !walking && Math.sin(f / 11 + i) > 0.2, wave = walking ? undefined : fg.wave !== undefined ? Math.round(fg.wave + 22 * Math.sin(f / 5)) : react && gest ? Math.round(35 + 25 * Math.sin(f / 5)) : undefined;
-        const expr = react && (f - this.D * 0.55) < this.D * 0.3 && fg.expr !== "shock" ? "shock" : (fg.expr ?? "neutral"), blink = (f + i * 31) % 70 < 4, tilt = walking ? 0 : Math.round(Math.sin(f / 16 + i) * 4);
+        const expr = rage > 0 ? "angry" : this.rageAt === undefined && react && (f - this.D * 0.55) < this.D * 0.3 && fg.expr !== "shock" ? "shock" : (fg.expr ?? "neutral"), blink = (f + i * 31) % 70 < 4, tilt = walking ? 0 : Math.round(Math.sin(f / 16 + i) * 4);
         const key = "fig" + fg.outfit + expr + wave + ph + walking + blink + tilt + lt; this.rig.card(cam, { key, draw: (p) => { p.g.translate(150, 0); bodyFront(p, OUTFITS[fg.outfit], { mode: walking ? "stroll" : "stand", phase: ph, expr: expr as any, wave, blink, headTilt: tilt, light: lt, seed: 4 }); }, w, h, k: kk, x, y, z, scale: cs.s, mirror: walking ? from > 0 : fg.mirror }); }
       else if (cs.sil) this.rig.card(cam, { key: "sil" + i + JSON.stringify(cs.sil) + lt, draw: (p) => drawSilhouette(p, { col: cs.sil!.col ?? "#171430", arm: cs.sil!.arm }), w, h, k: kk, x, y, z, scale: cs.s });
       else {

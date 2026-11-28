@@ -144,15 +144,22 @@ export const W4: Record<string, (R: R) => void> = {
   bathroom(R) {
     bathShell(R);
     add(R, at(kit("furniture", "toilet", 2.4), -2.4, 0, -5.2), at(kit("furniture", "bathroomSink", 2.4), 2.5, 0, -5.4), at(kit("furniture", "bathroomMirror", 2.4), 2.5, 4.1, -5.6), at(kit("furniture", "trashcan", 1.4), -4.4, 0, -4.4));
-    const ph = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 2.6), new THREE.MeshBasicMaterial({ map: canvasTex(128, 166, (g, W, H) => { g.fillStyle = "#f5eee0"; g.fillRect(0, 0, W, H); g.fillStyle = "#9ab8d8"; g.fillRect(8, 8, W - 16, H - 40); g.fillStyle = "#f4d8b8"; g.beginPath(); g.ellipse(64, 66, 28, 32, 0, 0, 7); g.fill(); g.fillStyle = "#5a3a2a"; g.fillRect(36, 36, 56, 14); g.fillStyle = "#14102a"; g.fillRect(50, 62, 8, 8); g.fillRect(72, 62, 8, 8); g.fillStyle = "#c8243e"; g.fillRect(54, 84, 20, 5); g.fillStyle = "#e8d49a"; g.font = "bold 18px Anton"; g.fillText("PRINTED", 30, H - 12); }) })); ph.position.set(0.6, 3.6, -5.55); R.add(ph); R.add(box(2.2, 2.8, 0.06, lam("#f4ead2"), 0.6, 3.6, -5.62));
-    for (const sx of [-0.8, 0.8]) R.add(sphere(0.07, lam("#e8243e"), 0.6 + sx, 4.8, -5.5));
+    // a snapshot of an ordinary smiling stranger, taped to the tiles: unmistakably "their photo"
+    const ph = new THREE.Mesh(new THREE.PlaneGeometry(2.7, 3.2), new THREE.MeshBasicMaterial({ map: canvasTex(270, 320, (g) => {
+      g.fillStyle = "#fbf8f0"; g.fillRect(0, 0, 270, 320); g.fillStyle = "#8fd0f0"; g.fillRect(16, 16, 238, 236); g.fillStyle = "#7cc46a"; g.fillRect(16, 192, 238, 60);
+      g.fillStyle = "#e8783c"; g.beginPath(); g.ellipse(135, 262, 78, 72, 0, Math.PI, 0); g.fill();
+      g.fillStyle = "#6a3a20"; g.beginPath(); g.ellipse(135, 108, 66, 66, 0, 0, 7); g.fill();
+      g.fillStyle = "#f6d2ac"; g.beginPath(); g.ellipse(135, 130, 52, 58, 0, 0, 7); g.fill();
+      g.fillStyle = "#6a3a20"; g.beginPath(); g.ellipse(135, 86, 54, 24, 0, 0, 7); g.fill();
+      g.fillStyle = "#1a1020"; for (const x of [115, 155]) { g.beginPath(); g.arc(x, 124, 6, 0, 7); g.fill(); }
+      g.strokeStyle = "#1a1020"; g.lineWidth = 5; g.beginPath(); g.arc(135, 146, 22, 0.15, Math.PI - 0.15); g.stroke();
+      g.strokeStyle = "#1a1020"; g.lineWidth = 4; g.strokeRect(16, 16, 238, 236); g.fillStyle = "#4a3a4a"; g.font = "bold 40px Anton"; g.textAlign = "center"; g.fillText("THEIR PHOTO", 135, 298); }) }));
+    ph.position.set(0.5, 3.5, -5.5); R.add(ph); for (const [x, r] of [[-0.85, 0.7], [1.85, -0.7]] as const) { const t = box(0.7, 0.22, 0.04, lam("#e8d9a0"), x, 5.05, -5.46); t.rotation.z = r; R.add(t); }
     /*fig*/
     for (let i = 0; i < 18; i++) { const t = i / 17, dr = sphere(0.1, MB("#ffe04a", 1.7), -0.1 + 0.7 * t, 1.5 + 1.6 * t - 2.0 * t * t, -3.6 - 1.9 * t); noink(dr); R.add(dr); }
     for (let i = 0; i < 5; i++) { const dr = sphere(0.09, MB("#ffe04a", 1.5), 0.6 + (i - 2) * 0.12, 3.0 - i * 0.28, -5.45); noink(dr); R.add(dr); }
-    for (let i = 0; i < 8; i++) R.add(sphere(0.2 + rnd(i) * 0.14, lam(i % 2 ? "#e8453c" : "#c8243e"), -0.9 + i * 0.27, 2.9 + Math.sin(i * 1.3) * 0.18, -3.7 + (i % 3) * 0.1));
-    { const ey = (x: number) => { R.add(sphere(0.2, MB("#ffffff"), x, 3.0, -3.3)); R.add(sphere(0.09, MB("#14102a"), x, 2.98, -3.12)); }; ey(-0.2); ey(0.35); const br = (x: number, r: number) => { const q = box(0.7, 0.12, 0.1, lam("#14102a"), x, 3.3, -3.15); q.rotation.z = r; R.add(q); }; br(-0.25, -0.5); br(0.5, 0.5); }
     R.add(box(3.2, 2.6, 0.12, MB("#cfe8f0", 1.1), 2.5, 4.0, -5.75)); R.add(box(3.5, 2.9, 0.1, lam("#f4ead2"), 2.5, 4.0, -5.8)); R.add(box(1.4, 1.2, 0.1, lam("#f4ead2"), -3.6, 2.4, -5.7)); R.add(box(1.2, 0.2, 0.2, lam("#c8c8d8"), -3.6, 3.1, -5.6)); for (const q of [-0.4, 0.4]) R.add(box(0.5, 1.0, 0.08, lam("#e8453c"), -3.6 + q, 2.5, -5.55));
-    glowAt(R, 0, 2.4, -3.4, 16, "#ff3a2a"); R.add(P.at(P.lampDesk("#ff9a7a"), 4.2, 3.0, -5.6));
+    R.add(P.at(P.lampDesk("#ff9a7a"), 4.2, 3.0, -5.6));
   },
   // line 4: "ran it like a lab: forty targets, each matched with a control, coded in advance": 40 targets and 40 controls under glass domes, coded tags
   labForty(R) {

@@ -1,0 +1,9 @@
+# Ep 1 script v10 (clearer lines, names 4chan /x/). Awaiting Andrew's OK.
+
+On 4chan's paranormal board, called /x/, a man claimed he could curse strangers, and the odd part is that it only works when he stops trying. He says most of his victims just get bad luck, like catching a cold or missing their bus, but very rarely, someone dies. His surest method is to print the person's photo, piss on it while saying their name, and wish them the worst without thinking about it, with nothing but pure anger.
+
+Then he started running it like an experiment, with more than forty targets, each matched against a control he never touched. One reader saw three hits out of eight and compared it to hitting a one-metre target from a thousand metres, in a storm.
+
+But after admitting that most attempts failed, he went quiet. A week later, in a thread named after Death Note, a stranger wrote, "I didn't think there were others like me," and someone else left him an anonymous comment. As far as that thread shows, he never answered.
+
+Luckily, there's no proof he ever hurt anyone. Unluckily, there's no proof he didn't. Then again, back in 1942, a Harvard scientist named Walter Cannon argued that people who truly believe they're cursed could die of fear. That's the part that sticks, because this man said it only works when he stops trying, and now he seems to have stopped.

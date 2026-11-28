@@ -36,8 +36,24 @@ type Cap = { from: number; to: number; words: [string, string?][] };
 const Y = "#ffe44d", R = "#ff4a4a", M = "#7dffc8";
 const KEY: Record<string, string> = { death: R, anger: R, worst: R, froze: R, fear: R, storm: R, unluckily: R, silent: R, quiet: R, strangers: Y, kill: R, trying: Y, three: Y, forty: Y, eight: Y, "1942": Y, week: Y, thousand: Y, metres: Y, metre: Y, note: Y, luckily: M, control: M, silence: M, anonymous: M, others: Y };
 const buildCaps = (): Cap[] => {
+  // phrase-sized chunks: never end on a joining word ("a", "to", "who", "could"...), never cross punctuation; ANGER stands alone
+  const STOP = new Set("a an the and or but to of from for on in with by at that who he she they it his her their them him its is are was could can would will be been has have had it's they're there's that's if when while because so as then say says said him an no not never very just only right".split(" "));
   const chunks: TW[][] = []; let cur: TW[] = [];
-  WS.forEach((w, k) => { cur.push(w); const len = cur.map((x) => x.word).join(" ").length, endP = /[.,:;?!]$/.test(w.word), nxt = WS[k + 1]; if (endP || cur.length >= 3 || len > 16 || !nxt || nxt.section !== w.section) { chunks.push(cur); cur = []; } });
+  const text = (c: TW[]) => c.map((x) => x.word).join(" ");
+  const flush = () => { if (cur.length) chunks.push(cur); cur = []; };
+  WS.forEach((w, k) => {
+    const nxt = WS[k + 1], lone = nw(w.word) === "anger";
+    if (lone) flush();
+    cur.push(w);
+    if (lone || /[.,:;?!"]$/.test(w.word) || !nxt || nxt.section !== w.section || nw(nxt.word) === "anger") { flush(); return; }
+    if (cur.length >= 2 && (text(cur).length + nxt.word.length + 1 > 18 || cur.length >= 4)) {
+      let cut = cur.length; while (cut > 1 && STOP.has(cur[cut - 1].word.toLowerCase().replace(/[^a-z']/g, ""))) cut--;
+      const rest = cur.slice(cut); cur = cur.slice(0, cut); flush(); cur = rest;
+    }
+  });
+  flush();
+  // a lone joining word ("who", "is", "to,") joins the chunk before it
+  for (let i = chunks.length - 1; i > 0; i--) { const c = chunks[i], p = chunks[i - 1]; if (c.length === 1 && STOP.has(nw(c[0].word)) && p[p.length - 1].section === c[0].section && !/[.:;?!"]$/.test(p[p.length - 1].word)) { p.push(c[0]); chunks.splice(i, 1); } }
   return chunks.map((c, k) => {
     const next = chunks[k + 1], from = Math.max(0, c[0].start - 0.04), lastEnd = c[c.length - 1].end;
     const to = next && next[0].section === c[0].section ? Math.min(lastEnd + 0.12, next[0].start - 0.02) : lastEnd + 0.15;
@@ -48,8 +64,8 @@ const buildCaps = (): Cap[] => {
 const CAPS = buildCaps();
 const CapView: React.FC<{ f: number }> = ({ f }) => {
   const t = f / FPS, c = CAPS.find((q) => t >= q.from && t < q.to); if (!c) return null;
-  const text = c.words.map((w) => w[0]).join(""), size = Math.max(96, Math.min(180, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
-  return (<div style={{ position: "absolute", left: 80, width: 920, top: 1400, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
+  const text = c.words.map((w) => w[0]).join(""), rage = /^ANGER/.test(text), size = rage ? 300 : Math.max(96, Math.min(180, 800 / (text.length * 0.5))), p = smooth(clamp01((t - c.from) / 0.07));
+  return (<div style={{ position: "absolute", left: 80, width: 920, top: rage ? 1300 : 1400, marginLeft: rage ? (f % 2 ? 9 : -9) : 0, textAlign: "center", fontFamily: FONT_DISPLAY, fontSize: size, lineHeight: 1.05, letterSpacing: 2, transform: `scale(${0.85 + 0.15 * p})`, opacity: p, WebkitTextStroke: "10px #1a1020", paintOrder: "stroke fill" as any, textShadow: "0 8px 0 rgba(0,0,0,.45)" }}>
     {c.words.map((w, i) => <span key={i} style={{ color: w[1] ?? "#fff" }}>{w[0]}</span>)}</div>);
 };
 const Disclaimer: React.FC<{ f: number }> = ({ f }) => {
@@ -67,6 +83,7 @@ const Layer: React.FC<{ i: number; f: number; alpha: number; ready: boolean }> =
       const k = kickAt(lf + a); if (k) { cam.position.x += k * 0.1; cam.position.y += k * 0.06; cam.updateMatrixWorld(); }
     });
     st.talk = (lf: number) => talkAt(lf + a);
+    if (s.id === "S05") st.rageAt = Math.round(AT("just pure", -0.05) * FPS) - a;
     return st;
   }, [i, ready]);
   return <ShotView make={make} frame={f - a} alpha={alpha} />;
@@ -81,6 +98,7 @@ export const Ep01V8: React.FC = () => {
     <AbsoluteFill style={{ background: "#0a0c1c" }}>
       {layers.map((l) => <Layer key={l.i} i={l.i} f={f} alpha={l.alpha} ready={ready} />)}
       <Audio src={staticFile("audio/ep01v9/mix.wav")} />
+      {(() => { const t = f / FPS - AT("anger"); return t > -0.45 && t < 0.9 ? <AbsoluteFill style={{ boxShadow: "inset 0 0 260px 90px rgba(255,20,10,.75)", opacity: clamp01((t + 0.45) / 0.2) * clamp01((0.9 - t) / 0.3) }} /> : null; })()}
       <CapView f={f} />
       <Disclaimer f={f} />
     </AbsoluteFill>
