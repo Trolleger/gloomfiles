@@ -14,3 +14,6 @@ Rule from Andrew: every time a mistake is caught, add a lesson here so it never 
 11. Contact shadows must use a multiply blob card (key contains |blob|); a soft card with a white background draws white squares under characters.
 12. Build sets from the skill template's world pieces (facade houses, painted ground, cumulus) before writing custom geometry; the template look comes from world construction, not post.
 13. Textures and ink come from metre-scaled painted textures on every set surface (tileTex, plank courses), not from flat colours; this moved the reviewer from 4.1 to 4.9. Long shots need clearly different angles, and a character must never be half cut off at the frame edge.
+14. Script must be one flowing spoken story: sentences linked by cause and time ("and", "then", "but", "because"), no stacked one-liners or section-style fragments. Read it aloud before showing Andrew.
+15. Music must be a real track that fits the mood (Kevin MacLeod, credited), re-timed to the cuts. Do not ship a synthesized placeholder score.
+16. Animation needs real acting: walks, gestures, reactions, and camera travel through the world per the skill and tutorial. Standing cards with a gliding camera are not enough.
